@@ -1,4 +1,4 @@
-# BeCode: BeCode Bookshelf
+# BeCode: BeBook
 
 > 🛰️ Bookshelf administration for becode
 
