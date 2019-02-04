@@ -1,22 +1,24 @@
 # BeCode: BeCode Bookshelf
 
-> 🛰️ Short project's description
+> 🛰️ Bookshelf administration for becode
 
 * * *
 
-A short abstract of the project, goals, context… Anything that should be useful for a future reader.
+The purpose is to handle books loan easily.
 
 ## About
 
-A more detailed description of the project, with technical details: used langages and techs, context, etc.
+Using:
+- NodeJs
+- React
+- mangoDB
 
-## Installation (if applicable)
+Packages:
+**inc.**
 
-Details of process to install / setup dev environment for the project, if applicable.
+## Usage
 
-## Usage (if applicable)
-
-How to use the project, if applicable
+**inc.**
 
 * * *
 
