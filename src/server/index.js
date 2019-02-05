@@ -1,11 +1,3 @@
-/* becodeorg/bookshelf
- *
- * /src/server/index.js - Server entry point
- *
- * coded by leny@BeCode
- * started at 18/01/2019
- */
-
 import express from "express";
 import path from "path";
 
