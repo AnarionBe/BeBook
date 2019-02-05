@@ -1,5 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import HelloWorld from "./components/hello";
+import Header from "./components/header";
+import "./assets/style.css";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("#app"));
+ReactDOM.render(<Header />, document.querySelector("#app"));
