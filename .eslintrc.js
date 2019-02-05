@@ -13,69 +13,69 @@ const WARNING = 1;
 const ERROR = 2;
 
 module.exports = {
-    "env": {
-        "node": true,
-        "es6": true,
+    env: {
+        node: true,
+        es6: true,
     },
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "arrowFunctions": true,
-            "blockBindings": true,
-            "classes": true,
-            "defaultParameters": true,
-            "legacyDecorators": true,
-            "destructuring": true,
-            "forOf": true,
-            "generators": true,
-            "modules": true,
-            "objectLiteralComputedProperties": true,
-            "objectLiteralDuplicateProperties": true,
-            "objectLiteralShorthandMethods": true,
-            "objectLiteralShorthandProperties": true,
-            "regexUFlag": true,
-            "regexYFlag": true,
-            "restParams": true,
-            "spread": true,
-            "superInFunctions": true,
-            "templateStrings": true,
-            "unicodeCodePointEscapes": true,
-            "globalReturn": true,
-            "jsx": true,
-        }
-    },
-    "plugins": [
-        "react",
-        "prettier",
-    ],
-    "settings":{
-        "react":{
-            "version":"16.4",
+    parser: "babel-eslint",
+    parserOptions: {
+        ecmaVersion: 6,
+        sourceType: "module",
+        ecmaFeatures: {
+            arrowFunctions: true,
+            blockBindings: true,
+            classes: true,
+            defaultParameters: true,
+            legacyDecorators: true,
+            destructuring: true,
+            forOf: true,
+            generators: true,
+            modules: true,
+            objectLiteralComputedProperties: true,
+            objectLiteralDuplicateProperties: true,
+            objectLiteralShorthandMethods: true,
+            objectLiteralShorthandProperties: true,
+            regexUFlag: true,
+            regexYFlag: true,
+            restParams: true,
+            spread: true,
+            superInFunctions: true,
+            templateStrings: true,
+            unicodeCodePointEscapes: true,
+            globalReturn: true,
+            jsx: true,
         },
     },
-    "rules": {
-        "prettier/prettier": [ ERROR, {
-            "singleQuote": false,
-            "tabWidth": 4,
-            "trailingComma": "all",
-            "bracketSpacing": false,
-            "jsxBracketSameLine": true,
-        } ],
+    plugins: ["react", "prettier"],
+    settings: {
+        react: {
+            version: "16.4",
+        },
+    },
+    rules: {
+        "prettier/prettier": [
+            ERROR,
+            {
+                singleQuote: false,
+                tabWidth: 4,
+                trailingComma: "all",
+                bracketSpacing: false,
+                jsxBracketSameLine: true,
+            },
+        ],
 
         "accessor-pairs": ERROR,
         "block-scoped-var": ERROR,
-        "consistent-this": [ ERROR, "self" ],
+        "consistent-this": [ERROR, "self"],
         "constructor-super": ERROR,
-        "curly": ERROR,
+        curly: ERROR,
         "dot-notation": ERROR,
-        "eqeqeq": [ ERROR, "smart" ],
-        "func-style": [ ERROR, "expression" ],
+        eqeqeq: [ERROR, "smart"],
+        "func-style": [ERROR, "expression"],
         "global-require": ERROR,
         "handle-callback-err": WARNING,
         "new-cap": ERROR,
-        "newline-after-var": [ ERROR, "always" ],
+        "newline-after-var": [ERROR, "always"],
 
         "no-alert": WARNING,
         "no-array-constructor": ERROR,
@@ -135,7 +135,10 @@ module.exports = {
         "no-undef-init": ERROR,
         "no-unneeded-ternary": ERROR,
         "no-unreachable": ERROR,
-        "no-unused-expressions": [ ERROR, { "allowShortCircuit": true, "allowTernary": true } ],
+        "no-unused-expressions": [
+            ERROR,
+            {allowShortCircuit: true, allowTernary: true},
+        ],
         "no-unused-vars": ERROR,
         "no-use-before-define": ERROR,
         "no-useless-call": ERROR,
@@ -145,11 +148,11 @@ module.exports = {
         "no-warning-comments": OFF,
         "no-with": ERROR,
 
-        "one-var": [ ERROR, { "var": "always", "let": "always", "const": "never" } ],
+        "one-var": [ERROR, {var: "always", let: "always", const: "never"}],
         "prefer-arrow-callback": WARNING,
         "prefer-spread": WARNING,
         "prefer-template": WARNING,
-        "radix": [ ERROR, "as-needed" ],
+        radix: [ERROR, "as-needed"],
 
         "react/jsx-key": WARNING,
         "react/jsx-no-comment-textnodes": ERROR,
@@ -174,7 +177,7 @@ module.exports = {
         "react/no-string-refs": ERROR,
         "react/no-unescaped-entities": ERROR,
         "react/no-unknown-property": ERROR,
-        "react/prefer-es6-class": [ ERROR, "always" ],
+        "react/prefer-es6-class": [ERROR, "always"],
         "react/react-in-jsx-scope": ERROR,
         "react/require-optimization": OFF,
         "react/require-render-return": ERROR,
@@ -182,11 +185,11 @@ module.exports = {
         "react/style-prop-object": ERROR,
 
         "require-yield": ERROR,
-        "spaced-comment": [ ERROR, "always" ],
-        "strict": [ ERROR, "function" ],
+        "spaced-comment": [ERROR, "always"],
+        strict: [ERROR, "function"],
         "use-isnan": ERROR,
         "valid-typeof": ERROR,
         "vars-on-top": ERROR,
-        "yoda": ERROR,
-    }
-}
+        yoda: ERROR,
+    },
+};

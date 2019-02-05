@@ -1,0 +1,6 @@
+- mangoose
+- React (default)
+- React-dom (default)
+- express (default)
+- auth
+- react-router
