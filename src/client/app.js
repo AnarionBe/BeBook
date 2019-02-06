@@ -1,5 +1,6 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import HelloWorld from "./components/hello";
+import Main from "./components/Main";
+import "./sass/style.scss";
 
-ReactDOM.render(<HelloWorld />, document.querySelector("#app"));
+ReactDOM.render(<Main />, document.querySelector("#app"));
