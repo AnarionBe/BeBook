@@ -4,15 +4,68 @@ body {
 }
 header {
   background-color: #242626;
-  padding: 10px 0;
+  /*padding: 10px 0;*/
 }
 
 .logo {
   margin-left: 16px;
   margin-top : 9px;
-  width : 152px
+  width : 152px;
+  display : inline-block;
 }
 
 .logo img {
   width: 100%;
+}
+
+.headerMenu {
+  display: inline-block;
+  vertical-align: top;
+  width : 80%;
+}
+
+.headerMenu li {
+  display : inline-block;
+  margin : 0px 25px;
+  font-family: Roboto, serif;
+  color : #EBEBEB;
+  font-size: 18px;
+}
+
+.headerMenu li:hover, .fa-search:hover {
+  color : #61C2D0;
+  cursor: pointer;
+}
+
+.searchBar {
+  display: inline-block;
+  float: right;
+}
+
+.searchBar input {
+  margin-right: 10px;
+  width : 210px;
+  background-color: #C4C4C4;
+  border : 1px solid #C4C4C4;
+  border-radius: 9px;
+  height : 25px;
+
+}
+.fa-search {
+  color : #EBEBEB;
+  font-size: 24px;
+  vertical-align: bottom;
+}
+
+.avatar {
+  vertical-align: text-top;
+  display : inline-block;
+  margin-left : 25px;
+  float : right;
+}
+
+.avatar img {
+  border-radius : 50%;
+  width :42px;
+  height: 42px;
 }
