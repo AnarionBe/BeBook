@@ -9,14 +9,14 @@
 import express from "express";
 import path from "path";
 import usersApi from "./api/users/usersRoutes";
-import mongoose from "mongoose";
+// import mongoose from "mongoose";
 
 const {APP_PORT} = process.env;
 
 const app = express();
 
+// mongoose.connect("mongodb://mongo:27017/bebook"); // connection à la DB
 usersApi(app);
-mongoose.connect("mongodb://mongo:27017/bebook"); // connection à la DB
 
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 

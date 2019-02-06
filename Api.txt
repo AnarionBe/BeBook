@@ -1,5 +1,4 @@
-GET     /users/{self}                           => get informations about connected user
-GET     /users/{id}                             => get informations about specific user (coach)
+✔️ GET     /users/{id}                             => get informations about specific user (coach)
 GET     /users                                  => get the list of users (coach)
 GET     /users/{self}/reviews                   => get personnal reviews
 GET     /users/{self}/books                     => get borrowed books by connected user

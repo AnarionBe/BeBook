@@ -1,3 +1,10 @@
+import User from "./user";
+
 module.exports = (req, res) => {
-    res.send(req.params.id);
+    User.find({_id: req.params.id}, (err, data) => {
+        if (err) {
+            res.send("err");
+        }
+        res.send(data);
+    });
 };
