@@ -3,4 +3,21 @@ $menu-bg-color : #242626;
 
 body, html {
     background-color: $background-color;
+    padding:0;
+    margin:0;
 }
+header {
+    background-color: #242626;
+    padding: 10px 0;
+  }
+  
+.logo {
+    margin-left: 16px;
+    margin-top : 9px;
+    width : 152px
+  }
+  
+.logo img {
+    width: 100%;
+  }
+  
