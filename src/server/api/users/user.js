@@ -15,11 +15,10 @@ const schema = new Schema({
         type: String,
         required: true,
     },
-    // TODO: array of books
-    // borrowedBooks: {
-    //     type: Array,
-    //     default: null,
-    // },
+    borrowedBooks: {
+        type: Array,
+        default: null,
+    },
 });
 
 module.exports = mongoose.model("user", schema);

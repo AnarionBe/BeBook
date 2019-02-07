@@ -5,5 +5,5 @@ GET     /users/{self}/books                     => get borrowed books by connect
 POST    /users/books                            => current user borrow the specified book
 DELETE  /users/books                            => current user send back the specified book
 UPDATE  /users/books                            => current user add 1 week delay to the specified borrowed book
-DELETE  /users/{id}                             => delete specified user (coach)
+DELETE  /users                                  => delete specified user (coach)
 POST    /users                                  => add a new user (coach)
