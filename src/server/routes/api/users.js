@@ -1,12 +1,11 @@
 import express from "express";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
-
-// Create a new Router instance.
-const router = new express.Router();
-
-// Load the User model.
+import jwt from "jsonwebtoken";
+import passport from "passport";
 import User from "../../models/User";
+
+const router = new express.Router();
 
 router.post("/login", (req, res) => {
     const email = req.body.email;
@@ -21,11 +20,36 @@ router.post("/login", (req, res) => {
 
         bcrypt.compare(password, user.password).then(isMatch => {
             if (isMatch) {
-                return res.json({message: "Success!"});
+                // Create the payload.
+                const payload = {
+                    id: user.id,
+                    email: user.email,
+                    avatar: user.avatar,
+                };
+
+                // TODO: Don't forget to add JWT_SECRET to the environment variables.
+                const secretKey = process.env.JWT_SECRET || "secret";
+
+                // Sign the token.
+                jwt.sign(
+                    payload,
+                    secretKey,
+                    {expiresIn: 3600},
+                    (err, token) => {
+                        if (err) {
+                            console.log(err.stack);
+                        }
+                        res.json({
+                            success: true,
+                            token: `Bearer ${token}`,
+                        });
+                    },
+                );
+            } else {
+                return res
+                    .status(400)
+                    .json({password: "The password is incorrect!"});
             }
-            return res
-                .status(400)
-                .json({password: "The password is incorrect!"});
         });
     });
 });
@@ -49,8 +73,10 @@ router.post("/register", (req, res) => {
             password: req.body.password,
         });
 
-        // eslint-disable-next-line handle-callback-err
         bcrypt.genSalt(10, (err, salt) => {
+            if (err) {
+                console.log(err.stack);
+            }
             // eslint-disable-next-line no-shadow
             bcrypt.hash(newUser.password, salt, (err, hash) => {
                 if (err) {
@@ -67,5 +93,19 @@ router.post("/register", (req, res) => {
         });
     });
 });
+
+router.get(
+    "/current",
+    passport.authenticate("jwt", {session: false}),
+    (req, res) => {
+        res.json({
+            id: req.user.id,
+            firstName: req.user.firstName,
+            lastName: req.user.lastName,
+            email: req.user.email,
+            role: req.user.role,
+        });
+    },
+);
 
 export default router;
