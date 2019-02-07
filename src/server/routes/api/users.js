@@ -8,6 +8,28 @@ const router = new express.Router();
 // Load the User model.
 import User from "../../models/User";
 
+router.post("/login", (req, res) => {
+    const email = req.body.email;
+    const password = req.body.password;
+
+    User.findOne({email}).then(user => {
+        if (!user) {
+            return res
+                .status(404)
+                .json({email: "The user has not been found!"});
+        }
+
+        bcrypt.compare(password, user.password).then(isMatch => {
+            if (isMatch) {
+                return res.json({message: "Success!"});
+            }
+            return res
+                .status(400)
+                .json({password: "The password is incorrect!"});
+        });
+    });
+});
+
 router.post("/register", (req, res) => {
     User.findOne({email: req.body.email}).then(user => {
         if (user) {
