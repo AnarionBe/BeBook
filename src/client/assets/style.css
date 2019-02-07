@@ -1,71 +1,110 @@
 body {
-  padding:0;
-  margin:0;
+  padding: 0;
+  margin: 0;
 }
+
+/* Style Header */
+
 header {
   background-color: #242626;
-  /*padding: 10px 0;*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+/*Logo gauche */
 
 .logo {
   margin-left: 16px;
-  margin-top : 9px;
-  width : 152px;
-  display : inline-block;
+  padding: 9px;
+  width: 152px;
 }
 
 .logo img {
   width: 100%;
 }
 
+/* barre de navigation */
+
 .headerMenu {
-  display: inline-block;
-  vertical-align: top;
-  width : 80%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 42%;
 }
 
 .headerMenu li {
-  display : inline-block;
-  margin : 0px 25px;
+  list-style: none;
   font-family: Roboto, serif;
-  color : #EBEBEB;
+  color: #EBEBEB;
   font-size: 18px;
 }
 
 .headerMenu li:hover, .fa-search:hover {
-  color : #61C2D0;
+  transition: color linear 0.3s;
+  color: #61C2D0;
   cursor: pointer;
 }
 
-.searchBar {
-  display: inline-block;
-  float: right;
+/* menu déroulant tags */
+
+.tagsMenu {
+  display: none;
+  position: absolute;
+  text-align: left;
+  background-color: #242626;
+  padding: 25px;
 }
+
+.submenu:hover .tagsMenu{
+  display: flex;
+  justify-content: space-between;
+  min-width: 250px;
+  z-index: 1;
+  font-family: Roboto, serif;
+}
+
+.fa-angle-right {
+  font-size: 16px ;
+  margin-left: 2px;
+}
+
+.submenu:hover .fa-angle-right{
+  transform:rotate(90deg);
+  transition: transform 0.4s linear;
+}
+
+.tagsMenu li {
+  margin : 5px 0;
+}
+
+/* Barre de recherche */
 
 .searchBar input {
   margin-right: 10px;
-  width : 210px;
+  width: 70%;
   background-color: #C4C4C4;
-  border : 1px solid #C4C4C4;
+  border: 1px solid #C4C4C4;
   border-radius: 9px;
-  height : 25px;
-
+  height: 25px;
 }
+
+.searchBar input:hover {
+  transition: border linear 0.3s;
+  border: 1px solid #61C2D0;
+}
+
 .fa-search {
-  color : #EBEBEB;
+  color: #EBEBEB;
   font-size: 24px;
   vertical-align: bottom;
 }
 
-.avatar {
-  vertical-align: text-top;
-  display : inline-block;
-  margin-left : 25px;
-  float : right;
-}
+/* Avatar */
 
-.avatar img {
-  border-radius : 50%;
-  width :42px;
+.avatar {
+  border-radius: 50%;
+  width: 42px;
   height: 42px;
+  margin-right: 10px;
 }
