@@ -1,23 +1,23 @@
-$background-color : #363737;
-$menu-bg-color : #242626;
+@import 'variables';
+@import 'header';
+@import 'bookpanes';
+@import 'lateralmenu';
 
-body, html {
-    background-color: $background-color;
+
+* {
     padding:0;
     margin:0;
 }
-header {
-    background-color: #242626;
-    padding: 10px 0;
-  }
-  
-.logo {
-    margin-left: 16px;
-    margin-top : 9px;
-    width : 152px
-  }
-  
-.logo img {
-    width: 100%;
-  }
-  
+body, html {
+    background-color: $backgroundColor;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+}
+a {
+    text-decoration: none;
+}
+.container {
+    margin: 3rem 0 0 5rem;;
+    display: flex;
+    flex-wrap: wrap;
+
+}
