@@ -71,6 +71,8 @@ router.post("/register", (req, res) => {
             email: req.body.email,
             avatar,
             password: req.body.password,
+            // TODO: Remove this from /register, it lets anybody creating users with coach role.
+            role: req.body.role || "student",
         });
 
         bcrypt.genSalt(10, (err, salt) => {
