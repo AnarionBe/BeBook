@@ -1,7 +1,7 @@
 import * as React from "react";
 import ReactDOM from "react-dom";
-import Header from "./components/header";
+import Main from "./components/main";
 
 import "./assets/style.css";
 
-ReactDOM.render(<Header />, document.querySelector("#app"));
+ReactDOM.render(<Main />, document.querySelector("#app"));

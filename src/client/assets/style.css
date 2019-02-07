@@ -1,10 +1,11 @@
 body {
   padding: 0;
   margin: 0;
+  background-image: url("./background.png");
+  background-size: contain;
 }
 
 /* Style Header */
-
 header {
   background-color: #242626;
   display: flex;
@@ -13,7 +14,6 @@ header {
 }
 
 /*Logo gauche */
-
 .logo {
   margin-left: 16px;
   padding: 9px;
@@ -25,7 +25,6 @@ header {
 }
 
 /* barre de navigation */
-
 .headerMenu {
   display: flex;
   justify-content: space-between;
@@ -47,7 +46,6 @@ header {
 }
 
 /* menu déroulant tags */
-
 .tagsMenu {
   display: none;
   position: absolute;
@@ -56,7 +54,7 @@ header {
   padding: 25px;
 }
 
-.submenu:hover .tagsMenu{
+.submenu:hover .tagsMenu {
   display: flex;
   justify-content: space-between;
   min-width: 250px;
@@ -65,21 +63,20 @@ header {
 }
 
 .fa-angle-right {
-  font-size: 16px ;
+  font-size: 16px;
   margin-left: 2px;
 }
 
-.submenu:hover .fa-angle-right{
-  transform:rotate(90deg);
+.submenu:hover .fa-angle-right {
+  transform: rotate(90deg);
   transition: transform 0.4s linear;
 }
 
 .tagsMenu li {
-  margin : 5px 0;
+  margin: 5px 0;
 }
 
 /* Barre de recherche */
-
 .searchBar input {
   margin-right: 10px;
   width: 70%;
@@ -101,10 +98,65 @@ header {
 }
 
 /* Avatar */
-
 .avatar {
   border-radius: 50%;
   width: 42px;
   height: 42px;
   margin-right: 10px;
+}
+
+/* Login */
+.login {
+  width: 376px;
+  height: 265px;
+  margin: 180px auto;
+  background-color: rgba(36, 38, 38, 0.95);
+  border-radius: 29px;
+  font-family: "Puritan", serif;
+  color: #61C2D0;
+  border: 1px solid rgba(36, 38, 38, 0.95);
+}
+
+.login form {
+  width: 240px;
+  margin: auto;
+  font-size: 18px;
+}
+
+.login h2 {
+  font-weight: 400;
+  font-size: 36px;
+  margin: 17px 15px;
+}
+
+.login h3 {
+  font-weight: 400;
+  margin: 5px 0;
+  font-size: 24px;
+}
+
+.input input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  border: none;
+  height: 25px;
+  color: white;
+}
+
+.submit {
+  background-color: #FAF9F5;
+  border: 1px solid #FAF9F5;
+  border-radius: 9px;
+  padding: 1px 10px 2px 10px;
+  font-family: Roboto, serif;
+  float: right;
+  margin-top: 20px;
+  font-variant: small-caps;
+  font-weight: bold;
+}
+
+.submit:hover {
+  cursor: pointer;
+  background-color: #61C2D0;
+  border: 1px solid #61C2D0;
 }
