@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import express from "express";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
@@ -115,7 +116,6 @@ router.get(
 );
 
 // Get the user by id.
-// TODO: Restrict to coaches only.
 router.get(
     "/users/:id",
     passport.authenticate("jwt", {session: false}),
@@ -130,7 +130,6 @@ router.get(
 );
 
 // Delete the user.
-// TODO: Restrict to coaches only.
 router.delete(
     "/users",
     passport.authenticate("jwt", {session: false}),
@@ -166,7 +165,11 @@ router.delete("/users/books", (req, res) => {
     // TODO: given user send back given book
 });
 
+<<<<<<< HEAD
 router.patch("/users/books", (req, res) => {
+=======
+router.put("/users/books", (req, res) => {
+>>>>>>> e757003002e780289c3e45d8a00a1b2adb4263be
     // TODO: given user add a delay for the given book
 });
 
