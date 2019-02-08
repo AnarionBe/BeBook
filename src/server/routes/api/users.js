@@ -54,7 +54,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/register", (req, res) => {
+router.post("/users", (req, res) => {
     User.findOne({email: req.body.email}).then(user => {
         if (user) {
             return res.status(400).json({email: "The user already exists!"});
@@ -109,5 +109,20 @@ router.get(
         });
     },
 );
+
+router.get("/users/:id", (req, res) => {
+    User.find({_id: req.params.id}, (err, user) => {
+        if (err) {
+            return res.status(400).json({Error: err});
+        }
+        return res.json(user);
+    });
+});
+
+router.delete("/users", (req, res) => {
+    User.deleteOne({_id: req.query.id}, () => {
+        res.send("deleted");
+    });
+});
 
 export default router;
