@@ -125,4 +125,33 @@ router.delete("/users", (req, res) => {
     });
 });
 
+router.get("/users", (req, res) => {
+    User.find({}, (err, data) => {
+        if (err) {
+            return res.status(400).json({Error: err});
+        }
+        return res.json(data);
+    });
+});
+
+router.get("/users/:id/reviews", (req, res) => {
+    // TODO: send back reviews for given user
+});
+
+router.get("/users/:id/books", (req, res) => {
+    // TODO: send back books borrowed got the given user
+});
+
+router.post("/users/books", (req, res) => {
+    // TODO: given user borrow given book
+});
+
+router.delete("/users/books", (req, res) => {
+    // TODO: given user send back given book
+});
+
+router.update("/users/books", (req, res) => {
+    // TODO: given user add a delay for the given book
+});
+
 export default router;
