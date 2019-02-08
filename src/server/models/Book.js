@@ -25,7 +25,7 @@ const BookSchema = new mongoose.Schema(
             type: Number,
             required: false,
         },
-        format: [
+        formats: [
             {
                 type: String,
                 enum: ["paper", "ebook"],
