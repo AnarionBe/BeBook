@@ -1,30 +1,34 @@
-/* becodeorg/bookshelf
- *
- * /src/server/index.js - Server entry point
- *
- * coded by leny@BeCode
- * started at 18/01/2019
- */
-
 import express from "express";
+import mongoose from "mongoose";
+import bodyParser from "body-parser";
 import path from "path";
-import usersApi from "./api/users/usersRoutes";
-// import mongoose from "mongoose";
+import passport from "passport";
 
 const {APP_PORT} = process.env;
-
 const app = express();
 
-// mongoose.connect("mongodb://mongo:27017/bebook"); // connection à la DB
-usersApi(app);
+// Connect to MongoDB.
+mongoose
+    .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
+    .then(() =>
+        console.log("Connection to MongoDB has been successfully established."),
+    )
+    .catch(err => console.log(err));
 
+// Middleware.
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
+app.use(passport.initialize());
 
-// app.get("/hello", (req, res) => {
-//     console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-//     res.send("Hello, World!");
-// });
+// Passport configuration.
+import jwtLogin from "./config/passport";
+jwtLogin();
+
+// Use API routes.
+import usersRoutes from "./routes/api/users";
+app.use("/api", usersRoutes);
 
 app.listen(APP_PORT, () =>
-    console.log(`🚀 Server is listening on port ${APP_PORT}.`),
+    console.log(`Server is listening on port ${APP_PORT}.`),
 );
