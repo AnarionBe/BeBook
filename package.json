@@ -55,9 +55,11 @@
     "@fortawesome/react-fontawesome": "^0.1.4",
     "express": "^4.16.4",
     "i": "^0.3.6",
+    "install": "^0.12.2",
     "npm": "^6.7.0",
     "react": "^16.8.1",
-    "react-dom": "^16.8.1"
+    "react-dom": "^16.8.1",
+    "react-router-dom": "^4.3.1"
   },
   "husky": {
     "hooks": {

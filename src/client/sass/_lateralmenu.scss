@@ -3,14 +3,18 @@
     box-shadow: -4px 0 4px rgba(0, 0, 0, 0.25);
     position: absolute;
     padding: 3rem .5rem;
-    top: 4.72rem;
+    top: 5.85rem;
     right: 0;
     min-width: 18rem;
     min-height: 60%;
     align-items: center;
     display: flex;
     flex-direction: column;
+    transition: .7s all ease-in-out;
 
+}
+.out {
+    right: -25rem;
 }
 .lateral-bookpane {
     margin: 1rem 0;

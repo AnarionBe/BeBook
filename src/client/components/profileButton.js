@@ -1,8 +1,6 @@
 import * as React from "react";
 import avatar from "../assets/avatar.jpg";
 
-export default class ProfileButton extends React.Component {
-    render() {
-        return <img className="avatar" src={avatar} />;
-    }
+export default function profileButton(props) {
+    return <img onClick={props.onClick} className="avatar" src={avatar} />;
 }

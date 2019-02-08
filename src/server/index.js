@@ -7,9 +7,8 @@ const app = express();
 
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 
-app.get("/hello", (req, res) => {
-    console.log(`ℹ️  (${req.method.toUpperCase()}) ${req.url}`);
-    res.send("Hello, World!");
+app.get("/junior-homepage", (req, res) => {
+    res.sendFile("../client/app.js");
 });
 
 app.listen(APP_PORT, () =>
