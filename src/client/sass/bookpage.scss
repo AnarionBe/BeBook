@@ -1,0 +1,211 @@
+.bookpage-container {
+  width: 1130px;
+  background-color: #C4C4C4;
+  border-radius: 43px;
+  margin: 25px auto;
+  padding: 50px;
+  font-family: "Roboto", serif;
+}
+
+.bookpage-info {
+  text-align: justify;
+  display: inline-block;
+}
+
+.bookpage-info img {
+  width: 197px;
+  display: inline-block;
+}
+
+.bookpage-text {
+  display: inline-block;
+  margin-left: 25px;
+  vertical-align: top;
+}
+
+.bookpage-info p {
+  width: 517px;
+  font-size: 12px;
+}
+
+.bookpage-info h2 {
+  width: 510px;
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+
+.bookpageRef {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 70px;
+  font-size: 24px;
+}
+
+.bookpageRef h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.availableTag {
+  color: green;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.borrowButton {
+  font-variant: small-caps;
+  font-weight: bold;
+  background-color: #61C2D0;
+  border: 1px solid #61C2D0;
+  width: 125px;
+  height: 46px;
+  text-align: center;
+  border-radius: 9px;
+  font-size: 20px;
+  margin-top: 25px;
+  box-shadow: 2px 2px 2px #888888;
+  transition: all 0.2s ease-in-out;
+}
+
+.borrowButton:hover {
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+.bookpageReviews {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.bookpageReviews h6 {
+  font-weight: 400;
+  margin: 10px;
+}
+
+.bookpageReviews p {
+  font-size: 12px;
+  text-align: justify;
+}
+
+.bookpageReviews .stars-wrap {
+  display: block;
+  background-color: rgba(255,255,255,0);
+  position: relative;
+  bottom: 10px;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+}
+
+.addReview {
+  transition: all 0.2s ease-in-out;
+  margin-top: 20px;
+  border-radius: 9px;
+  border: 1px solid $backgroundColor;
+  background-color: $backgroundColor;
+  color: white;
+  width: 150px;
+  height: 35px;
+  font-size: 16px;
+  font-variant: small-caps;
+  font-style: "Roboto",serif;
+}
+
+.addReview:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.reviewForm {
+  width: 1130px;
+  background-color : rgba(255,255,255,0.9);
+  border-radius: 43px;
+  margin: 50px auto;
+  padding: 50px;
+}
+
+.reviewForm button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  display: inline-block;
+  float: right;
+  transition: all 0.2s ease-in-out;
+}
+
+.reviewForm button:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.reviewForm h2 {
+  display: inline-block;
+  font-size: 24px;
+  font-family: "Roboto", serif;
+  width: 505px;
+}
+.reviewForm-top {
+  margin-top: 10px;
+}
+
+.reviewForm-top p, .reviewForm-top select {
+  display: inline-block;
+}
+
+.reviewForm-top .stars {
+  vertical-align: baseline;
+}
+
+.reviewForm textarea {
+  width: 1090px;
+  min-height: 302px;
+  border: none;
+  border-radius: 22px;
+  margin: 25px auto;
+  background-color: #C4C4C4;
+  padding: 20px;
+  resize: none;
+  font-family: roboto;
+  font-size: 24px;
+  color: black;
+}
+.selectForm {
+  position: relative;
+  display: inline-block;
+}
+.selectForm select {
+  width: 55px;
+  margin-left: 10px;
+  background-color: $backgroundColor;
+  color: white;
+  font-family: inherit;
+  outline:none;
+  border-radius: 9px;
+  border: none;
+  padding: 3px 3px 3px 3px;
+
+}
+
+.selectForm:after {
+    content: "▼";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      font-size: 60%;
+      line-height: 30px;
+      padding: 0 7px;
+      background: $backgroundColor;
+      color: white;
+      pointer-events: none;
+      border-radius: 9px;
+    
+}
+
+.reviewForm-right {
+  margin-left: 100px;
+
+}
