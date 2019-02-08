@@ -23,24 +23,11 @@ const BookSchema = new mongoose.Schema(
                 type: String,
                 enum: ["paper", "ebook"],
                 default: "paper",
+                trim: true,
             },
         ],
     },
     {collection: "Book"},
 );
 
-let BooksModel = mongoose.model("Book", BookSchema);
-
-BooksModel.getAll = () => {
-    return BooksModel.find({});
-};
-
-BooksModel.addBook = bookToAdd => {
-    return bookToAdd.save();
-};
-
-BooksModel.removeBook = bookTitle => {
-    return BooksModel.remove({title: bookTitle});
-};
-
-export default BooksModel;
+export default mongoose.model("Book", BookSchema);

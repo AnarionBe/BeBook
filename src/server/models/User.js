@@ -45,18 +45,4 @@ const UserSchema = new mongoose.Schema(
     {collection: "User"},
 );
 
-let UsersModel = mongoose.model("User", UserSchema);
-
-UsersModel.getAll = () => {
-    return UsersModel.find({});
-};
-
-UsersModel.addUser = userToAdd => {
-    return userToAdd.save();
-};
-
-UsersModel.removeUser = userEmail => {
-    return UsersModel.remove({email: userEmail});
-};
-
-export default UsersModel;
+export default mongoose.model("User", UserSchema);

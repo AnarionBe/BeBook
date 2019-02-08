@@ -16,7 +16,7 @@ mongoose
     .catch(err => console.log(err));
 
 // Middleware.
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 app.use(passport.initialize());
@@ -27,7 +27,9 @@ jwtLogin();
 
 // Use API routes.
 import usersRoutes from "./routes/api/users";
+import booksRoutes from "./routes/api/books";
 app.use("/api", usersRoutes);
+app.use("/api/books", booksRoutes);
 
 app.listen(APP_PORT, () =>
     console.log(`Server is listening on port ${APP_PORT}.`),
