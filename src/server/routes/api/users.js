@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-vars */
 import express from "express";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import passport from "passport";
 import User from "../../models/User";
+import isCoach from "../../perms";
 
 const router = new express.Router();
 
@@ -115,10 +117,9 @@ router.get(
 );
 
 // Get the user by id.
-// TODO: Restrict to coaches only.
 router.get(
     "/users/:id",
-    passport.authenticate("jwt", {session: false}),
+    passport.authenticate("jwt", {session: false}) && isCoach,
     (req, res) => {
         User.find({_id: req.params.id}, (err, user) => {
             if (err) {
@@ -130,10 +131,9 @@ router.get(
 );
 
 // Delete the user.
-// TODO: Restrict to coaches only.
 router.delete(
     "/users",
-    passport.authenticate("jwt", {session: false}),
+    passport.authenticate("jwt", {session: false}) && isCoach,
     (req, res) => {
         User.deleteOne({_id: req.query.id}, () => {
             res.send("deleted");
@@ -152,22 +152,27 @@ router.get("/users", (req, res) => {
 
 router.get("/users/:id/reviews", (req, res) => {
     // TODO: send back reviews for given user
+    return;
 });
 
 router.get("/users/:id/books", (req, res) => {
     // TODO: send back books borrowed got the given user
+    return;
 });
 
 router.post("/users/books", (req, res) => {
     // TODO: given user borrow given book
+    return;
 });
 
 router.delete("/users/books", (req, res) => {
     // TODO: given user send back given book
+    return;
 });
 
-router.update("/users/books", (req, res) => {
+router.put("/users/books", (req, res) => {
     // TODO: given user add a delay for the given book
+    return;
 });
 
 export default router;
