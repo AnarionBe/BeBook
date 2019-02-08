@@ -14,11 +14,7 @@ export default function JunioHomepage() {
         <div className="main">
             <Header switchLateralMenu={switchLateralMenu} />
             <Container />
-            {active ? (
-                <LateralMenu slide={active} />
-            ) : (
-                <LateralMenu slide={active} />
-            )}
+            <LateralMenu slide={active} />
         </div>
     );
 }
