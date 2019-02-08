@@ -5,6 +5,7 @@ module.exports = (req, res) => {
         if (err) {
             return res.send("User not found");
         }
+        data.password = "nothing interesting in here <3";
         res.send(data);
     });
 };
