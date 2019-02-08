@@ -1,0 +1,61 @@
+.lateral-menu {
+    background-color: $bg-lateral-menu;
+    box-shadow: -4px 0 4px rgba(0, 0, 0, 0.25);
+    position: absolute;
+    padding: 3rem .5rem;
+    top: 5.85rem;
+    right: 0;
+    min-width: 18rem;
+    min-height: 60%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    transition: .7s all ease-in-out;
+
+}
+.out {
+    right: -25rem;
+}
+.lateral-bookpane {
+    margin: 1rem 0;
+    display: flex;
+
+    .bookcover {
+        width: 3rem;
+        border-radius: 5px;
+    }
+    h4 {
+        width: 9rem;
+        font-weight: 100;
+    }
+    .block-ellipsis {
+        max-height: 4em;
+        -webkit-line-clamp: 4;
+    }
+}
+a .my-profile {
+    color: $primary;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    &:hover {
+        color: $text-lateral-menu;
+    }
+}
+.status {
+    margin-bottom: 2rem;
+}
+.scale {
+    transition: .2s all ease-in-out;
+    &:hover {
+        transform: scale(1.1);
+    }
+}
+.warning-border {
+    border: 1px solid $warningColor;
+    border-radius: 5px;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    .status {
+        margin-bottom: 0;
+    }
+}
