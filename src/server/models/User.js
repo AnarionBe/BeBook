@@ -34,8 +34,8 @@ const UserSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ["coach", "junior"],
-            default: "junior",
+            enum: ["coach", "student"],
+            default: "student",
         },
         date: {
             type: Date,
