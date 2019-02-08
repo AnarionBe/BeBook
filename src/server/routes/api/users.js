@@ -110,4 +110,19 @@ router.get(
     },
 );
 
+router.get("/users/:id", (req, res) => {
+    User.find({_id: req.params.id}, (err, user) => {
+        if (err) {
+            return res.status(400).json({Error: err});
+        }
+        return res.json(user);
+    });
+});
+
+router.delete("/users", (req, res) => {
+    User.deleteOne({_id: req.query.id}, () => {
+        res.send("deleted");
+    });
+});
+
 export default router;

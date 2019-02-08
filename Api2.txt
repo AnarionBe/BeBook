@@ -6,4 +6,4 @@ POST    /users/books                            => current user borrow the speci
 DELETE  /users/books                            => current user send back the specified book
 UPDATE  /users/books                            => current user add 1 week delay to the specified borrowed book
 ️️✔️ DELETE  /users                                  => delete specified user (coach)
-POST    /users                                  => add a new user (coach)
+️️POST    /users                                  => add a new user (coach)
