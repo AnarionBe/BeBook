@@ -166,7 +166,7 @@ router.delete("/users/books", (req, res) => {
     // TODO: given user send back given book
 });
 
-router.update("/users/books", (req, res) => {
+router.patch("/users/books", (req, res) => {
     // TODO: given user add a delay for the given book
 });
 
