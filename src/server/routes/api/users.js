@@ -7,6 +7,8 @@ import User from "../../models/User";
 
 const router = new express.Router();
 
+// Log the user in.
+// Return a bearer token.
 router.post("/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -54,6 +56,7 @@ router.post("/login", (req, res) => {
     });
 });
 
+// Register a new user.
 router.post("/users", (req, res) => {
     User.findOne({email: req.body.email}).then(user => {
         if (user) {
@@ -96,6 +99,7 @@ router.post("/users", (req, res) => {
     });
 });
 
+// Get the current logged user.
 router.get(
     "/current",
     passport.authenticate("jwt", {session: false}),
@@ -110,19 +114,31 @@ router.get(
     },
 );
 
-router.get("/users/:id", (req, res) => {
-    User.find({_id: req.params.id}, (err, user) => {
-        if (err) {
-            return res.status(400).json({Error: err});
-        }
-        return res.json(user);
-    });
-});
+// Get the user by id.
+// TODO: Restrict to coaches only.
+router.get(
+    "/users/:id",
+    passport.authenticate("jwt", {session: false}),
+    (req, res) => {
+        User.find({_id: req.params.id}, (err, user) => {
+            if (err) {
+                return res.status(400).json({Error: err});
+            }
+            return res.json(user);
+        });
+    },
+);
 
-router.delete("/users", (req, res) => {
-    User.deleteOne({_id: req.query.id}, () => {
-        res.send("deleted");
-    });
-});
+// Delete the user.
+// TODO: Restrict to coaches only.
+router.delete(
+    "/users",
+    passport.authenticate("jwt", {session: false}),
+    (req, res) => {
+        User.deleteOne({_id: req.query.id}, () => {
+            res.send("deleted");
+        });
+    },
+);
 
 export default router;

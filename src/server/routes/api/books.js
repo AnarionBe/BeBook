@@ -4,12 +4,14 @@ import Book from "../../models/Book";
 
 const router = new express.Router();
 
+// Get all books.
 router.get("/", passport.authenticate("jwt", {session: false}), (req, res) => {
     Book.find({}, (_err, books) => {
         res.json(books);
     });
 });
 
+// Create a new book.
 router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
     const newBook = new Book({
         title: req.body.title,
