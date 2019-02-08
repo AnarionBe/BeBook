@@ -12,17 +12,29 @@ const router = new express.Router();
 // });
 
 // Create a new book
-// TODO: add coach restriction
-router.post("/", (req, res) => {
-    new Book({
-        title: req.query.title,
-        author: req.query.author,
-        language: req.query.language,
-        isbnNumbre: req.query.isbnNumber,
-        format: req.query.format,
-    }).save();
+// TODO({ot__26E_p}): add coach restriction
+router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
+    const book = new Book({
+        title: req.body.title,
+        author: req.body.author,
+        language: req.body.language,
+        isbnNumbre: req.body.isbnNumber,
+        format: req.body.format,
+    });
 
-    res.send(book);
+    book.save();
+
+    res.json(book);
+});
+
+router.get("/:id", (req, res) => {
+    Book.find({_id: req.params.id}, (err, data) => {
+        if (err) {
+            return res.status(400).json({Error: "Book not found"});
+        }
+
+        return res.json(data);
+    });
 });
 
 export default router;

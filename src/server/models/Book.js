@@ -33,6 +33,15 @@ const BookSchema = new mongoose.Schema(
                 trim: true,
             },
         ],
+        state: {
+            type: String,
+            enum: ["available", "unavailable"],
+            default: "available",
+        },
+        returnDate: {
+            type: Date,
+            default: null,
+        },
     },
     {collection: "Book"},
 );

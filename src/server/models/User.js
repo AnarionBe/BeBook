@@ -41,6 +41,10 @@ const UserSchema = new mongoose.Schema(
             type: Date,
             default: Date.now,
         },
+        booksBorrowed: {
+            type: Array,
+            default: null,
+        },
     },
     {collection: "User"},
 );

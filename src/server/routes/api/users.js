@@ -5,8 +5,15 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import passport from "passport";
 import User from "../../models/User";
+import Book from "../../models/Book";
 
 const router = new express.Router();
+const addDays = days => {
+    let date = new Date();
+
+    date.setDate(date.getDate() + days);
+    return date;
+};
 
 // Log the user in.
 // Return a bearer token.
@@ -134,7 +141,7 @@ router.delete(
     "/users",
     passport.authenticate("jwt", {session: false}),
     (req, res) => {
-        User.deleteOne({_id: req.query.id}, () => {
+        User.deleteOne({_id: req.body.id}, () => {
             res.send("deleted");
         });
     },
@@ -157,9 +164,45 @@ router.get("/users/:id/books", (req, res) => {
     // TODO: send back books borrowed got the given user
 });
 
-router.post("/users/books", (req, res) => {
-    // TODO: given user borrow given book
-});
+router.post(
+    "/users/books",
+    // passport.authenticate("jwt", {session: false}),
+    (req, res) => {
+        Book.find({_id: req.body.idBook}, (err, book) => {
+            if (err) {
+                return res.satus(400).json({Error: "Book not found"});
+            }
+
+            if (book.state === "unvailable") {
+                return res.status(400).json({Error: "Book not available"});
+            }
+
+            User.update(
+                {id: req.body.idUser},
+                {$push: {booksBorrowed: book._id}}, // FIXME: push doesn't append
+                () => {
+                    const date = addDays(7);
+
+                    Book.update(
+                        {id: book._id},
+                        {
+                            state: "unavailable",
+                            returnDate: date,
+                        },
+                        () => {
+                            return res.json(book);
+                        },
+                    );
+                },
+            );
+        });
+        // put the book's id into the user's array
+
+        // pass books's to unavailable
+
+        // set the return date
+    },
+);
 
 router.delete("/users/books", (req, res) => {
     // TODO: given user send back given book
