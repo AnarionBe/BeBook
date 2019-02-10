@@ -11,7 +11,7 @@ export default class Bookpage extends React.Component {
                 <BookpageInfo />
                 <BookpageRef />
                 <BookpageReviews />
-                <AddReview />
+                <AddReview reviewModaleOn={this.props.reviewModaleOn} />
             </div>
         );
     }
