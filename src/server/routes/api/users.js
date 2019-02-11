@@ -166,13 +166,18 @@ router.get("/users/:id/books", (req, res) => {
 
 router.post(
     "/users/books",
-    // passport.authenticate("jwt", {session: false}),
+    passport.authenticate("jwt", {session: false}),
     (req, res) => {
-        Book.find({_id: req.body.idBook})
+        Book.findOne({_id: req.body.idBook})
             .then(book => {
-                User.find({_id: req.body.idUser})
+                User.findOne({_id: req.body.idUser})
                     .then(user => {
-                        console.log(user + book);
+                        user.booksBorrowed.push(book._id);
+                        book.state = "unavailable";
+                        book.returnDate = addDays(7);
+                        book.save();
+                        user.save();
+                        return res.json({user: user, book: book});
                     })
                     .catch(err => {
                         return res.status(400).json({Error: err});
@@ -181,40 +186,6 @@ router.post(
             .catch(err => {
                 return res.status(400).json({Error: err});
             });
-        // Book.find({_id: req.body.idBook}, (err, book) => {
-        //     if (err) {
-        //         return res.satus(400).json({Error: "Book not found"});
-        //     }
-
-        //     console.log(book._id);
-        //     if (book.state === "unavailable") {
-        //         return res.status(400).json({Error: "Book not available"});
-        //     }
-
-        //     User.findOneAndUpdate(
-        //         {id: req.body.idUser},
-        //         {$push: {booksBorrowed: book._id}}, // FIXME: push doesn't append
-        //         () => {
-        //             const date = addDays(7);
-
-        //             Book.update(
-        //                 {id: book._id},
-        //                 {
-        //                     state: "unavailable",
-        //                     returnDate: date,
-        //                 },
-        //                 () => {
-        //                     return res.json(book);
-        //                 },
-        //             );
-        //         },
-        //     );
-        // });
-        // put the book's id into the user's array
-
-        // pass books's to unavailable
-
-        // set the return date
     },
 );
 
