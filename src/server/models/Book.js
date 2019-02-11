@@ -16,13 +16,20 @@ const schema = new mongoose.Schema(
         },
         isbnNumber: {
             type: Number,
-            required: false,
+            required: true,
         },
         formats: [
             {
                 type: String,
                 enum: ["paper", "ebook"],
-                default: "paper",
+                required: true,
+                trim: true,
+            },
+        ],
+        tags: [
+            {
+                type: String,
+                required: true,
                 trim: true,
             },
         ],

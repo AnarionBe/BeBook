@@ -55,8 +55,9 @@ app.use(
 );
 
 // Handles any requests that don't match the ones above.
+// TODO: Make it working.
 app.get("*", (_req, res) => {
-    res.sendFile(path.resolve(__dirname, "../../bin/client"));
+    res.sendFile(path.resolve(__dirname, "../../bin/client/index.html"));
 });
 
 app.listen(process.env.APP_PORT, () =>

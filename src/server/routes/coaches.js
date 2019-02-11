@@ -10,21 +10,30 @@ const router = new express.Router();
 
 // Get all users.
 router.get("/users", (_req, res) => {
-    User.find({}, (_err, users) => {
+    User.find({}, (err, users) => {
+        if (err) {
+            res.status(500).send(err);
+        }
         res.json(users);
     });
 });
 
 // Get an user by id.
 router.get("/users/:id", (req, res) => {
-    User.find({_id: req.params.id}, user => {
+    User.find({_id: req.params.id}, (err, user) => {
+        if (err) {
+            res.status(500).send(err);
+        }
         res.json(user);
     });
 });
 
 // Delete an user by id.
 router.delete("/users/:id", (req, res) => {
-    User.deleteOne({_id: req.params.id}, () => {
+    User.deleteOne({_id: req.params.id}, err => {
+        if (err) {
+            res.status(500).send(err);
+        }
         res.send("deleted");
     });
 });
@@ -50,18 +59,17 @@ router.post("/users", (req, res) => {
         if (err) {
             console.log(err.stack);
         }
-
         // eslint-disable-next-line no-shadow
         bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) {
-                throw err;
+                res.status(500).send(err);
             }
             newUser.password = hash;
             newUser
                 .save()
-                .then(user => res.json(user))
+                .then(user => res.status(200).json(user))
                 // eslint-disable-next-line no-shadow
-                .catch(err => console.log(err));
+                .catch(err => res.status(500).send(err));
         });
     });
 });
@@ -70,22 +78,31 @@ router.post("/users", (req, res) => {
 
 // Get all books.
 router.get("/books", (_req, res) => {
-    Book.find({}, (_err, books) => {
-        res.json(books);
+    Book.find({}, (err, books) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.status(200).json(books);
     });
 });
 
 // Get a book by id.
 router.get("/books/:id", (req, res) => {
-    Book.find({_id: req.params.id}, book => {
-        res.json(book);
+    Book.find({_id: req.params.id}, (err, book) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.status(200).json(book);
     });
 });
 
 // Delete a book by id.
 router.delete("/books/:id", (req, res) => {
-    Book.deleteOne({_id: req.params.id}, () => {
-        res.send("deleted");
+    Book.deleteOne({_id: req.params.id}, err => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.status(200).send("The book has been successfully deleted!");
     });
 });
 
@@ -96,11 +113,8 @@ router.post("/books", (req, res) => {
         author: req.body.author,
         language: req.body.language,
         isbnNumber: req.body.isbnNumber,
-        formats:
-            req.body.formats !== undefined &&
-            req.body.formats.split(",").length > 0
-                ? req.body.formats.split(",")
-                : "paper",
+        formats: req.body.formats.split(","),
+        tags: req.body.tags.split(","),
     })
         .save()
         .then(book => res.status(200).json(book))
