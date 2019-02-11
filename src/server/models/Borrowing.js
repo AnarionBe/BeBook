@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const schema = new mongoose.Schema(
     {
-        author: {
+        borrower: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
         },
@@ -10,22 +10,16 @@ const schema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "Book",
         },
-        comment: {
-            type: String,
-            required: true,
-        },
-        rating: {
-            type: Number,
-            required: true,
-            min: 0,
-            max: 5,
-        },
-        date: {
+        borrowingDate: {
             type: Date,
             default: Date.now(),
         },
+        dueDate: {
+            type: Date,
+            default: () => Date.now() + 7 * 24 * 60 * 60 * 1000,
+        },
     },
-    {collection: "Review"},
+    {collection: "Borrowing"},
 );
 
-export default mongoose.model("Review", schema);
+export default mongoose.model("Borrowing", schema);
