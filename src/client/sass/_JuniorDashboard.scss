@@ -1,6 +1,6 @@
 .JuniorDashboard-container {
     width: 550px;
-    background-color: #C4C4C4;
+    background-color: $backgroundColor2;
     border-radius: 43px;
     margin: 50px auto;
     padding: 50px;
@@ -17,10 +17,9 @@
 .profileInfo {
   width: 250px;
   font-size: 20px;
-}
-
-.profileInfo p {
-  margin: 5px auto;
+  p {
+    margin: 5px auto;
+  }
 }
 
 .modifyProfile{
@@ -50,13 +49,11 @@ display: none;
    font-size: 16px;
    font-variant: small-caps;
    font-style: "Roboto",serif;
- }
+&:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
 
-
-
- .modifyButton:hover, .profileToggleBack:hover, .submitProfile:hover {
-   transform: scale(1.1);
-   cursor: pointer;
  }
 
  .profileToggleBack {

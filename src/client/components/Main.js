@@ -1,6 +1,7 @@
 import * as React from "react";
 import Header from "../components/Header";
 import JuniorDashboard from "./JuniorDashboard";
+
 import "@fortawesome/fontawesome-free";
 
 export default class Main extends React.Component {
@@ -49,10 +50,7 @@ export default class Main extends React.Component {
         return (
             <div className="main">
                 <Header />
-                <JuniorDashboard
-                    modifyProfile={this.modifyProfile}
-                    ProfileToggleBack={this.ProfileToggleBack}
-                />
+                <JuniorDashboard />
             </div>
         );
     }
