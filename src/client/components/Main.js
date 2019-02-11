@@ -1,7 +1,6 @@
 import * as React from "react";
 import Header from "../components/Header";
-import ReviewForm from "../components/ReviewForm";
-import Bookpage from "../components/Bookpage";
+import JuniorDashboard from "./JuniorDashboard";
 import "@fortawesome/fontawesome-free";
 
 export default class Main extends React.Component {
@@ -10,6 +9,8 @@ export default class Main extends React.Component {
 
         this.reviewModaleOn = this.reviewModaleOn.bind(this);
         this.reviewModaleOff = this.reviewModaleOff.bind(this);
+        this.modifyProfile = this.modifyProfile.bind(this);
+        this.ProfileToggleBack = this.ProfileToggleBack.bind(this);
     }
 
     reviewModaleOn() {
@@ -24,12 +25,34 @@ export default class Main extends React.Component {
         document.getElementsByTagName("body")[0].style.overflow = "auto";
     }
 
+    modifyProfile() {
+        document.getElementsByClassName("modifyProfile")[0].style.display =
+            "block";
+        document.getElementsByClassName("profileToggleBack")[0].style.display =
+            "block";
+        document.getElementsByClassName("email")[0].style.display = "none";
+        document.getElementsByClassName("modifyButton")[0].style.display =
+            "none";
+    }
+
+    ProfileToggleBack() {
+        document.getElementsByClassName("modifyProfile")[0].style.display =
+            "none";
+        document.getElementsByClassName("email")[0].style.display = "block";
+        document.getElementsByClassName("modifyButton")[0].style.display =
+            "block";
+        document.getElementsByClassName("profileToggleBack")[0].style.display =
+            "none";
+    }
+
     render() {
         return (
             <div className="main">
                 <Header />
-                <Bookpage reviewModaleOn={this.reviewModaleOn} />
-                <ReviewForm reviewModaleOff={this.reviewModaleOff} />
+                <JuniorDashboard
+                    modifyProfile={this.modifyProfile}
+                    ProfileToggleBack={this.ProfileToggleBack}
+                />
             </div>
         );
     }
