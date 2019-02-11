@@ -1,13 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose
-    .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
-    .then(() =>
-        console.log("Connection to MongoDB has been successfully established."),
-    )
-    .catch(err => console.log(err));
-
-const UserSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
         firstName: {
             type: String,
@@ -39,7 +32,7 @@ const UserSchema = new mongoose.Schema(
         },
         date: {
             type: Date,
-            default: Date.now,
+            default: Date.now(),
         },
         booksBorrowed: {
             type: Array,
@@ -49,4 +42,4 @@ const UserSchema = new mongoose.Schema(
     {collection: "User"},
 );
 
-export default mongoose.model("User", UserSchema);
+export default mongoose.model("User", schema);

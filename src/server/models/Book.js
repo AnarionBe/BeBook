@@ -1,13 +1,6 @@
 import mongoose from "mongoose";
 
-mongoose
-    .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
-    .then(() =>
-        console.log("Connection to MongoDB has been successfully established."),
-    )
-    .catch(err => console.log(err));
-
-const BookSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
         title: {
             type: String,
@@ -23,13 +16,20 @@ const BookSchema = new mongoose.Schema(
         },
         isbnNumber: {
             type: Number,
-            required: false,
+            required: true,
         },
-        format: [
+        formats: [
             {
                 type: String,
                 enum: ["paper", "ebook"],
-                default: "paper",
+                required: true,
+                trim: true,
+            },
+        ],
+        tags: [
+            {
+                type: String,
+                required: true,
                 trim: true,
             },
         ],
@@ -46,4 +46,4 @@ const BookSchema = new mongoose.Schema(
     {collection: "Book"},
 );
 
-export default mongoose.model("Book", BookSchema);
+export default mongoose.model("Book", schema);
