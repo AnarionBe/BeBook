@@ -28,8 +28,10 @@ app.use(passport.initialize());
 import jwtLogin from "./configs/passport";
 jwtLogin();
 
-// Use API routes.
+// Public API routes.
 app.use("/api", publicRoutes);
+
+// Juniors only API routes.
 app.use(
     "/api/juniors",
     passport.authenticate("jwt", {session: false}),
@@ -41,6 +43,8 @@ app.use(
     },
     juniorsRoutes,
 );
+
+// Coaches only API routes.
 app.use(
     "/api/coaches",
     passport.authenticate("jwt", {session: false}),

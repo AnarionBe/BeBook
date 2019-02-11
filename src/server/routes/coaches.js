@@ -4,6 +4,8 @@ import User from "../models/User";
 
 const router = new express.Router();
 
+// -------------------------------------------------------------------------- //
+
 // Get all users.
 router.get("/users", (_req, res) => {
     User.find({}, (_err, users) => {
@@ -11,24 +13,40 @@ router.get("/users", (_req, res) => {
     });
 });
 
-// Get the user by id.
+// Get an user by id.
 router.get("/users/:id", (req, res) => {
     User.find({_id: req.params.id}, user => {
         res.json(user);
     });
 });
 
-// Delete the user.
-router.delete("/users", (req, res) => {
-    User.deleteOne({_id: req.query.id}, () => {
+// Delete an user by id.
+router.delete("/users/:id", (req, res) => {
+    User.deleteOne({_id: req.params.id}, () => {
         res.send("deleted");
     });
 });
+
+// -------------------------------------------------------------------------- //
 
 // Get all books.
 router.get("/books", (_req, res) => {
     Book.find({}, (_err, books) => {
         res.json(books);
+    });
+});
+
+// Get a book by id.
+router.get("/books/:id", (req, res) => {
+    Book.find({_id: req.params.id}, book => {
+        res.json(book);
+    });
+});
+
+// Delete a book by id.
+router.delete("/books/:id", (req, res) => {
+    Book.deleteOne({_id: req.params.id}, () => {
+        res.send("deleted");
     });
 });
 
@@ -51,5 +69,7 @@ router.post("/books", (req, res) => {
         .then(book => res.json(book))
         .catch(err => console.log(err));
 });
+
+// -------------------------------------------------------------------------- //
 
 export default router;

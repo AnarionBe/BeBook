@@ -6,8 +6,9 @@ import User from "../models/User";
 
 const router = new express.Router();
 
-// Log the user in.
-// Return a bearer token.
+// -------------------------------------------------------------------------- //
+
+// Log the user in and return a bearer token.
 router.post("/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -97,5 +98,7 @@ router.post("/register", (req, res) => {
         });
     });
 });
+
+// -------------------------------------------------------------------------- //
 
 export default router;

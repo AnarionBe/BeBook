@@ -3,6 +3,8 @@ import Book from "../models/Book";
 
 const router = new express.Router();
 
+// -------------------------------------------------------------------------- //
+
 // Get profile.
 router.get("/profile", (req, res) => {
     res.json({
@@ -14,11 +16,22 @@ router.get("/profile", (req, res) => {
     });
 });
 
+// -------------------------------------------------------------------------- //
+
 // Get all books.
 router.get("/books", (_req, res) => {
     Book.find({}, (_err, books) => {
         res.json(books);
     });
 });
+
+// Get a book by id.
+router.get("/books/:id", (req, res) => {
+    Book.find({_id: req.params.id}, book => {
+        res.json(book);
+    });
+});
+
+// -------------------------------------------------------------------------- //
 
 export default router;
