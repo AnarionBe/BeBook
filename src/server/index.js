@@ -30,8 +30,21 @@ jwtLogin();
 
 // Use API routes.
 app.use("/api", publicRoutes);
-app.use("/api/coaches", coachesRoutes);
-app.use("/api/students", studentsRoutes);
+app.use(
+    "/api/students",
+    passport.authenticate("jwt", {session: false}),
+    studentsRoutes,
+);
+app.use(
+    "/api/coaches",
+    passport.authenticate("jwt", {session: false}),
+    // eslint-disable-next-line no-confusing-arrow
+    (req, res, next) =>
+        req.user.role === "coach"
+            ? next()
+            : res.status(401).json({message: "Access denied!"}),
+    coachesRoutes,
+);
 
 app.listen(APP_PORT, () =>
     console.log(`Server is listening on port ${APP_PORT}.`),
