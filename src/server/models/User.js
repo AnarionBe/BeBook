@@ -50,9 +50,3 @@ const UserSchema = new mongoose.Schema(
 );
 
 export default mongoose.model("User", UserSchema);
-
-// -----------------------------
-const addOne = () => (val, callback) => {
-    val = val + 1;
-    callback();
-}
