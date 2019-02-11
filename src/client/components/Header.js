@@ -1,7 +1,7 @@
 import * as React from "react";
-import HeaderMenu from "./headerMenu";
-import SearchBar from "./searchBar";
-import ProfileButton from "./profileButton";
+import HeaderMenu from "./HeaderMenu";
+import SearchBar from "./SearchBar";
+import ProfileButton from "./ProfileButton";
 import logo from "../assets/img/logo.png";
 
 export default class Header extends React.Component {
