@@ -5,7 +5,7 @@ import path from "path";
 import passport from "passport";
 import publicRoutes from "./routes/public";
 import coachesRoutes from "./routes/coaches";
-import studentsRoutes from "./routes/students";
+import juniorsRoutes from "./routes/juniors";
 
 const {APP_PORT} = process.env;
 const app = express();
@@ -31,18 +31,25 @@ jwtLogin();
 // Use API routes.
 app.use("/api", publicRoutes);
 app.use(
-    "/api/students",
+    "/api/juniors",
     passport.authenticate("jwt", {session: false}),
-    studentsRoutes,
+    (req, res, next) => {
+        if (req.user.role === "junior") {
+            return next();
+        }
+        return res.status(401).json({message: "Access denied!"});
+    },
+    juniorsRoutes,
 );
 app.use(
     "/api/coaches",
     passport.authenticate("jwt", {session: false}),
-    // eslint-disable-next-line no-confusing-arrow
-    (req, res, next) =>
-        req.user.role === "coach"
-            ? next()
-            : res.status(401).json({message: "Access denied!"}),
+    (req, res, next) => {
+        if (req.user.role === "coach") {
+            return next();
+        }
+        return res.status(401).json({message: "Access denied!"});
+    },
     coachesRoutes,
 );
 

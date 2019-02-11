@@ -3,7 +3,7 @@ import Book from "../models/Book";
 
 const router = new express.Router();
 
-// Get the current logged user's profile.
+// Get profile.
 router.get("/profile", (req, res) => {
     res.json({
         id: req.user.id,
@@ -15,8 +15,8 @@ router.get("/profile", (req, res) => {
 });
 
 // Get all books.
-router.get("/books", res => {
-    Book.find({}, books => {
+router.get("/books", (_req, res) => {
+    Book.find({}, (_err, books) => {
         res.json(books);
     });
 });

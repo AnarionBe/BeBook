@@ -5,22 +5,16 @@ import User from "../models/User";
 const router = new express.Router();
 
 // Get all users.
-router.get("/users", (req, res) => {
-    User.find({}, (err, data) => {
-        if (err) {
-            return res.status(400).json({Error: err});
-        }
-        return res.json(data);
+router.get("/users", (_req, res) => {
+    User.find({}, (_err, users) => {
+        res.json(users);
     });
 });
 
 // Get the user by id.
 router.get("/users/:id", (req, res) => {
-    User.find({_id: req.params.id}, (err, user) => {
-        if (err) {
-            return res.status(400).json({Error: err});
-        }
-        return res.json(user);
+    User.find({_id: req.params.id}, user => {
+        res.json(user);
     });
 });
 
@@ -32,14 +26,14 @@ router.delete("/users", (req, res) => {
 });
 
 // Get all books.
-router.get("/books", (req, res) => {
+router.get("/books", (_req, res) => {
     Book.find({}, (_err, books) => {
         res.json(books);
     });
 });
 
 // Create a new book.
-router.post("/", (req, res) => {
+router.post("/books", (req, res) => {
     const newBook = new Book({
         title: req.body.title,
         author: req.body.author,
