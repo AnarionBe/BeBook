@@ -1,4 +1,6 @@
 import express from "express";
+import gravatar from "gravatar";
+import bcrypt from "bcryptjs";
 import Book from "../models/Book";
 import User from "../models/User";
 
@@ -27,6 +29,43 @@ router.delete("/users/:id", (req, res) => {
     });
 });
 
+// Create a new user.
+router.post("/users", (req, res) => {
+    const avatar = gravatar.url(req.body.email, {
+        s: 200,
+        r: "pg",
+        d: "mm",
+    });
+
+    const newUser = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        avatar,
+        password: req.body.password,
+        role: req.body.role || "junior",
+    });
+
+    bcrypt.genSalt(10, (err, salt) => {
+        if (err) {
+            console.log(err.stack);
+        }
+
+        // eslint-disable-next-line no-shadow
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if (err) {
+                throw err;
+            }
+            newUser.password = hash;
+            newUser
+                .save()
+                .then(user => res.json(user))
+                // eslint-disable-next-line no-shadow
+                .catch(err => console.log(err));
+        });
+    });
+});
+
 // -------------------------------------------------------------------------- //
 
 // Get all books.
@@ -52,7 +91,7 @@ router.delete("/books/:id", (req, res) => {
 
 // Create a new book.
 router.post("/books", (req, res) => {
-    const newBook = new Book({
+    new Book({
         title: req.body.title,
         author: req.body.author,
         language: req.body.language,
@@ -62,12 +101,10 @@ router.post("/books", (req, res) => {
             req.body.formats.split(",").length > 0
                 ? req.body.formats.split(",")
                 : "paper",
-    });
-
-    newBook
+    })
         .save()
-        .then(book => res.json(book))
-        .catch(err => console.log(err));
+        .then(book => res.status(200).json(book))
+        .catch(err => res.status(500).json(err));
 });
 
 // -------------------------------------------------------------------------- //

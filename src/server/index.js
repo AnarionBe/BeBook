@@ -6,8 +6,8 @@ import passport from "passport";
 import publicRoutes from "./routes/public";
 import coachesRoutes from "./routes/coaches";
 import juniorsRoutes from "./routes/juniors";
+import jwtStrategy from "./configs/strategies";
 
-const {APP_PORT} = process.env;
 const app = express();
 
 // Connect to MongoDB.
@@ -23,10 +23,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 app.use(passport.initialize());
-
-// Passport configuration.
-import jwtLogin from "./configs/passport";
-jwtLogin();
+jwtStrategy();
 
 // Public API routes.
 app.use("/api", publicRoutes);
@@ -58,10 +55,10 @@ app.use(
 );
 
 // Handles any requests that don't match the ones above.
-app.get("*", res => {
+app.get("*", (_req, res) => {
     res.sendFile(path.resolve(__dirname, "../../bin/client"));
 });
 
-app.listen(APP_PORT, () =>
-    console.log(`Server is listening on port ${APP_PORT}.`),
+app.listen(process.env.APP_PORT, () =>
+    console.log(`Server is listening on port ${process.env.APP_PORT}.`),
 );

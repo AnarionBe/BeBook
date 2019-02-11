@@ -1,5 +1,6 @@
 import express from "express";
 import Book from "../models/Book";
+import User from "../models/User";
 
 const router = new express.Router();
 
@@ -7,12 +8,16 @@ const router = new express.Router();
 
 // Get profile.
 router.get("/profile", (req, res) => {
-    res.json({
-        id: req.user.id,
-        firstName: req.user.firstName,
-        lastName: req.user.lastName,
-        email: req.user.email,
-        role: req.user.role,
+    res.json(req.user);
+});
+
+// Update profile.
+router.put("/profile", (req, res) => {
+    User.findByIdAndUpdate(req.user.id, req.body, {new: true}, (err, user) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.json(user);
     });
 });
 

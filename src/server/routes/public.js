@@ -62,6 +62,7 @@ router.post("/register", (req, res) => {
         if (user) {
             return res.status(400).json({email: "The user already exists!"});
         }
+
         const avatar = gravatar.url(req.body.email, {
             s: 200,
             r: "pg",
@@ -74,8 +75,6 @@ router.post("/register", (req, res) => {
             email: req.body.email,
             avatar,
             password: req.body.password,
-            // TODO: Remove this from /register, it lets anybody creating users with coach role.
-            role: req.body.role || "junior",
         });
 
         bcrypt.genSalt(10, (err, salt) => {
