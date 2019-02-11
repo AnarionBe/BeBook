@@ -3,18 +3,14 @@ import Container from "../components/Container";
 import Header from "../components/Header";
 import LateralMenu from "./LateralMenu";
 
-export default function JunioHomepage() {
-    const [active, setActive] = React.useState(false);
-
-    const switchLateralMenu = () => {
-        setActive(!active);
-    };
+export default function JunioHomepage(props) {
+   
 
     return (
         <div className="main">
-            <Header switchLateralMenu={switchLateralMenu} />
+            <Header switchLateralMenu={props.switchLateralMenu} />
             <Container />
-            <LateralMenu slide={active} />
+            <LateralMenu slide={props.slide} />
         </div>
     );
 }

@@ -10,7 +10,7 @@ export default function Header(props) {
             <div className="logo">
                 <img src={logo} />
             </div>
-            <HeaderMenu />
+            <HeaderMenu isCoach={props.isCoach}/>
             <SearchBar />
             <ProfileButton onClick={props.switchLateralMenu} />
         </header>
