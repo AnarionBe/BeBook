@@ -8,7 +8,7 @@ const router = new express.Router();
 
 // -------------------------------------------------------------------------- //
 
-// Get all users.
+// Retrieve the collection of User resources.
 router.get("/users", (_req, res) => {
     User.find({}, (err, users) => {
         if (err) {
@@ -18,27 +18,7 @@ router.get("/users", (_req, res) => {
     });
 });
 
-// Get an user by id.
-router.get("/users/:id", (req, res) => {
-    User.find({_id: req.params.id}, (err, user) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        res.json(user);
-    });
-});
-
-// Delete an user by id.
-router.delete("/users/:id", (req, res) => {
-    User.deleteOne({_id: req.params.id}, err => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        res.send("deleted");
-    });
-});
-
-// Create a new user.
+// Create an User resource.
 router.post("/users", (req, res) => {
     const avatar = gravatar.url(req.body.email, {
         s: 200,
@@ -74,9 +54,29 @@ router.post("/users", (req, res) => {
     });
 });
 
+// Retrieve an User resource.
+router.get("/users/:id", (req, res) => {
+    User.find({_id: req.params.id}, (err, user) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.json(user);
+    });
+});
+
+// Remove the User resource.
+router.delete("/users/:id", (req, res) => {
+    User.deleteOne({_id: req.params.id}, err => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.send("deleted");
+    });
+});
+
 // -------------------------------------------------------------------------- //
 
-// Get all books.
+// Retrieve the collection of Book resources.
 router.get("/books", (_req, res) => {
     Book.find({}, (err, books) => {
         if (err) {
@@ -86,27 +86,7 @@ router.get("/books", (_req, res) => {
     });
 });
 
-// Get a book by id.
-router.get("/books/:id", (req, res) => {
-    Book.find({_id: req.params.id}, (err, book) => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        res.status(200).json(book);
-    });
-});
-
-// Delete a book by id.
-router.delete("/books/:id", (req, res) => {
-    Book.deleteOne({_id: req.params.id}, err => {
-        if (err) {
-            res.status(500).send(err);
-        }
-        res.status(200).send("The book has been successfully deleted!");
-    });
-});
-
-// Create a new book.
+// Create a Book resource.
 router.post("/books", (req, res) => {
     new Book({
         title: req.body.title,
@@ -119,6 +99,26 @@ router.post("/books", (req, res) => {
         .save()
         .then(book => res.status(200).json(book))
         .catch(err => res.status(500).json(err));
+});
+
+// Retrieve a Book resource.
+router.get("/books/:id", (req, res) => {
+    Book.find({_id: req.params.id}, (err, book) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.status(200).json(book);
+    });
+});
+
+// Remove the Book resource.
+router.delete("/books/:id", (req, res) => {
+    Book.deleteOne({_id: req.params.id}, err => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        res.status(200).send("The book has been successfully deleted!");
+    });
 });
 
 // -------------------------------------------------------------------------- //

@@ -8,7 +8,7 @@ const router = new express.Router();
 
 // -------------------------------------------------------------------------- //
 
-// Log the user in and return a bearer token.
+// Log the User in.
 router.post("/login", (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
@@ -56,7 +56,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-// Register a new user.
+// Register a new User.
 router.post("/register", (req, res) => {
     User.findOne({email: req.body.email}).then(user => {
         if (user) {

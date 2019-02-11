@@ -6,7 +6,7 @@ const router = new express.Router();
 
 // -------------------------------------------------------------------------- //
 
-// Get profile.
+// Retrieve the User profile.
 router.get("/profile", (req, res) => {
     User.findById(req.user.id, (err, user) => {
         if (err) {
@@ -16,7 +16,7 @@ router.get("/profile", (req, res) => {
     });
 });
 
-// Update profile.
+// Replace the User profile.
 router.put("/profile", (req, res) => {
     User.findByIdAndUpdate(req.user.id, req.body, {new: true}, (err, user) => {
         if (err) {
@@ -28,7 +28,7 @@ router.put("/profile", (req, res) => {
 
 // -------------------------------------------------------------------------- //
 
-// Get all books.
+// Retrieve the collection of Book resources.
 router.get("/books", (_req, res) => {
     Book.find({}, (err, books) => {
         if (err) {
@@ -38,7 +38,7 @@ router.get("/books", (_req, res) => {
     });
 });
 
-// Get a book by id.
+// Retrieve a Book resource.
 router.get("/books/:id", (req, res) => {
     Book.find({_id: req.params.id}, (err, book) => {
         if (err) {
