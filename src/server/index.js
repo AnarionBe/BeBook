@@ -46,6 +46,11 @@ app.use(
     coachesRoutes,
 );
 
+// Handles any requests that don't match the ones above.
+app.get("*", res => {
+    res.sendFile(path.resolve(__dirname, "../../bin/client"));
+});
+
 app.listen(APP_PORT, () =>
     console.log(`Server is listening on port ${APP_PORT}.`),
 );
