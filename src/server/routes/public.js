@@ -1,10 +1,8 @@
-/* eslint-disable no-unused-vars */
 import express from "express";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import passport from "passport";
-import User from "../../models/User";
+import User from "../models/User";
 
 const router = new express.Router();
 
@@ -58,7 +56,7 @@ router.post("/login", (req, res) => {
 });
 
 // Register a new user.
-router.post("/users", (req, res) => {
+router.post("/register", (req, res) => {
     User.findOne({email: req.body.email}).then(user => {
         if (user) {
             return res.status(400).json({email: "The user already exists!"});

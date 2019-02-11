@@ -1,12 +1,5 @@
 import mongoose from "mongoose";
 
-mongoose
-    .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
-    .then(() =>
-        console.log("Connection to MongoDB has been successfully established."),
-    )
-    .catch(err => console.log(err));
-
 const UserSchema = new mongoose.Schema(
     {
         firstName: {
@@ -34,8 +27,8 @@ const UserSchema = new mongoose.Schema(
         },
         role: {
             type: String,
-            enum: ["coach", "junior"],
-            default: "junior",
+            enum: ["coach", "student"],
+            default: "student",
         },
         date: {
             type: Date,

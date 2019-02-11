@@ -1,25 +1,9 @@
-# BeCode: BeBook
+<p align="center">
+  <a href="https://github.com/AnarionBe/BeBook">
+    <img height="300" src="./icon.svg" alt="books">
+  </a>
+</p>
 
-> 🛰️ Bookshelf administration for becode
+<h1 align="center">BeBook</h1>
 
-* * *
-
-The purpose is to handle books loan easily.
-
-## About
-
-Using:
-- NodeJs
-- React
-- mangoDB
-
-Packages:
-**inc.**
-
-## Usage
-
-**inc.**
-
-* * *
-
-February 2019, Marco De Bona.
+<h4 align="center">Bookshelf administration for BeCode</h4>
