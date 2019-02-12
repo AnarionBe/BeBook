@@ -7,17 +7,13 @@ import publicRoutes from "./routes/public";
 import coachesRoutes from "./routes/coaches";
 import juniorsRoutes from "./routes/juniors";
 import jwtStrategy from "./configs/strategies";
+import env from "./configs/env";
 
 const app = express();
 
 // Connect to MongoDB.
 mongoose
-    // TODO: Warning !
-    // Change the database's password.
-    // Use an environment variable to handle the MongoDB connection config !
-    .connect(
-        "mongodb://admin:bebookbebook@bebook-shard-00-00-o0ct8.mongodb.net:27017,bebook-shard-00-01-o0ct8.mongodb.net:27017,bebook-shard-00-02-o0ct8.mongodb.net:27017/bebook?ssl=true&replicaSet=bebook-shard-0&authSource=admin&retryWrites=true",
-    )
+    .connect(env.MONGO_URI)
     // .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
     .then(() =>
         console.log("Connection to MongoDB has been successfully established."),
@@ -65,6 +61,6 @@ app.get("*", (_req, res) => {
     res.sendFile(path.resolve(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(process.env.APP_PORT, () =>
-    console.log(`Server is listening on port ${process.env.APP_PORT}.`),
+app.listen(env.APP_PORT, () =>
+    console.log(`Server is listening on port ${env.APP_PORT}.`),
 );

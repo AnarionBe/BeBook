@@ -3,6 +3,7 @@ import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
+import env from "../configs/env";
 
 const router = new express.Router();
 
@@ -29,8 +30,7 @@ router.post("/login", (req, res) => {
                     avatar: user.avatar,
                 };
 
-                // TODO: Don't forget to add JWT_SECRET to the environment variables.
-                const secretKey = process.env.JWT_SECRET || "secret";
+                const secretKey = env.JWT_SECRET;
 
                 // Sign the token.
                 jwt.sign(

@@ -89,7 +89,7 @@ router.get("/books", (_req, res) => {
 
 // Create a Book resource.
 router.post("/books", (req, res) => {
-    // TODO: manage isbn with - as separator
+    // TODO: Manage ISBN with "-" separator.
     new Book({
         title: req.body.title,
         author: req.body.author,
