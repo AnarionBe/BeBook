@@ -38,7 +38,7 @@ const schema = new mongoose.Schema(
             enum: ["available", "unavailable"],
             default: "available",
         },
-        returnDate: {
+        dueDate: {
             type: Date,
             default: null,
         },

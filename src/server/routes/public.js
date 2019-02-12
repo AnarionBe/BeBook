@@ -2,17 +2,9 @@ import express from "express";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import passport from "passport";
-import User from "../../models/User";
-import Book from "../../models/Book";
+import User from "../models/User";
 
 const router = new express.Router();
-const addDays = days => {
-    let date = new Date();
-
-    date.setDate(date.getDate() + days);
-    return date;
-};
 
 // -------------------------------------------------------------------------- //
 
@@ -104,96 +96,6 @@ router.post("/register", (req, res) => {
             });
         });
     });
-});
-
-// Get the current logged user.
-router.get(
-    "/current",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        res.json({
-            id: req.user.id,
-            firstName: req.user.firstName,
-            lastName: req.user.lastName,
-            email: req.user.email,
-            role: req.user.role,
-        });
-    },
-);
-
-// Get the user by id.
-router.get(
-    "/users/:id",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        User.find({_id: req.params.id}, (err, user) => {
-            if (err) {
-                return res.status(400).json({Error: err});
-            }
-            return res.json(user);
-        });
-    },
-);
-
-// Delete the user.
-router.delete(
-    "/users",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        User.deleteOne({_id: req.body.id}, () => {
-            res.send("deleted");
-        });
-    },
-);
-
-router.get("/users", (req, res) => {
-    User.find({}, (err, data) => {
-        if (err) {
-            return res.status(400).json({Error: err});
-        }
-        return res.json(data);
-    });
-});
-
-router.get("/users/:id/reviews", (req, res) => {
-    // TODO: send back reviews for given user
-});
-
-router.get("/users/:id/books", (req, res) => {
-    // TODO: send back books borrowed got the given user
-});
-
-router.post(
-    "/users/books",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        Book.findOne({_id: req.body.idBook})
-            .then(book => {
-                User.findOne({_id: req.body.idUser})
-                    .then(user => {
-                        user.booksBorrowed.push(book._id);
-                        book.state = "unavailable";
-                        book.returnDate = addDays(7);
-                        book.save();
-                        user.save();
-                        return res.json({user: user, book: book});
-                    })
-                    .catch(err => {
-                        return res.status(400).json({Error: err});
-                    });
-            })
-            .catch(err => {
-                return res.status(400).json({Error: err});
-            });
-    },
-);
-
-router.delete("/users/books", (req, res) => {
-    // TODO: given user send back given book
-});
-
-router.put("/users/books", (req, res) => {
-    // TODO: given user add a delay for the given book
 });
 
 export default router;
