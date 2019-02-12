@@ -57,7 +57,7 @@ export default class ReviewForm extends React.Component {
                         <input
                             className="addReview"
                             type="submit"
-                            value="+ Add a Review"
+                            value="+ add a review"
                         />
                     </form>
                 </div>
