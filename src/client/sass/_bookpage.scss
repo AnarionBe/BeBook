@@ -1,0 +1,222 @@
+.bookpage-container {
+  width: 1130px;
+  background-color: $backgroundColor2;
+  border-radius: 43px;
+  margin: 50px auto;
+  padding: 50px;
+  font-family: "Roboto", serif;
+}
+
+.bookpage-info {
+  text-align: justify;
+  display: inline-block;
+
+  img {
+    width: 197px;
+    display: inline-block;
+  }
+}
+
+.bookpage-text {
+  display: inline-block;
+  margin-left: 25px;
+  vertical-align: top;
+}
+
+.bookpage-info p {
+  width: 517px;
+  font-size: 12px;
+}
+
+.bookpage-info h2 {
+  width: 510px;
+  font-size: 24px;
+  margin-bottom: 25px;
+}
+
+.bookpageRef {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 70px;
+  font-size: 24px;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+}
+
+.availableTag {
+  color: green;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 10px;
+}
+
+.borrowButton {
+  font-variant: small-caps;
+  font-weight: bold;
+  background-color: $primary;
+  border: 1px solid $primary;
+  width: 125px;
+  height: 46px;
+  text-align: center;
+  border-radius: 9px;
+  font-size: 20px;
+  margin-top: 25px;
+  box-shadow: 2px 2px 2px #888888;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}
+
+.bookpageReviews {
+  width: 100%;
+  margin-top: 30px;
+
+  h6 {
+    font-weight: 400;
+    margin: 10px;
+  }
+
+  p {
+    font-size: 12px;
+    text-align: justify;
+  }
+
+  .stars-wrap {
+    display: block;
+    background-color: rgba(255,255,255,0);
+    position: relative;
+    bottom: 10px;
+    left: 0;
+    padding: 0;
+    margin: 0;
+    opacity: 1;
+  }
+}
+
+.addReview {
+  transition: all 0.2s ease-in-out;
+  margin-top: 20px;
+  border-radius: 9px;
+  border: 1px solid $backgroundColor;
+  background-color: $backgroundColor;
+  color: white;
+  width: 150px;
+  height: 35px;
+  font-size: 16px;
+  font-variant: small-caps;
+  font-style: "Roboto",serif;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+.reviewModale {
+  display: none;
+  background-color: rgba(255,255,255,0.9);
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.reviewForm {
+  width: 1130px;
+  border-radius: 43px;
+  margin: 150px auto;
+  padding: 50px;
+  background-color: rgba(255,255,255,1);
+
+  textarea {
+    width: 1090px;
+    min-height: 302px;
+    border: none;
+    border-radius: 22px;
+    margin: 25px auto;
+    background-color: $backgroundColor2;
+    padding: 20px;
+    resize: none;
+    font-family: roboto;
+    font-size: 24px;
+    color: black;
+  }
+
+  button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    display: inline-block;
+    float: right;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+  }
+
+  h2 {
+    display: inline-block;
+    font-size: 24px;
+    font-family: "Roboto", serif;
+    width: 505px;
+  }
+}
+.reviewForm-top {
+  margin-top: 10px;
+  .stars {
+    vertical-align: baseline;
+  }
+}
+
+.selectForm {
+  position: relative;
+  display: inline-block;
+
+  select {
+    width: 55px;
+    margin-left: 10px;
+    background-color: $backgroundColor;
+    color: white;
+    font-family: inherit;
+    outline: none;
+    border-radius: 9px;
+    border: none;
+    padding: 3px;
+  }
+}
+
+.reviewForm-top p,
+.reviewForm-top select {
+  display: inline-block;
+}
+
+.selectForm:after {
+  content: "▼";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 60%;
+  line-height: 30px;
+  padding: 0 7px;
+  background: $backgroundColor;
+  color: white;
+  pointer-events: none;
+  border-radius: 9px;
+}
+
+.reviewForm-right {
+  margin-left: 100px;
+}
