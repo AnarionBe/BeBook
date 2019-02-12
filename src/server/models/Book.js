@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const BookSchema = new mongoose.Schema(
+const schema = new mongoose.Schema(
     {
         title: {
             type: String,
@@ -16,18 +16,34 @@ const BookSchema = new mongoose.Schema(
         },
         isbnNumber: {
             type: Number,
-            required: false,
+            required: true,
         },
         formats: [
             {
                 type: String,
                 enum: ["paper", "ebook"],
-                default: "paper",
+                required: true,
                 trim: true,
             },
         ],
+        tags: [
+            {
+                type: String,
+                required: true,
+                trim: true,
+            },
+        ],
+        state: {
+            type: String,
+            enum: ["available", "unavailable"],
+            default: "available",
+        },
+        dueDate: {
+            type: Date,
+            default: null,
+        },
     },
     {collection: "Book"},
 );
 
-export default mongoose.model("Book", BookSchema);
+export default mongoose.model("Book", schema);
