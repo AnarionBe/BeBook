@@ -73,7 +73,7 @@ router.post("/register", (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            avatar,
+            avatar: avatar,
             password: req.body.password,
         });
 
