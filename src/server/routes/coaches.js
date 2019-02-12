@@ -3,6 +3,7 @@ import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import Book from "../models/Book";
 import User from "../models/User";
+import Review from "../models/Review";
 
 const router = new express.Router();
 
@@ -88,6 +89,7 @@ router.get("/books", (_req, res) => {
 
 // Create a Book resource.
 router.post("/books", (req, res) => {
+    // TODO: manage isbn with - as separator
     new Book({
         title: req.body.title,
         author: req.body.author,
@@ -122,5 +124,25 @@ router.delete("/books/:id", (req, res) => {
 });
 
 // -------------------------------------------------------------------------- //
+
+// User send a new review about a book
+router.post("/reviews", (req, res) => {
+    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
+        data => {
+            if (data) {
+                return res.status(400).json({Error: "Review already exist"}); // => request to modify it instead
+            }
+
+            new Review({
+                author: req.body.userId,
+                book: req.body.bookId,
+                comment: req.body.comment,
+                rating: req.body.rating,
+            }).save();
+
+            return res.json({Message: "ok"});
+        },
+    );
+});
 
 export default router;
