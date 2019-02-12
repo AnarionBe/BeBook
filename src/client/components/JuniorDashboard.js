@@ -1,9 +1,14 @@
 import * as React from "react";
 import avatar from "../assets/img/avatar.jpg";
+import Header from "./Header";
+import LateralMenu from "./LateralMenu";
 
-export default class JuniorDashboard extends React.Component {
-    render() {
-        return (
+export default function JuniorDashboard(props) {
+    return (
+        <div>
+            <Header switchLateralMenu={props.switchLateralMenu} isCoach={props.isCoach} />
+            <LateralMenu slide={props.slide} />
+
             <div className="JuniorDashboard-container">
                 <img className="profilePic" src={avatar} />
 
@@ -17,7 +22,7 @@ export default class JuniorDashboard extends React.Component {
                     <p className="email">{"hulk.hogan@test.com"}</p>
                     <button
                         className="modifyButton"
-                        onClick={this.props.modifyProfile}>
+                        onClick={props.modifyProfile}>
                         {"modify"}
                     </button>
 
@@ -35,11 +40,11 @@ export default class JuniorDashboard extends React.Component {
                     </form>
                     <button
                         className="profileToggleBack"
-                        onClick={this.props.ProfileToggleBack}>
+                        onClick={props.ProfileToggleBack}>
                         {"back"}
                     </button>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }

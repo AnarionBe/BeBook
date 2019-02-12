@@ -8,7 +8,7 @@ import img5 from "../assets/img/51FHuacxYjL._SX379_BO1,204,203,200_.jpg";
 export default function LateralMenu(props) {
     return (
         <div className={props.slide ? "lateral-menu" : "lateral-menu out"}>
-            <a href="#">
+            <a href="/profile">
                 <p className="my-profile">{"My Profile"}</p>
             </a>
             <LateralBookpane
