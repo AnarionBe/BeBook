@@ -73,7 +73,7 @@ router.post("/register", (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            avatar,
+            avatar: avatar,
             password: req.body.password,
         });
 
@@ -96,75 +96,6 @@ router.post("/register", (req, res) => {
             });
         });
     });
-});
-
-// Get the current logged user.
-router.get(
-    "/current",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        res.json({
-            id: req.user.id,
-            firstName: req.user.firstName,
-            lastName: req.user.lastName,
-            email: req.user.email,
-            role: req.user.role,
-        });
-    },
-);
-
-// Get the user by id.
-router.get(
-    "/users/:id",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        User.find({_id: req.params.id}, (err, user) => {
-            if (err) {
-                return res.status(400).json({Error: err});
-            }
-            return res.json(user);
-        });
-    },
-);
-
-// Delete the user.
-router.delete(
-    "/users",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        User.deleteOne({_id: req.query.id}, () => {
-            res.send("deleted");
-        });
-    },
-);
-
-router.get("/users", (req, res) => {
-    User.find({}, (err, data) => {
-        if (err) {
-            return res.status(400).json({Error: err});
-        }
-        return res.json(data);
-    });
-});
-
-router.get("/users/:id/reviews", (req, res) => {
-    // TODO: send back reviews for given user
-});
-
-router.get("/users/:id/books", (req, res) => {
-    // TODO: send back books borrowed got the given user
-});
-
-router.post("/users/books", (req, res) => {
-    // TODO: given user borrow given book
-});
-
-router.delete("/users/books", (req, res) => {
-    // TODO: given user send back given book
-});
-
-router.put("/users/books", (req, res) => {
-    // TODO: given user add a delay for the given book
 });
 
 export default router;

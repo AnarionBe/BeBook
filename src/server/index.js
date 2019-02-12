@@ -13,6 +13,7 @@ const app = express();
 // Connect to MongoDB.
 mongoose
     // TODO: Warning !
+    // Change the database's password.
     // Use an environment variable to handle the MongoDB connection config !
     .connect(
         "mongodb://admin:bebookbebook@bebook-shard-00-00-o0ct8.mongodb.net:27017,bebook-shard-00-01-o0ct8.mongodb.net:27017,bebook-shard-00-02-o0ct8.mongodb.net:27017/bebook?ssl=true&replicaSet=bebook-shard-0&authSource=admin&retryWrites=true",
@@ -61,7 +62,7 @@ app.use(
 
 // Handles any requests that don't match the ones above.
 app.get("*", (_req, res) => {
-    res.sendFile(path.resolve(__dirname, "./bin/client/index.html"));
+    res.sendFile(path.resolve(__dirname, "..", "client", "index.html"));
 });
 
 app.listen(process.env.APP_PORT, () =>

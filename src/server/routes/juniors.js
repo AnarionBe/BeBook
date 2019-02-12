@@ -2,6 +2,7 @@ import express from "express";
 import Book from "../models/Book";
 import Borrowing from "../models/Borrowing";
 import User from "../models/User";
+import Review from "../models/Review";
 
 const router = new express.Router();
 
@@ -77,6 +78,26 @@ router.post("/borrowings/:bookId", (req, res) => {
         .save()
         .then(borrowing => res.status(200).json(borrowing))
         .catch(err => res.status(500).json(err));
+});
+
+// User send a new review about a book
+router.post("/reviews", (req, res) => {
+    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
+        data => {
+            if (data) {
+                return res.status(400).json({Error: "Review already exist"}); // => request to modify it instead
+            }
+
+            new Review({
+                author: req.body.userId,
+                book: req.body.bookId,
+                comment: req.body.comment,
+                rating: req.body.rating,
+            }).save();
+
+            return res.json({Message: "ok"});
+        },
+    );
 });
 
 export default router;
