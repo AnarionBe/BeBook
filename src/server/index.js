@@ -12,10 +12,10 @@ const app = express();
 
 // Connect to MongoDB.
 mongoose
-    .connect(
-        "mongodb://admin:bebookbebook@bebook-shard-00-00-o0ct8.mongodb.net:27017,bebook-shard-00-01-o0ct8.mongodb.net:27017,bebook-shard-00-02-o0ct8.mongodb.net:27017/bebook?ssl=true&replicaSet=bebook-shard-0&authSource=admin&retryWrites=true",
-    )
-    // .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
+    // .connect(
+    //     "mongodb://admin:bebookbebook@bebook-shard-00-00-o0ct8.mongodb.net:27017,bebook-shard-00-01-o0ct8.mongodb.net:27017,bebook-shard-00-02-o0ct8.mongodb.net:27017/bebook?ssl=true&replicaSet=bebook-shard-0&authSource=admin&retryWrites=true",
+    // )
+    .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
     .then(() =>
         console.log("Connection to MongoDB has been successfully established."),
     )
