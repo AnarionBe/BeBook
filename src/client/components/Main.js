@@ -4,6 +4,7 @@ import Bookpage from "./Bookpage";
 import ReviewForm from "./ReviewForm";
 import Login from "./Login";
 import JuniorDashboard from "./JuniorDashboard";
+import Container from "./Container";
 import "@fortawesome/fontawesome-free";
 import {Switch, BrowserRouter, Route} from "react-router-dom";
 
@@ -76,6 +77,17 @@ export default class Main extends React.Component {
                                 <ReviewForm
                                     reviewModaleOff={this.reviewModaleOff}
                                 />
+                            </div>
+                        )}
+                    />
+
+                    <Route
+                        exact
+                        path="/mainpage"
+                        render={() => (
+                            <div>
+                                <Header />
+                                <Container />
                             </div>
                         )}
                     />
