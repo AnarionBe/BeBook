@@ -8,14 +8,6 @@ const router = new express.Router();
 
 // -------------------------------------------------------------------------- //
 
-// const addDays = days => {
-//     let date = new Date();
-
-//     return date.setDate(date.getDate() + days);
-// };
-
-// -------------------------------------------------------------------------- //
-
 // Retrieve the collection of User resources.
 router.get("/users", (_req, res) => {
     User.find({}, (err, users) => {
