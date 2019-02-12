@@ -1,8 +1,11 @@
 import * as React from "react";
 import Header from "../components/Header";
+import Bookpage from "./Bookpage";
+import ReviewForm from "./ReviewForm";
+import Login from "./Login";
 import JuniorDashboard from "./JuniorDashboard";
-
 import "@fortawesome/fontawesome-free";
+import {Switch, BrowserRouter, Route} from "react-router-dom";
 
 export default class Main extends React.Component {
     constructor(props) {
@@ -48,10 +51,50 @@ export default class Main extends React.Component {
 
     render() {
         return (
-            <div className="main">
-                <Header />
-                <JuniorDashboard />
-            </div>
+            <BrowserRouter>
+                <Switch>
+                    <Route
+                        exact
+                        path="/"
+                        render={() => (
+                            <div>
+                                <Header />
+                                <Login />
+                            </div>
+                        )}
+                    />
+
+                    <Route
+                        exact
+                        path="/bookpage"
+                        render={() => (
+                            <div>
+                                <Header />
+                                <Bookpage
+                                    reviewModaleOn={this.reviewModaleOn}
+                                />
+                                <ReviewForm
+                                    reviewModaleOff={this.reviewModaleOff}
+                                />
+                            </div>
+                        )}
+                    />
+
+                    <Route
+                        exact
+                        path="/profile"
+                        render={() => (
+                            <div>
+                                <Header />
+                                <JuniorDashboard
+                                    modifyProfile={this.modifyProfile}
+                                    ProfileToggleBack={this.ProfileToggleBack}
+                                />
+                            </div>
+                        )}
+                    />
+                </Switch>
+            </BrowserRouter>
         );
     }
 }

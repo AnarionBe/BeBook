@@ -63,12 +63,12 @@ module.exports = env => {
             rules: [{
                 test: /\.scss$/,
                 use: [
-                    "style-loader", // creates style nodes from JS strings
-                    "css-loader", // translates CSS into CommonJS
-                    "sass-loader" // compiles Sass to CSS, using Node Sass by default
-                ]
-            },
-                {
+      "style-loader", // creates style nodes from JS strings
+      "css-loader", // translates CSS into CommonJS
+      "sass-loader" // compiles Sass to CSS, using Node Sass by default
+    ]
+    },
+  {
                     test: /\.(png|jpg|gif)$/,
                     use: [
                         {
@@ -119,5 +119,9 @@ module.exports = env => {
             path: resolve(__dirname, "./bin/client"),
             filename: env === "dev" ? "js/bundle.js" : "js/[chunkhash].js",
         },
+
+        devServer: {
+    historyApiFallback: true,
+},
     };
 };
