@@ -105,7 +105,6 @@ router.post("/reviews", (req, res) => {
 // User delete a specified review
 router.delete("/reviews", (req, res) => {
     Review.findOne({_id: req.body.reviewId}, (err, data) => {
-        console.log(typeof req.body.userId);
         if (err) {
             return res.status(500).send(err);
         }
@@ -127,5 +126,24 @@ router.delete("/reviews", (req, res) => {
         });
     });
 });
+// ------------------------------------
 
+// User update a specified review
+router.patch("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}, (err, data) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        if (data.author.toString() !== req.body.userId) {
+            return res
+                .status(400)
+                .json({Error: "You can update your reviews only!"});
+        }
+
+        data.comment = req.body.newContent;
+        data.save();
+        return res.json(data);
+    });
+});
 export default router;
