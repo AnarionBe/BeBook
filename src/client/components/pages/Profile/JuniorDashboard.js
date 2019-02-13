@@ -1,7 +1,7 @@
 import * as React from "react";
-import avatar from "../assets/img/avatar.jpg";
-import Header from "./Header";
-import LateralMenu from "./LateralMenu";
+import avatar from "../../../assets/img/avatar.jpg";
+import Header from "../../Header/Header";
+import LateralMenu from "../../LateralMenu/LateralMenu";
 
 export default function JuniorDashboard(props) {
     return (
