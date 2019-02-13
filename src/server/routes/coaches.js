@@ -99,7 +99,7 @@ router.post("/books", (req, res) => {
         tags: req.body.tags.split(","),
     })
         .save()
-        .then(book => res.status(200).json(book))
+        .then(book => res.status(201).json(book))
         .catch(err => res.status(500).json(err));
 });
 

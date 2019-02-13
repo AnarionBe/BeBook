@@ -1,15 +1,15 @@
 import * as React from "react";
-import Container from "../components/Container";
-import Header from "../components/Header";
-import LateralMenu from "../components/LateralMenu";
+import JuniorContainer from "./JuniorContainer";
+import Header from "../../Header/Header";
+import LateralMenu from "../../LateralMenu/LateralMenu";
 
-export default function JuniorHomepage(props) {
+export default function JuniorPage(props) {
    
 
     return (
         <div className="main">
             <Header switchLateralMenu={props.switchLateralMenu} isCoach={props.isCoach} />
-            <Container />
+            <JuniorContainer />
             <LateralMenu slide={props.slide} />
         </div>
     );
