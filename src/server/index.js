@@ -13,8 +13,7 @@ const app = express();
 
 // Connect to MongoDB.
 mongoose
-    // .connect(env.MONGO_URI)
-    .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
+    .connect(env.MONGO_URI)
     .then(() =>
         console.log("Connection to MongoDB has been successfully established."),
     )
