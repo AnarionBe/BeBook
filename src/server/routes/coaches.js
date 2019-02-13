@@ -48,7 +48,7 @@ router.post("/users", (req, res) => {
             newUser.password = hash;
             newUser
                 .save()
-                .then(user => res.status(200).json(user))
+                .then(user => res.status(201).json(user))
                 // eslint-disable-next-line no-shadow
                 .catch(err => res.status(500).send(err));
         });
