@@ -2,7 +2,7 @@ import * as React from "react";
 import HeaderMenu from "./HeaderMenu";
 import SearchBar from "./SearchBar";
 import ProfileButton from "./ProfileButton";
-import logo from "../assets/img/logo.png";
+import logo from "../../assets/img/logo.png";
 
 export default function Header(props) {
     return (

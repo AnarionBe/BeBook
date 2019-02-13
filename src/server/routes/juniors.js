@@ -2,6 +2,7 @@ import express from "express";
 import Book from "../models/Book";
 import Borrowing from "../models/Borrowing";
 import User from "../models/User";
+import Review from "../models/Review";
 
 const router = new express.Router();
 
@@ -11,9 +12,9 @@ const router = new express.Router();
 router.get("/profile", (req, res) => {
     User.findById(req.user.id, (err, user) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(user);
+        return res.status(200).json(user);
     });
 });
 
@@ -21,9 +22,9 @@ router.get("/profile", (req, res) => {
 router.put("/profile", (req, res) => {
     User.findByIdAndUpdate(req.user.id, req.body, {new: true}, (err, user) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(user);
+        return res.status(200).json(user);
     });
 });
 
@@ -33,9 +34,19 @@ router.put("/profile", (req, res) => {
 router.get("/books", (_req, res) => {
     Book.find({}, (err, books) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(books);
+        return res.status(200).json(books);
+    });
+});
+
+// Retrieve the collection of Book resources by a single tag.
+router.get("/books/:tag", (req, res) => {
+    Book.find({tags: req.params.tag}, (err, book) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(book);
     });
 });
 
@@ -43,9 +54,9 @@ router.get("/books", (_req, res) => {
 router.get("/books/:id", (req, res) => {
     Book.find({_id: req.params.id}, (err, book) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(book);
+        return res.status(200).json(book);
     });
 });
 
@@ -55,9 +66,9 @@ router.get("/books/:id", (req, res) => {
 router.get("/borrowings", (req, res) => {
     Borrowing.find({borrower: req.user.id}, (err, borrowings) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(borrowings);
+        return res.status(200).json(borrowings);
     });
 });
 
@@ -75,8 +86,74 @@ router.post("/borrowings/:bookId", (req, res) => {
         book: req.params.bookId,
     })
         .save()
-        .then(borrowing => res.status(200).json(borrowing))
+        .then(borrowing => res.status(201).json(borrowing))
         .catch(err => res.status(500).json(err));
 });
 
+// User send a new review about a book
+router.post("/reviews", (req, res) => {
+    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
+        data => {
+            if (data) {
+                return res.status(400).json({message: "Review already exist"});
+            }
+
+            new Review({
+                author: req.body.userId,
+                book: req.body.bookId,
+                comment: req.body.comment,
+                rating: req.body.rating,
+            })
+                .save()
+                .then(review => res.status(200).json(review))
+                .catch(err => res.status(500).json(err));
+        },
+    );
+});
+// -------------------------------------------
+
+// User delete a specified review
+router.delete("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}, (err, data) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        if (data.author.toString() !== req.body.userId) {
+            return res
+                .status(400)
+                .json({Error: "You can delete your reviews only!"});
+        }
+
+        Review.deleteOne(data, error => {
+            if (error) {
+                return res.status(500).send(error);
+            }
+
+            return res.json({
+                Message: "The review has been successfully deleted!",
+            });
+        });
+    });
+});
+// ------------------------------------
+
+// User update a specified review
+router.patch("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}, (err, data) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        if (data.author.toString() !== req.body.userId) {
+            return res
+                .status(400)
+                .json({Error: "You can update your reviews only!"});
+        }
+
+        data.comment = req.body.newContent;
+        data.save();
+        return res.json(data);
+    });
+});
 export default router;

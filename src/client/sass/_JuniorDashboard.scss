@@ -1,22 +1,22 @@
 .JuniorDashboard-container {
-    width: 550px;
-    height: 300px;
-    background-color: $backgroundColor2;
-    border-radius: 43px;
-    margin: 50px auto;
-    padding: 50px;
-    font-family: "Roboto", serif;
-    display: flex;
-    justify-content: space-between;
+  width: 40rem;
+  background-color: #C4C4C4;
+  border-radius: 30px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: "Roboto", serif;
+  display: flex;
+  justify-content: space-between;
 }
 
 .profilePic {
-  width : 250px;
+  width : 20rem;
+  height: 20rem;
   border-radius: 10%;
 }
 
 .profileInfo {
-  width: 250px;
+  width: 16rem;
   font-size: 20px;
   p {
     margin: 5px auto;
@@ -50,12 +50,11 @@ display: none;
    font-size: 16px;
    font-variant: small-caps;
    font-style: "Roboto",serif;
-&:hover{
+  &:hover{
   transform: scale(1.1);
   cursor: pointer;
+  }
 }
-
- }
 
  .profileToggleBack {
    display: none;

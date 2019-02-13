@@ -1,7 +1,7 @@
 import * as React from "react";
-import Header from "../components/Header";
-import CoachContainer from "../components/CoachContainer";
-import LateralMenu from "../components/LateralMenu";
+import Header from "../../Header/Header";
+import CoachContainer from "./CoachContainer";
+import LateralMenu from "../../LateralMenu/LateralMenu";
 
 export default function CoachPage(props) {
 

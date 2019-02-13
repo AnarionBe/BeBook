@@ -3,16 +3,9 @@ import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import Book from "../models/Book";
 import User from "../models/User";
+import Review from "../models/Review";
 
 const router = new express.Router();
-
-// -------------------------------------------------------------------------- //
-
-// const addDays = days => {
-//     let date = new Date();
-
-//     return date.setDate(date.getDate() + days);
-// };
 
 // -------------------------------------------------------------------------- //
 
@@ -20,9 +13,9 @@ const router = new express.Router();
 router.get("/users", (_req, res) => {
     User.find({}, (err, users) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.json(users);
+        return res.json(users);
     });
 });
 
@@ -45,17 +38,17 @@ router.post("/users", (req, res) => {
 
     bcrypt.genSalt(10, (err, salt) => {
         if (err) {
-            console.log(err.stack);
+            return res.status(500).send(err);
         }
         // eslint-disable-next-line no-shadow
         bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) {
-                res.status(500).send(err);
+                return res.status(500).send(err);
             }
             newUser.password = hash;
             newUser
                 .save()
-                .then(user => res.status(200).json(user))
+                .then(user => res.status(201).json(user))
                 // eslint-disable-next-line no-shadow
                 .catch(err => res.status(500).send(err));
         });
@@ -66,19 +59,34 @@ router.post("/users", (req, res) => {
 router.get("/users/:id", (req, res) => {
     User.find({_id: req.params.id}, (err, user) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.json(user);
+        return res.status(200).json(user);
     });
+});
+
+// Replace the User resource.
+router.put("/users/:id", (req, res) => {
+    User.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true},
+        (err, user) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.status(200).json(user);
+        },
+    );
 });
 
 // Remove the User resource.
 router.delete("/users/:id", (req, res) => {
     User.deleteOne({_id: req.params.id}, err => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.send("deleted");
+        return res.status(200).send("The user has been successfully deleted!");
     });
 });
 
@@ -88,14 +96,25 @@ router.delete("/users/:id", (req, res) => {
 router.get("/books", (_req, res) => {
     Book.find({}, (err, books) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(books);
+        return res.status(200).json(books);
+    });
+});
+
+// Retrieve the collection of Book resources by a single tag.
+router.get("/books/:tag", (req, res) => {
+    Book.find({tags: req.params.tag}, (err, book) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(book);
     });
 });
 
 // Create a Book resource.
 router.post("/books", (req, res) => {
+    // TODO: Manage ISBN with "-" separator.
     new Book({
         title: req.body.title,
         author: req.body.author,
@@ -105,7 +124,7 @@ router.post("/books", (req, res) => {
         tags: req.body.tags.split(","),
     })
         .save()
-        .then(book => res.status(200).json(book))
+        .then(book => res.status(201).json(book))
         .catch(err => res.status(500).json(err));
 });
 
@@ -113,22 +132,79 @@ router.post("/books", (req, res) => {
 router.get("/books/:id", (req, res) => {
     Book.find({_id: req.params.id}, (err, book) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(book);
+        return res.status(200).json(book);
     });
+});
+
+// Replace the Book resource.
+router.put("/books/:id", (req, res) => {
+    Books.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true},
+        (err, book) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.status(200).json(book);
+        },
+    );
 });
 
 // Remove the Book resource.
 router.delete("/books/:id", (req, res) => {
     Book.deleteOne({_id: req.params.id}, err => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).send("The book has been successfully deleted!");
+        return res.status(200).send("The book has been successfully deleted!");
     });
 });
 
 // -------------------------------------------------------------------------- //
+
+// User send a new review about a book
+router.post("/reviews", (req, res) => {
+    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
+        data => {
+            if (data) {
+                return res.status(400).json({Error: "Review already exist"});
+            }
+
+            new Review({
+                author: req.body.userId,
+                book: req.body.bookId,
+                comment: req.body.comment,
+                rating: req.body.rating,
+            }).save();
+
+            return res.json({Message: "ok"});
+        },
+    );
+});
+// ----------------------------------------------------------------------------
+
+// User delete a specified review
+router.delete("/reviews/:id", (req, res) => {
+    Review.deleteOne({_id: req.params.id}, err => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        return res.json({Message: "The review has been successfully deleted!"});
+    });
+});
+// ----------------------------------------------------------------------------
+
+// User update a specified review
+router.patch("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}).then(data => {
+        data.comment = req.body.newContent;
+        data.save();
+        return res.json(data);
+    });
+});
 
 export default router;

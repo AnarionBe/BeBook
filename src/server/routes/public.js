@@ -3,6 +3,7 @@ import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
+import env from "../configs/env";
 
 const router = new express.Router();
 
@@ -16,7 +17,7 @@ router.post("/login", (req, res) => {
     User.findOne({email}).then(user => {
         if (!user) {
             return res
-                .status(404)
+                .status(400)
                 .json({email: "The user has not been found!"});
         }
 
@@ -29,19 +30,18 @@ router.post("/login", (req, res) => {
                     avatar: user.avatar,
                 };
 
-                // TODO: Don't forget to add JWT_SECRET to the environment variables.
-                const secretKey = process.env.JWT_SECRET || "secret";
+                const secretKey = env.JWT_SECRET;
 
                 // Sign the token.
                 jwt.sign(
                     payload,
                     secretKey,
-                    {expiresIn: 3600},
+                    {expiresIn: 7 * 24 * 60 * 60 * 1000},
                     (err, token) => {
                         if (err) {
-                            console.log(err.stack);
+                            return res.status(500).send(err);
                         }
-                        res.json({
+                        return res.status(201).json({
                             success: true,
                             token: `Bearer ${token}`,
                         });
@@ -73,98 +73,29 @@ router.post("/register", (req, res) => {
             firstName: req.body.firstName,
             lastName: req.body.lastName,
             email: req.body.email,
-            avatar,
+            avatar: avatar,
             password: req.body.password,
         });
 
         bcrypt.genSalt(10, (err, salt) => {
             if (err) {
-                console.log(err.stack);
+                return res.status(500).send(err);
             }
             // eslint-disable-next-line no-shadow
             bcrypt.hash(newUser.password, salt, (err, hash) => {
                 if (err) {
-                    throw err;
+                    return res.status(500).send(err);
                 }
                 newUser.password = hash;
                 newUser
                     .save()
                     // eslint-disable-next-line no-shadow
-                    .then(user => res.json(user))
+                    .then(user => res.status(200).json(user))
                     // eslint-disable-next-line no-shadow
-                    .catch(err => console.log(err));
+                    .catch(err => res.status(500).send(err));
             });
         });
     });
-});
-
-// Get the current logged user.
-router.get(
-    "/current",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        res.json({
-            id: req.user.id,
-            firstName: req.user.firstName,
-            lastName: req.user.lastName,
-            email: req.user.email,
-            role: req.user.role,
-        });
-    },
-);
-
-// Get the user by id.
-router.get(
-    "/users/:id",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        User.find({_id: req.params.id}, (err, user) => {
-            if (err) {
-                return res.status(400).json({Error: err});
-            }
-            return res.json(user);
-        });
-    },
-);
-
-// Delete the user.
-router.delete(
-    "/users",
-    passport.authenticate("jwt", {session: false}),
-    (req, res) => {
-        User.deleteOne({_id: req.query.id}, () => {
-            res.send("deleted");
-        });
-    },
-);
-
-router.get("/users", (req, res) => {
-    User.find({}, (err, data) => {
-        if (err) {
-            return res.status(400).json({Error: err});
-        }
-        return res.json(data);
-    });
-});
-
-router.get("/users/:id/reviews", (req, res) => {
-    // TODO: send back reviews for given user
-});
-
-router.get("/users/:id/books", (req, res) => {
-    // TODO: send back books borrowed got the given user
-});
-
-router.post("/users/books", (req, res) => {
-    // TODO: given user borrow given book
-});
-
-router.delete("/users/books", (req, res) => {
-    // TODO: given user send back given book
-});
-
-router.put("/users/books", (req, res) => {
-    // TODO: given user add a delay for the given book
 });
 
 export default router;
