@@ -144,5 +144,17 @@ router.post("/reviews", (req, res) => {
         },
     );
 });
+// ----------------------------------------------------------------------------
+
+// User delete a specified review
+router.delete("/reviews/:id", (req, res) => {
+    Review.deleteOne({_id: req.params.id}, err => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        return res.json({Message: "The review has been successfully deleted!"});
+    });
+});
 
 export default router;
