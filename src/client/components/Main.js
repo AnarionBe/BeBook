@@ -12,14 +12,11 @@ import "@fortawesome/fontawesome-free";
 import {Switch, BrowserRouter, Route} from "react-router-dom";
 
 export default function Main() {
-    // constructor(props) {
-    //     super(props);
-    //
-    //     this.reviewModaleOn = this.reviewModaleOn.bind(this);
-    //     this.reviewModaleOff = this.reviewModaleOff.bind(this);
-    //     this.modifyProfile = this.modifyProfile.bind(this);
-    //     this.ProfileToggleBack = this.ProfileToggleBack.bind(this);
-    // }
+
+    const isAvailable = true;
+    const isBorrowedByMe = false;
+
+    const alreadyReviewed = false;
 
     const isLogged = true;
     const isCoach = true;
@@ -70,7 +67,7 @@ export default function Main() {
                         path="/"
                         render={() => (
                             <div>
-                                
+
                                 <Login />
                             </div>
                         )}
@@ -94,6 +91,9 @@ export default function Main() {
                                 <Header />
                                 <Bookpage
                                     reviewModaleOn={reviewModaleOn}
+                                    isAvailable={isAvailable}
+                                    isBorrowedByMe={isBorrowedByMe}
+                                    alreadyReviewed={alreadyReviewed}
                                 />
                                 <ReviewForm
                                     reviewModaleOff={reviewModaleOff}
