@@ -3,6 +3,7 @@ import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User";
+import env from "../configs/env";
 
 const router = new express.Router();
 
@@ -16,7 +17,7 @@ router.post("/login", (req, res) => {
     User.findOne({email}).then(user => {
         if (!user) {
             return res
-                .status(404)
+                .status(400)
                 .json({email: "The user has not been found!"});
         }
 
@@ -29,8 +30,7 @@ router.post("/login", (req, res) => {
                     avatar: user.avatar,
                 };
 
-                // TODO: Don't forget to add JWT_SECRET to the environment variables.
-                const secretKey = process.env.JWT_SECRET || "secret";
+                const secretKey = env.JWT_SECRET;
 
                 // Sign the token.
                 jwt.sign(
@@ -39,9 +39,9 @@ router.post("/login", (req, res) => {
                     {expiresIn: 3600},
                     (err, token) => {
                         if (err) {
-                            console.log(err.stack);
+                            return res.status(500).send(err);
                         }
-                        res.json({
+                        return res.status(200).json({
                             success: true,
                             token: `Bearer ${token}`,
                         });
@@ -79,20 +79,20 @@ router.post("/register", (req, res) => {
 
         bcrypt.genSalt(10, (err, salt) => {
             if (err) {
-                console.log(err.stack);
+                return res.status(500).send(err);
             }
             // eslint-disable-next-line no-shadow
             bcrypt.hash(newUser.password, salt, (err, hash) => {
                 if (err) {
-                    throw err;
+                    return res.status(500).send(err);
                 }
                 newUser.password = hash;
                 newUser
                     .save()
                     // eslint-disable-next-line no-shadow
-                    .then(user => res.json(user))
+                    .then(user => res.status(200).json(user))
                     // eslint-disable-next-line no-shadow
-                    .catch(err => console.log(err));
+                    .catch(err => res.status(500).send(err));
             });
         });
     });
