@@ -156,5 +156,15 @@ router.delete("/reviews/:id", (req, res) => {
         return res.json({Message: "The review has been successfully deleted!"});
     });
 });
+// ----------------------------------------------------------------------------
+
+// User update a specified review
+router.patch("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}).then(data => {
+        data.comment = req.body.newContent;
+        data.save();
+        return res.json(data);
+    });
+});
 
 export default router;
