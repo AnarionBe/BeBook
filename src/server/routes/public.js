@@ -36,7 +36,7 @@ router.post("/login", (req, res) => {
                 jwt.sign(
                     payload,
                     secretKey,
-                    {expiresIn: 7 * 24 * 60 * 60 * 1000},
+                    {expiresIn: 7 * 24 * 60 * 60},
                     (err, token) => {
                         if (err) {
                             return res.status(500).send(err);
