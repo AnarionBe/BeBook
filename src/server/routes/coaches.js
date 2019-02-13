@@ -65,6 +65,21 @@ router.get("/users/:id", (req, res) => {
     });
 });
 
+// Replace the User resource.
+router.put("/users/:id", (req, res) => {
+    User.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true},
+        (err, user) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.status(200).json(user);
+        },
+    );
+});
+
 // Remove the User resource.
 router.delete("/users/:id", (req, res) => {
     User.deleteOne({_id: req.params.id}, err => {
@@ -111,6 +126,21 @@ router.get("/books/:id", (req, res) => {
         }
         return res.status(200).json(book);
     });
+});
+
+// Replace the Book resource.
+router.put("/books/:id", (req, res) => {
+    Books.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true},
+        (err, book) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.status(200).json(book);
+        },
+    );
 });
 
 // Remove the Book resource.
