@@ -11,10 +11,10 @@ import {Switch, BrowserRouter, Route} from "react-router-dom";
 
 export default function Main() {
 
-    const isAvailable = true;
-    const isBorrowedByMe = false;
+    const isAvailable = false;
+    const isBorrowedByMe = true;
 
-    const alreadyReviewed = false;
+    const alreadyReviewed = true;
 
     const isLogged = true;
     const isCoach = true;
@@ -75,7 +75,7 @@ export default function Main() {
                         path="/bookpage"
                         render={() => (
                             <div>
-                                <Header />
+
                                 <Bookpage
                                     reviewModaleOn={reviewModaleOn}
                                     isAvailable={isAvailable}

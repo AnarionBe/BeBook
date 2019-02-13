@@ -18,9 +18,16 @@ export default function Bookpage(props) {
 
             <div className="bookpage-container">
                 <BookpageInfo />
-                <BookpageRef />
-                <BookpageReviews />
-                <AddReview reviewModaleOn={props.reviewModaleOn} />
+                <BookpageRef
+                isBorrowedByMe = {props.isBorrowedByMe}
+                isAvailable={props.isAvailable}
+
+              />
+                <BookpageReviews/>
+                {!props.alreadyReviewed ?
+                <AddReview reviewModaleOn={props.reviewModaleOn} /> :
+                null
+                }
             </div>
         </div>
     );
