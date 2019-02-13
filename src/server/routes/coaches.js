@@ -48,7 +48,7 @@ router.post("/users", (req, res) => {
             newUser.password = hash;
             newUser
                 .save()
-                .then(user => res.status(200).json(user))
+                .then(user => res.status(201).json(user))
                 // eslint-disable-next-line no-shadow
                 .catch(err => res.status(500).send(err));
         });
@@ -63,6 +63,21 @@ router.get("/users/:id", (req, res) => {
         }
         return res.status(200).json(user);
     });
+});
+
+// Replace the User resource.
+router.put("/users/:id", (req, res) => {
+    User.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true},
+        (err, user) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.status(200).json(user);
+        },
+    );
 });
 
 // Remove the User resource.
@@ -99,7 +114,7 @@ router.post("/books", (req, res) => {
         tags: req.body.tags.split(","),
     })
         .save()
-        .then(book => res.status(200).json(book))
+        .then(book => res.status(201).json(book))
         .catch(err => res.status(500).json(err));
 });
 
@@ -111,6 +126,21 @@ router.get("/books/:id", (req, res) => {
         }
         return res.status(200).json(book);
     });
+});
+
+// Replace the Book resource.
+router.put("/books/:id", (req, res) => {
+    Books.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true},
+        (err, book) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.status(200).json(book);
+        },
+    );
 });
 
 // Remove the Book resource.

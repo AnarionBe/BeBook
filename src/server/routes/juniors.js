@@ -76,7 +76,7 @@ router.post("/borrowings/:bookId", (req, res) => {
         book: req.params.bookId,
     })
         .save()
-        .then(borrowing => res.status(200).json(borrowing))
+        .then(borrowing => res.status(201).json(borrowing))
         .catch(err => res.status(500).json(err));
 });
 
