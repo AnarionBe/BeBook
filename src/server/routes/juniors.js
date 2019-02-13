@@ -12,9 +12,9 @@ const router = new express.Router();
 router.get("/profile", (req, res) => {
     User.findById(req.user.id, (err, user) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(user);
+        return res.status(200).json(user);
     });
 });
 
@@ -22,9 +22,9 @@ router.get("/profile", (req, res) => {
 router.put("/profile", (req, res) => {
     User.findByIdAndUpdate(req.user.id, req.body, {new: true}, (err, user) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(user);
+        return res.status(200).json(user);
     });
 });
 
@@ -34,9 +34,9 @@ router.put("/profile", (req, res) => {
 router.get("/books", (_req, res) => {
     Book.find({}, (err, books) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(books);
+        return res.status(200).json(books);
     });
 });
 
@@ -44,9 +44,9 @@ router.get("/books", (_req, res) => {
 router.get("/books/:id", (req, res) => {
     Book.find({_id: req.params.id}, (err, book) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(book);
+        return res.status(200).json(book);
     });
 });
 
@@ -56,9 +56,9 @@ router.get("/books/:id", (req, res) => {
 router.get("/borrowings", (req, res) => {
     Borrowing.find({borrower: req.user.id}, (err, borrowings) => {
         if (err) {
-            res.status(500).send(err);
+            return res.status(500).send(err);
         }
-        res.status(200).json(borrowings);
+        return res.status(200).json(borrowings);
     });
 });
 
@@ -85,7 +85,7 @@ router.post("/reviews", (req, res) => {
     Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
         data => {
             if (data) {
-                return res.status(400).json({Error: "Review already exist"}); // => request to modify it instead
+                return res.status(400).json({message: "Review already exist"});
             }
 
             new Review({
@@ -93,9 +93,10 @@ router.post("/reviews", (req, res) => {
                 book: req.body.bookId,
                 comment: req.body.comment,
                 rating: req.body.rating,
-            }).save();
-
-            return res.json({Message: "ok"});
+            })
+                .save()
+                .then(review => res.status(200).json(review))
+                .catch(err => res.status(500).json(err));
         },
     );
 });
