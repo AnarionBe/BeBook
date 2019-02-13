@@ -3,8 +3,8 @@ import BookpageInfo from "./BookpageInfo";
 import BookpageRef from "./BookpageRef";
 import BookpageReviews from "./BookpageReviews";
 import AddReview from "./AddReview";
-import Header from "./Header";
-import LateralMenu from "./LateralMenu";
+import Header from "../../Header/Header";
+import LateralMenu from "../../LateralMenu/LateralMenu";
 
 
 export default function Bookpage(props) {

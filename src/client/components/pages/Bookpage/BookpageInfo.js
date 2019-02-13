@@ -1,5 +1,5 @@
 import * as React from "react";
-import bookcover from "../assets/img/images.jpg";
+import bookcover from "../../../assets/img/images.jpg";
 export default class BookpageInfo extends React.Component {
     render() {
         return (

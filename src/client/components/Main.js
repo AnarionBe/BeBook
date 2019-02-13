@@ -1,11 +1,10 @@
 import * as React from "react";
-import Header from "../components/Header";
-import Bookpage from "./Bookpage";
-import ReviewForm from "./ReviewForm";
-import JuniorDashboard from "./JuniorDashboard";
-import JuniorHomepage from "./JuniorHomepage";
-import Login from "./Login";
-import CoachPage from "./CoachPage";
+import Bookpage from "./pages/Bookpage/Bookpage";
+import ReviewForm from "./pages/Bookpage/ReviewForm";
+import JuniorDashboard from "./pages/Profile/JuniorDashboard";
+import JuniorPage from "./pages/Juniorpage/JuniorPage";
+import Login from "./pages/Login/Login";
+import CoachPage from "./pages/Coachpage/CoachPage";
 
 import "@fortawesome/fontawesome-free";
 import {Switch, BrowserRouter, Route} from "react-router-dom";
@@ -99,7 +98,7 @@ export default function Main() {
                     path="/juniorpage"
                     render={() => (
                         <div>
-                            <JuniorHomepage
+                            <JuniorPage
                                 switchLateralMenu={switchLateralMenu}
                                 slide={active}
                                 isCoach={isCoach}
