@@ -11,10 +11,10 @@ import {Switch, BrowserRouter, Route} from "react-router-dom";
 
 export default function Main() {
 
-    const isAvailable = false;
-    const isBorrowedByMe = true;
+    const isAvailable = true;
+    const isBorrowedByMe = false;
 
-    const alreadyReviewed = true;
+    const alreadyReviewed = false;
 
     const isLogged = true;
     const isCoach = true;
