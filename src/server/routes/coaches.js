@@ -147,8 +147,8 @@ router.post("/reviews", (req, res) => {
 // ----------------------------------------------------------------------------
 
 // User delete a specified review
-router.delete("/reviews", (req, res) => {
-    Review.deleteOne({_id: req.body.reviewId}, err => {
+router.delete("/reviews/:id", (req, res) => {
+    Review.deleteOne({_id: req.params.id}, err => {
         if (err) {
             return res.status(500).send(err);
         }
