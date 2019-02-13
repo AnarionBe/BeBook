@@ -99,5 +99,32 @@ router.post("/reviews", (req, res) => {
         },
     );
 });
+// -------------------------------------------
+
+// User delete a specified review
+router.delete("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}, (err, data) => {
+        console.log(typeof req.body.userId);
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        if (data.author.toString() !== req.body.userId) {
+            return res
+                .status(400)
+                .json({Error: "You can delete your reviews only!"});
+        }
+
+        Review.deleteOne(data, error => {
+            if (error) {
+                return res.status(500).send(error);
+            }
+
+            return res.json({
+                Message: "The review has been successfully deleted!",
+            });
+        });
+    });
+});
 
 export default router;
