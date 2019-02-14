@@ -1,12 +1,9 @@
 import * as React from "react";
 import {login} from "../../auth";
+import {Redirect} from "react-router-dom";
 
 export default function Login() {
-    const retrieveData = data => {
-        console.log(data);
-        // TODO: store token
-        // TODO: redirect to main page(coach/junior)
-    };
+    const [redirect, setRedirect] = React.useState(false);
 
     const connection = e => {
         e.preventDefault();
@@ -16,11 +13,14 @@ export default function Login() {
             password: e.target.password.value,
         };
 
-        login(data, retrieveData);
+        login(data, () => {
+            return setRedirect(true);
+        });
     };
 
     return (
         <div className="loginPage">
+            {redirect && <Redirect to="/coachpage" />}
             <div className="login">
                 <h2>{" LOGIN "}</h2>
                 <form onSubmit={connection}>
