@@ -5,29 +5,20 @@ import LateralMenu from "../../LateralMenu/LateralMenu";
 import axios from "axios";
 
 export default function JuniorPage(props) {
-    // const [books, setBooks] = useState({hits: []});
+    const [books, setBooks] = useState(undefined);
 
-    axios
-        .get("http://localhost/api/juniors/books", {
-            headers: {
-                authorization:
-                    "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjNkNGRiNmFkMjI4MDA0YTYwMzAwNCIsImVtYWlsIjoianVuaW9yLmJhcnRAZ21haWwuY29tIiwiYXZhdGFyIjoiLy93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9lYjY2N2E2ODRlYzBlZGFjZWE4Y2U1Y2RlNzgwOWI0Mz9zPTIwMCZyPXBnJmQ9bW0iLCJpYXQiOjE1NTAxMzU2MjYsImV4cCI6MTU1MDEzOTIyNn0.PfwTi4sDECsVn8_wEwXus0ab0rtj4X00Y3nZw1hx-2k",
-            },
-        })
-        .then(response => {
-            setBooks(response.data);
-        });
-
-    // useEffect(async () => {
-    //     const result = await axios.get("http://localhost/api/juniors/books", {
-    //         headers: {
-    //             authorization:
-    //                 "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjNkNGRiNmFkMjI4MDA0YTYwMzAwNCIsImVtYWlsIjoianVuaW9yLmJhcnRAZ21haWwuY29tIiwiYXZhdGFyIjoiLy93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9lYjY2N2E2ODRlYzBlZGFjZWE4Y2U1Y2RlNzgwOWI0Mz9zPTIwMCZyPXBnJmQ9bW0iLCJpYXQiOjE1NTAxMzU2MjYsImV4cCI6MTU1MDEzOTIyNn0.PfwTi4sDECsVn8_wEwXus0ab0rtj4X00Y3nZw1hx-2k",
-    //         },
-    //     });
-
-    //     setBooks(result.data);
-    // }, []);
+    if (books === undefined) {
+        axios
+            .get(`/api/juniors/books`, {
+                headers: {
+                    authorization:
+                        "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjNkNGRiNmFkMjI4MDA0YTYwMzAwNCIsImVtYWlsIjoianVuaW9yLmJhcnRAZ21haWwuY29tIiwiYXZhdGFyIjoiLy93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9lYjY2N2E2ODRlYzBlZGFjZWE4Y2U1Y2RlNzgwOWI0Mz9zPTIwMCZyPXBnJmQ9bW0iLCJpYXQiOjE1NTAxNDk0NTQsImV4cCI6MTU1MDc1NDI1NH0.83ovWRoydW4B6q0wFUEVmIq7FLishCXfL5Rtdnt_Chc",
+                },
+            })
+            .then(res => {
+                setBooks(res.data);
+            });
+    }
 
     return (
         <div className="main">
@@ -35,7 +26,8 @@ export default function JuniorPage(props) {
                 switchLateralMenu={props.switchLateralMenu}
                 isCoach={props.isCoach}
             />
-            <JuniorContainer/>
+            <div />
+            {books && <JuniorContainer books={books} />}
             <LateralMenu slide={props.slide} />
         </div>
     );
