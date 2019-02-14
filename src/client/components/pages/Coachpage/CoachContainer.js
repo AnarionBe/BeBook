@@ -47,9 +47,9 @@ export default function CoachContainer() {
             <ReactTable
                 data={data}
                 columns={columns}
-                defaultPageSize = {3}
-                pageSizeOptions = {[3, 6]}
-              />
+                defaultPageSize={3}
+                pageSizeOptions={[3, 6]}
+            />
         </div>
     );
 }
