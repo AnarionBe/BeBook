@@ -26,7 +26,9 @@ router.post("/login", (req, res) => {
                 // Create the payload.
                 const payload = {
                     id: user.id,
-                    email: user.email,
+                    role: user.role,
+                    firstName: user.firstName,
+                    lastname: user.lastName,
                     avatar: user.avatar,
                 };
 
@@ -44,7 +46,6 @@ router.post("/login", (req, res) => {
                         return res.status(201).json({
                             success: true,
                             token: `Bearer ${token}`,
-                            user: user,
                         });
                     },
                 );
