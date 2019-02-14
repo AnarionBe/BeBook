@@ -9,6 +9,7 @@ import img6 from "../../../assets/img/51YHItqxXYL._SX413_BO1,204,203,200_.jpg";
 import img7 from "../../../assets/img/418+D1M5XTL._SX411_BO1,204,203,200_.jpg";
 
 export default function JuniorContainer() {
+    
     return (
         <div className="container">
             <Bookpane
