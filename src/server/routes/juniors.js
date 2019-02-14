@@ -40,6 +40,16 @@ router.get("/books", (_req, res) => {
     });
 });
 
+// Retrieve the collection of Book resources by a single tag.
+router.get("/books/:tag", (req, res) => {
+    Book.find({tags: req.params.tag}, (err, book) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(book);
+    });
+});
+
 // Retrieve a Book resource.
 router.get("/books/:id", (req, res) => {
     Book.find({_id: req.params.id}, (err, book) => {
@@ -76,7 +86,7 @@ router.post("/borrowings/:bookId", (req, res) => {
         book: req.params.bookId,
     })
         .save()
-        .then(borrowing => res.status(200).json(borrowing))
+        .then(borrowing => res.status(201).json(borrowing))
         .catch(err => res.status(500).json(err));
 });
 
@@ -100,5 +110,50 @@ router.post("/reviews", (req, res) => {
         },
     );
 });
+// -------------------------------------------
 
+// User delete a specified review
+router.delete("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}, (err, data) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        if (data.author.toString() !== req.body.userId) {
+            return res
+                .status(400)
+                .json({Error: "You can delete your reviews only!"});
+        }
+
+        Review.deleteOne(data, error => {
+            if (error) {
+                return res.status(500).send(error);
+            }
+
+            return res.json({
+                Message: "The review has been successfully deleted!",
+            });
+        });
+    });
+});
+// ------------------------------------
+
+// User update a specified review
+router.patch("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}, (err, data) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        if (data.author.toString() !== req.body.userId) {
+            return res
+                .status(400)
+                .json({Error: "You can update your reviews only!"});
+        }
+
+        data.comment = req.body.newContent;
+        data.save();
+        return res.json(data);
+    });
+});
 export default router;

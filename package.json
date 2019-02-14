@@ -58,8 +58,6 @@
     "express": "^4.16.4",
     "gravatar": "^1.8.0",
     "hamoni-sync": "^1.1.1",
-    "i": "^0.3.6",
-    "install": "^0.12.2",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.4.11",
     "npm": "^6.7.0",

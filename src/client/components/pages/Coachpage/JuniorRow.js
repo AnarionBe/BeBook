@@ -14,8 +14,12 @@ export default function JuniorRow(props) {
                 {props.data.Firstname}
             </td>
             <td className="junior-cell-lastname">{props.data.Lastname}</td>
-            <td><button>edit</button></td>
-            <td><button>delete</button></td>
+            <td>
+                <button>{"edit"}</button>
+            </td>
+            <td>
+                <button>{"delete"}</button>
+            </td>
         </tr>
     );
 }

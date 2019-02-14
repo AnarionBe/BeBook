@@ -48,7 +48,7 @@ router.post("/users", (req, res) => {
             newUser.password = hash;
             newUser
                 .save()
-                .then(user => res.status(200).json(user))
+                .then(user => res.status(201).json(user))
                 // eslint-disable-next-line no-shadow
                 .catch(err => res.status(500).send(err));
         });
@@ -63,6 +63,21 @@ router.get("/users/:id", (req, res) => {
         }
         return res.status(200).json(user);
     });
+});
+
+// Replace the User resource.
+router.put("/users/:id", (req, res) => {
+    User.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true},
+        (err, user) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.status(200).json(user);
+        },
+    );
 });
 
 // Remove the User resource.
@@ -87,9 +102,18 @@ router.get("/books", (_req, res) => {
     });
 });
 
+// Retrieve the collection of Book resources by a single tag.
+router.get("/books/:tag", (req, res) => {
+    Book.find({tags: req.params.tag}, (err, book) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(book);
+    });
+});
+
 // Create a Book resource.
 router.post("/books", (req, res) => {
-    // TODO: Manage ISBN with "-" separator.
     new Book({
         title: req.body.title,
         author: req.body.author,
@@ -99,7 +123,7 @@ router.post("/books", (req, res) => {
         tags: req.body.tags.split(","),
     })
         .save()
-        .then(book => res.status(200).json(book))
+        .then(book => res.status(201).json(book))
         .catch(err => res.status(500).json(err));
 });
 
@@ -111,6 +135,21 @@ router.get("/books/:id", (req, res) => {
         }
         return res.status(200).json(book);
     });
+});
+
+// Replace the Book resource.
+router.put("/books/:id", (req, res) => {
+    Books.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new: true},
+        (err, book) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            return res.status(200).json(book);
+        },
+    );
 });
 
 // Remove the Book resource.
@@ -154,6 +193,16 @@ router.delete("/reviews/:id", (req, res) => {
         }
 
         return res.json({Message: "The review has been successfully deleted!"});
+    });
+});
+// ----------------------------------------------------------------------------
+
+// User update a specified review
+router.patch("/reviews", (req, res) => {
+    Review.findOne({_id: req.body.reviewId}).then(data => {
+        data.comment = req.body.newContent;
+        data.save();
+        return res.json(data);
     });
 });
 
