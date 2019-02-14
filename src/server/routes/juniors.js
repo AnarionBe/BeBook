@@ -78,6 +78,7 @@ router.post("/borrowings/:bookId", (req, res) => {
     Book.findByIdAndUpdate(req.params.bookId, {
         state: "unavailable",
         dueDate: () => Date.now() + 7 * 24 * 60 * 60 * 1000,
+        borrowedBy: req.user.id,
     }).exec();
 
     // Finally, create the new borrowing and return it as JSON.

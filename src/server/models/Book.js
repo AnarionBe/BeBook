@@ -45,6 +45,11 @@ const schema = new mongoose.Schema(
             type: Date,
             default: null,
         },
+        borrowedBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            default: null,
+        },
     },
     {collection: "Book"},
 );
