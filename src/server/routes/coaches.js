@@ -2,6 +2,7 @@ import express from "express";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
 import Book from "../models/Book";
+import Borrowing from "../models/Borrowing";
 import User from "../models/User";
 import Review from "../models/Review";
 
@@ -159,6 +160,19 @@ router.delete("/books/:id", (req, res) => {
             return res.status(500).send(err);
         }
         return res.status(200).send("The book has been successfully deleted!");
+    });
+});
+
+// -------------------------------------------------------------------------- //
+
+// Retrieve the collection of Borrowing resources.
+
+router.get("/borrowings", (_req, res) => {
+    Borrowing.find({}, (err, borrowings) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(borrowings);
     });
 });
 
