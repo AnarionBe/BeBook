@@ -14,14 +14,17 @@ export default function Login() {
         };
 
         login(data, () => {
-            access();
             return setRedirect(true);
         });
     };
 
     return (
         <div className="loginPage">
-            {redirect && <Redirect to="/coachpage" />}
+            {redirect && (
+                <Redirect
+                    to={access() === "junior" ? "/juniorpage" : "/coachpage"}
+                />
+            )}
             <div className="login">
                 <h2>{" LOGIN "}</h2>
                 <form onSubmit={connection}>
