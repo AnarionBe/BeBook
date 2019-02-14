@@ -44,6 +44,7 @@ router.post("/login", (req, res) => {
                         return res.status(201).json({
                             success: true,
                             token: `Bearer ${token}`,
+                            user: user,
                         });
                     },
                 );

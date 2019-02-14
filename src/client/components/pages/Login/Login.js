@@ -1,5 +1,5 @@
 import * as React from "react";
-import {login} from "../../auth";
+import {login, access} from "../../auth";
 import {Redirect} from "react-router-dom";
 
 export default function Login() {
@@ -14,6 +14,7 @@ export default function Login() {
         };
 
         login(data, () => {
+            access();
             return setRedirect(true);
         });
     };
