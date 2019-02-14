@@ -114,7 +114,6 @@ router.get("/books/:tag", (req, res) => {
 
 // Create a Book resource.
 router.post("/books", (req, res) => {
-    // TODO: Manage ISBN with "-" separator.
     new Book({
         title: req.body.title,
         author: req.body.author,
