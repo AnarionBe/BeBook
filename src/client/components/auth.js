@@ -13,6 +13,10 @@ const getToken = () => {
     return window.localStorage.getItem("userToken");
 };
 
+const getUser = () => {
+    return window.localStorage.getItem("user");
+};
+
 export const login = (data, callback) => {
     axios.post("http://localhost/api/login", data).then(response => {
         storeToken(response.data.token);
@@ -22,7 +26,5 @@ export const login = (data, callback) => {
 };
 
 export const access = () => {
-    const token = getToken();
-
-    console.log(decode(token));
+    return getUser().role;
 };

@@ -14,7 +14,7 @@ export default function Login() {
         };
 
         login(data, () => {
-            access();
+            console.log(access());
             return setRedirect(true);
         });
     };
