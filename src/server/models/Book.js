@@ -18,6 +18,9 @@ const schema = new mongoose.Schema(
             type: String,
             required: true,
         },
+        cover: {
+            type: String,
+        },
         formats: [
             {
                 type: String,

@@ -110,7 +110,8 @@ router.post("/reviews", (req, res) => {
         },
     );
 });
-// -------------------------------------------
+
+// -------------------------------------------------------------------------- //
 
 // User delete a specified review
 router.delete("/reviews", (req, res) => {
@@ -136,7 +137,8 @@ router.delete("/reviews", (req, res) => {
         });
     });
 });
-// ------------------------------------
+
+// -------------------------------------------------------------------------- //
 
 // User update a specified review
 router.patch("/reviews", (req, res) => {
@@ -156,4 +158,5 @@ router.patch("/reviews", (req, res) => {
         return res.json(data);
     });
 });
+
 export default router;
