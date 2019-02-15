@@ -1,26 +1,26 @@
 import * as React from "react";
-import {login, access} from "../../auth";
+import {login, access, loggedIn} from "../../auth";
 import {Redirect} from "react-router-dom";
 
 export default function Login() {
-    const [redirect, setRedirect] = React.useState(false);
-
+    const [, setUpdate] = React.useState();
     const connection = e => {
         e.preventDefault();
 
-        const data = {
-            email: e.target.email.value,
-            password: e.target.password.value,
-        };
-
-        login(data, () => {
-            return setRedirect(true);
-        });
+        login(
+            {
+                email: e.target.email.value,
+                password: e.target.password.value,
+            },
+            () => {
+                setUpdate(true);
+            },
+        );
     };
 
     return (
         <div className="loginPage">
-            {redirect && (
+            {loggedIn() && (
                 <Redirect
                     to={access() === "junior" ? "/juniorpage" : "/coachpage"}
                 />
