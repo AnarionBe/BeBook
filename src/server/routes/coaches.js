@@ -166,7 +166,6 @@ router.delete("/books/:id", (req, res) => {
 // -------------------------------------------------------------------------- //
 
 // Retrieve the collection of Borrowing resources.
-
 router.get("/borrowings", (_req, res) => {
     Borrowing.find({}, (err, borrowings) => {
         if (err) {
@@ -178,12 +177,12 @@ router.get("/borrowings", (_req, res) => {
 
 // -------------------------------------------------------------------------- //
 
-// User send a new review about a book
+// Send a new review about a book.
 router.post("/reviews", (req, res) => {
     Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
         data => {
             if (data) {
-                return res.status(400).json({Error: "Review already exist"});
+                return res.status(400).json({error: "Review already exist!"});
             }
 
             new Review({
@@ -193,25 +192,23 @@ router.post("/reviews", (req, res) => {
                 rating: req.body.rating,
             }).save();
 
-            return res.json({Message: "ok"});
+            return res.json({message: "ok"});
         },
     );
 });
-// ----------------------------------------------------------------------------
 
-// User delete a specified review
+// Delete a specified review.
 router.delete("/reviews/:id", (req, res) => {
     Review.deleteOne({_id: req.params.id}, err => {
         if (err) {
             return res.status(500).send(err);
         }
 
-        return res.json({Message: "The review has been successfully deleted!"});
+        return res.json({message: "The review has been successfully deleted!"});
     });
 });
-// ----------------------------------------------------------------------------
 
-// User update a specified review
+// Update a specified review.
 router.patch("/reviews", (req, res) => {
     Review.findOne({_id: req.body.reviewId}).then(data => {
         data.comment = req.body.newContent;

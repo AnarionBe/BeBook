@@ -91,30 +91,46 @@ router.post("/borrowings/:bookId", (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
-// User send a new review about a book
-router.post("/reviews", (req, res) => {
-    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
-        data => {
-            if (data) {
-                return res.status(400).json({message: "Review already exist"});
-            }
-
-            new Review({
-                author: req.body.userId,
-                book: req.body.bookId,
-                comment: req.body.comment,
-                rating: req.body.rating,
-            })
-                .save()
-                .then(review => res.status(200).json(review))
-                .catch(err => res.status(500).json(err));
-        },
-    );
-});
-
 // -------------------------------------------------------------------------- //
 
-// User delete a specified review
+// Send a new review about a book.
+router.post("/reviews", (req, res) => {
+    Review.findOne({author: req.user.id, book: req.body.bookId}).then(data => {
+        if (data) {
+            return res.status(400).json({message: "Review already exist!"});
+        }
+
+        // Create a new Review resource.
+        new Review({
+            author: req.user.id,
+            book: req.body.bookId,
+            comment: req.body.comment,
+            rating: req.body.rating,
+        })
+            .save()
+            .then(review => {
+                res.status(200).json(review);
+            })
+            // And finally, recompute the average rating of the Book resource.
+            .then(() => {
+                Review.find({}).then(reviews => {
+                    let ratings = [];
+
+                    reviews.forEach(review => {
+                        ratings.push(review.rating);
+                    });
+
+                    Book.findByIdAndUpdate(req.body.bookId, {
+                        averageRating:
+                            ratings.reduce((a, b) => a + b, 0) / ratings.length,
+                    }).exec();
+                });
+            })
+            .catch(err => res.status(500).json(err));
+    });
+});
+
+// Delete a specified review.
 router.delete("/reviews", (req, res) => {
     Review.findOne({_id: req.body.reviewId}, (err, data) => {
         if (err) {
@@ -124,7 +140,7 @@ router.delete("/reviews", (req, res) => {
         if (data.author.toString() !== req.body.userId) {
             return res
                 .status(400)
-                .json({Error: "You can delete your reviews only!"});
+                .json({error: "You can delete your reviews only!"});
         }
 
         Review.deleteOne(data, error => {
@@ -133,15 +149,13 @@ router.delete("/reviews", (req, res) => {
             }
 
             return res.json({
-                Message: "The review has been successfully deleted!",
+                message: "The review has been successfully deleted!",
             });
         });
     });
 });
 
-// -------------------------------------------------------------------------- //
-
-// User update a specified review
+// Update a specified review.
 router.patch("/reviews", (req, res) => {
     Review.findOne({_id: req.body.reviewId}, (err, data) => {
         if (err) {
