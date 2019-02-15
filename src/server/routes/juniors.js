@@ -114,15 +114,10 @@ router.post("/reviews", (req, res) => {
             // And finally, recompute the average rating of the Book resource.
             .then(() => {
                 Review.find({}).then(reviews => {
-                    let ratings = [];
-
-                    reviews.forEach(review => {
-                        ratings.push(review.rating);
-                    });
-
                     Book.findByIdAndUpdate(req.body.bookId, {
                         averageRating:
-                            ratings.reduce((a, b) => a + b, 0) / ratings.length,
+                            reviews.reduce((a, b) => a + b.rating, 0) /
+                            reviews.length,
                     }).exec();
                 });
             })
