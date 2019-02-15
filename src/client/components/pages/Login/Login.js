@@ -18,6 +18,10 @@ export default function Login() {
         );
     };
 
+    if (window.state !== "/login") {
+        window.history.pushState(null, "", "/login");
+    }
+
     return (
         <div className="loginPage">
             {loggedIn() && (
