@@ -1,12 +1,11 @@
 import express from "express";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
+import isbnCover from "node-isbn";
 import Book from "../models/Book";
 import Borrowing from "../models/Borrowing";
 import User from "../models/User";
 import Review from "../models/Review";
-
-import isbnCover from "node-isbn";
 
 const router = new express.Router();
 
