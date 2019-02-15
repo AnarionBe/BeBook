@@ -5,6 +5,7 @@ import JuniorDashboard from "./pages/Profile/JuniorDashboard";
 import JuniorPage from "./pages/Juniorpage/JuniorPage";
 import Login from "./pages/Login/Login";
 import CoachPage from "./pages/Coachpage/CoachPage";
+import {loggedIn} from "./auth";
 
 import "@fortawesome/fontawesome-free";
 import {Switch, BrowserRouter, Route} from "react-router-dom";
@@ -50,12 +51,20 @@ export default function Main() {
             "none";
     };
 
+    if (!loggedIn()) {
+        return (
+            <div>
+                <Login />
+            </div>
+        );
+    }
+
     return (
         <BrowserRouter>
             <Switch>
                 <Route
                     exact
-                    path="/"
+                    path="/login"
                     render={() => (
                         <div>
                             <Login />
