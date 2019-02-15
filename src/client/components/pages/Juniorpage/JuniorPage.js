@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from "react";
 import JuniorContainer from "./JuniorContainer";
-import Header from "../../Header/Header";
-import LateralMenu from "../../LateralMenu/LateralMenu";
 import axios from "axios";
 
 export default function JuniorPage(props) {
@@ -22,7 +20,6 @@ export default function JuniorPage(props) {
 
     return (
         <div className="main">
-            <Header />
             {books && <JuniorContainer books={books} />}
         </div>
     );

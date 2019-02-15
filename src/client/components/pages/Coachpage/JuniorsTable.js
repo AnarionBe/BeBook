@@ -1,11 +1,13 @@
 import * as React from "react";
+import {useState} from "react";
 import ReactTable from "react-table";
+import axios from "axios";
 import "react-table/react-table.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 
 
-export default function JuniorsTable(props) {
+export default function JuniorsTable() {
     const [users, setUsers] = useState(undefined);
 
     const headers = {
@@ -59,9 +61,9 @@ export default function JuniorsTable(props) {
             },
         },
     ];
-
+    
     return (
-        <div>
+        <div className="table">
             {users && (
                 <ReactTable
                     data={users}

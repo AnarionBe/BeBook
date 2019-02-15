@@ -1,12 +1,11 @@
 import * as React from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faUserEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {useState} from "react";
+import axios from "axios";
 
-export default function BooksTable(props) {
+export default function BooksTable() {
     const [books, setBooks] = useState(undefined);
-
 
     const headers = {
         headers: {
@@ -21,8 +20,6 @@ export default function BooksTable(props) {
         });
     }
 
-
-
     const booksColumns = [
         {Header: "Title", accessor: "title"},
         {
@@ -32,7 +29,7 @@ export default function BooksTable(props) {
     ];
 
     return (
-        <div>
+        <div className="table">
             {books && (
                 <ReactTable
                     data={books}

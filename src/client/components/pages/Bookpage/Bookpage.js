@@ -3,7 +3,6 @@ import BookpageInfo from "./BookpageInfo";
 import BookpageRef from "./BookpageRef";
 import BookpageReviews from "./BookpageReviews";
 import AddReview from "./AddReview";
-import Header from "../../Header/Header";
 import ReviewForm from "./ReviewForm";
 
 export default function Bookpage(props) {
@@ -20,16 +19,12 @@ export default function Bookpage(props) {
     };
 
     return (
-        <div>
-            <Header />
-
-            <div className="bookpage-container">
-                <BookpageInfo />
-                <BookpageRef />
-                <BookpageReviews />
-                <AddReview reviewModaleOn={reviewModaleOn} />
-                <ReviewForm reviewModaleOff={reviewModaleOff} />
-            </div>
+        <div className="bookpage-container">
+            <BookpageInfo />
+            <BookpageRef />
+            <BookpageReviews />
+            <AddReview reviewModaleOn={reviewModaleOn} />
+            <ReviewForm reviewModaleOff={reviewModaleOff} />
         </div>
     );
 }

@@ -1,11 +1,8 @@
 import * as React from "react";
-import {usesState} from "react";
 import {Link} from "react-router-dom";
 
 export default function HeaderMenu(props) {
-
     const isCoach = true;
-
 
     const tags = [
         "Python",
@@ -35,10 +32,10 @@ export default function HeaderMenu(props) {
     ) : (
         <ul className="headerMenu">
             <li>
-                <Link to="/coachpage/juniors">{"JUNIORS"}</Link>
+                <Link to="/coachpage">{"JUNIORS"}</Link>
             </li>
             <li>
-            <Link to="/coachpage/books">{"BOOKS"}</Link>
+                <Link to="/coachpage/books">{"BOOKS"}</Link>
             </li>
             <li>{"BORROWINGS"}</li>
             <li>{"HISTORY"}</li>

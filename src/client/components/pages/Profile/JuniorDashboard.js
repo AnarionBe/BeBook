@@ -1,10 +1,7 @@
 import * as React from "react";
 import avatar from "../../../assets/img/avatar.jpg";
-import Header from "../../Header/Header";
-import LateralMenu from "../../LateralMenu/LateralMenu";
 
 export default function JuniorDashboard(props) {
-
     const modifyProfile = () => {
         document.getElementsByClassName("modifyProfile")[0].style.display =
             "block";
@@ -25,44 +22,38 @@ export default function JuniorDashboard(props) {
             "none";
     };
     return (
-        <div>
-            <Header />
+        <div className="JuniorDashboard-container">
+            <img className="profilePic" src={avatar} />
 
-            <div className="JuniorDashboard-container">
-                <img className="profilePic" src={avatar} />
+            <div className="profileInfo">
+                <p>
+                    <b>{"Last Name : "} </b> {"Hogan"}
+                </p>
+                <p>
+                    <b>{"First Name : "} </b> {"Hulk"}
+                </p>
+                <p className="email">{"hulk.hogan@test.com"}</p>
+                <button className="modifyButton" onClick={modifyProfile}>
+                    {"modify"}
+                </button>
 
-                <div className="profileInfo">
-                    <p>
-                        <b>{"Last Name : "} </b> {"Hogan"}
-                    </p>
-                    <p>
-                        <b>{"First Name : "} </b> {"Hulk"}
-                    </p>
-                    <p className="email">{"hulk.hogan@test.com"}</p>
-                    <button
-                        className="modifyButton"
-                        onClick={modifyProfile}>
-                        {"modify"}
-                    </button>
+                <form className="modifyProfile">
+                    <div className="modifyInput">
+                        <input type="text" placeholder="e-mail" />
+                        <input type="password" placeholder="New password" />
+                    </div>
 
-                    <form className="modifyProfile">
-                        <div className="modifyInput">
-                            <input type="text" placeholder="e-mail" />
-                            <input type="password" placeholder="New password" />
-                        </div>
-
-                        <input
-                            className="submitProfile"
-                            type="submit"
-                            value="submit"
-                        />
-                    </form>
-                    <button
-                        className="profileToggleBack"
-                        onClick={profileToggleBack}>
-                        {"back"}
-                    </button>
-                </div>
+                    <input
+                        className="submitProfile"
+                        type="submit"
+                        value="submit"
+                    />
+                </form>
+                <button
+                    className="profileToggleBack"
+                    onClick={profileToggleBack}>
+                    {"back"}
+                </button>
             </div>
         </div>
     );

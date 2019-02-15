@@ -7,17 +7,20 @@ import Login from "./pages/Login/Login";
 import CoachPage from "./pages/Coachpage/CoachPage";
 import "@fortawesome/fontawesome-free";
 import JuniorsTable from "./pages/Coachpage/JuniorsTable";
+import CoachContainer from "./pages/Coachpage/CoachContainer";
+import BooksTable from "./pages/Coachpage/BooksTable";
+import Header from "./Header/Header";
 
 export default function Routes() {
     return (
         <div>
             <Switch>
                 <Route exact path="/" component={Login} />
-                <Route path="/coachpage" component={CoachPage} />
+                <Route exact path="/coachpage" component={JuniorsTable} />
+                <Route exact path="/coachpage/books" component={BooksTable} />
                 <Route exact path="/bookpage" component={Bookpage} />
                 <Route exact path="/juniorpage" component={JuniorPage} />
                 <Route exact path="/profile" component={JuniorDashboard} />
-                <Route path="/coachpage/juniors" component={JuniorsTable} />
             </Switch>
         </div>
     );
