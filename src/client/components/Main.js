@@ -6,6 +6,7 @@ import JuniorPage from "./pages/Juniorpage/JuniorPage";
 import Login from "./pages/Login/Login";
 import CoachPage from "./pages/Coachpage/CoachPage";
 import {loggedIn, access} from "./auth";
+import NotFound from "./NotFound";
 
 import "@fortawesome/fontawesome-free";
 import {Switch, BrowserRouter, Route, Redirect} from "react-router-dom";
@@ -133,6 +134,14 @@ export default function Main() {
                                 slide={active}
                                 isCoach={isCoach}
                             />
+                        </div>
+                    )}
+                />
+
+                <Route
+                    render={() => (
+                        <div>
+                            <NotFound />
                         </div>
                     )}
                 />
