@@ -5,10 +5,10 @@ import JuniorDashboard from "./pages/Profile/JuniorDashboard";
 import JuniorPage from "./pages/Juniorpage/JuniorPage";
 import Login from "./pages/Login/Login";
 import CoachPage from "./pages/Coachpage/CoachPage";
-import {loggedIn} from "./auth";
+import {loggedIn, access} from "./auth";
 
 import "@fortawesome/fontawesome-free";
-import {Switch, BrowserRouter, Route} from "react-router-dom";
+import {Switch, BrowserRouter, Route, Redirect} from "react-router-dom";
 
 export default function Main() {
     const isCoach = false;
@@ -58,16 +58,21 @@ export default function Main() {
             </div>
         );
     }
-
     return (
         <BrowserRouter>
             <Switch>
                 <Route
                     exact
-                    path="/login"
+                    path="/"
                     render={() => (
                         <div>
-                            <Login />
+                            <Redirect
+                                to={
+                                    access() === "junior"
+                                        ? "/juniorpage"
+                                        : "/coachpage"
+                                }
+                            />
                         </div>
                     )}
                 />
