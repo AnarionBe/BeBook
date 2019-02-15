@@ -4,10 +4,29 @@ import Header from "../../Header/Header";
 import LateralMenu from "../../LateralMenu/LateralMenu";
 
 export default function JuniorDashboard(props) {
+
+    const modifyProfile = () => {
+        document.getElementsByClassName("modifyProfile")[0].style.display =
+            "block";
+        document.getElementsByClassName("profileToggleBack")[0].style.display =
+            "block";
+        document.getElementsByClassName("email")[0].style.display = "none";
+        document.getElementsByClassName("modifyButton")[0].style.display =
+            "none";
+    };
+
+    const profileToggleBack = () => {
+        document.getElementsByClassName("modifyProfile")[0].style.display =
+            "none";
+        document.getElementsByClassName("email")[0].style.display = "block";
+        document.getElementsByClassName("modifyButton")[0].style.display =
+            "block";
+        document.getElementsByClassName("profileToggleBack")[0].style.display =
+            "none";
+    };
     return (
         <div>
-            <Header switchLateralMenu={props.switchLateralMenu} isCoach={props.isCoach} />
-            <LateralMenu slide={props.slide} />
+            <Header />
 
             <div className="JuniorDashboard-container">
                 <img className="profilePic" src={avatar} />
@@ -22,7 +41,7 @@ export default function JuniorDashboard(props) {
                     <p className="email">{"hulk.hogan@test.com"}</p>
                     <button
                         className="modifyButton"
-                        onClick={props.modifyProfile}>
+                        onClick={modifyProfile}>
                         {"modify"}
                     </button>
 
@@ -40,7 +59,7 @@ export default function JuniorDashboard(props) {
                     </form>
                     <button
                         className="profileToggleBack"
-                        onClick={props.ProfileToggleBack}>
+                        onClick={profileToggleBack}>
                         {"back"}
                     </button>
                 </div>

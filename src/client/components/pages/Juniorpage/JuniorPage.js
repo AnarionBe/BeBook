@@ -22,13 +22,8 @@ export default function JuniorPage(props) {
 
     return (
         <div className="main">
-            <Header
-                switchLateralMenu={props.switchLateralMenu}
-                isCoach={props.isCoach}
-            />
-            <div />
+            <Header />
             {books && <JuniorContainer books={books} />}
-            <LateralMenu slide={props.slide} />
         </div>
     );
 }

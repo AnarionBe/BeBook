@@ -4,23 +4,31 @@ import BookpageRef from "./BookpageRef";
 import BookpageReviews from "./BookpageReviews";
 import AddReview from "./AddReview";
 import Header from "../../Header/Header";
-import LateralMenu from "../../LateralMenu/LateralMenu";
-
+import ReviewForm from "./ReviewForm";
 
 export default function Bookpage(props) {
+    const reviewModaleOn = () => {
+        document.getElementsByClassName("reviewModale")[0].style.display =
+            "block";
+        document.getElementsByTagName("body")[0].style.overflow = "hidden";
+    };
+
+    const reviewModaleOff = () => {
+        document.getElementsByClassName("reviewModale")[0].style.display =
+            "none";
+        document.getElementsByTagName("body")[0].style.overflow = "auto";
+    };
+
     return (
         <div>
-            <Header
-                switchLateralMenu={props.switchLateralMenu}
-                isCoach={props.isCoach}
-            />
-            <LateralMenu slide={props.slide} />
+            <Header />
 
             <div className="bookpage-container">
                 <BookpageInfo />
                 <BookpageRef />
                 <BookpageReviews />
-                <AddReview reviewModaleOn={props.reviewModaleOn} />
+                <AddReview reviewModaleOn={reviewModaleOn} />
+                <ReviewForm reviewModaleOff={reviewModaleOff} />
             </div>
         </div>
     );
