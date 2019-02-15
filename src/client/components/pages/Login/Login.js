@@ -18,7 +18,7 @@ export default function Login() {
         );
     };
 
-    if (window.location !== "/login") {
+    if (window.state !== "/login") {
         window.history.pushState(null, "", "/login");
     }
 
