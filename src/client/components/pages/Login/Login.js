@@ -3,18 +3,19 @@ import {login, access, loggedIn} from "../../auth";
 import {Redirect} from "react-router-dom";
 
 export default function Login() {
-    const [, setUpdate] = React.useState(false);
+    const [, setUpdate] = React.useState();
     const connection = e => {
         e.preventDefault();
 
-        const data = {
-            email: e.target.email.value,
-            password: e.target.password.value,
-        };
-
-        login(data, () => {
-            setUpdate(true);
-        });
+        login(
+            {
+                email: e.target.email.value,
+                password: e.target.password.value,
+            },
+            () => {
+                setUpdate(true);
+            },
+        );
     };
 
     return (
