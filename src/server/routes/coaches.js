@@ -152,7 +152,7 @@ router.get("/books/:id", (req, res) => {
 
 // Replace the Book resource.
 router.put("/books/:id", (req, res) => {
-    Books.findByIdAndUpdate(
+    Book.findByIdAndUpdate(
         req.params.id,
         req.body,
         {new: true},
@@ -221,7 +221,7 @@ router.delete("/reviews/:id", (req, res) => {
 });
 
 // Update a specified review.
-router.patch("/reviews", (req, res) => {
+router.put("/reviews", (req, res) => {
     Review.findOne({_id: req.body.reviewId}).then(data => {
         data.comment = req.body.newContent;
         data.save();
