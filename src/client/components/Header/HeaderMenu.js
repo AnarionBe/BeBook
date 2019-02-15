@@ -17,7 +17,8 @@ export default function HeaderMenu(props) {
                 <ul className="tagsMenu">
                     <div className="bloc">
                         {tags.map((item, index) => {
-                            return <li>{item}</li>;
+                            // eslint-disable-next-line react/no-array-index-key
+                            return <li key={index}>{item}</li>;
                         })}
                     </div>
                 </ul>
