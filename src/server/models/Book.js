@@ -50,6 +50,12 @@ const schema = new mongoose.Schema(
             ref: "User",
             default: null,
         },
+        averageRating: {
+            type: Number,
+            default: 0,
+            min: 0,
+            max: 5,
+        },
     },
     {collection: "Book"},
 );

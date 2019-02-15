@@ -28,7 +28,7 @@ router.post("/login", (req, res) => {
                     id: user.id,
                     role: user.role,
                     firstName: user.firstName,
-                    lastname: user.lastName,
+                    lastName: user.lastName,
                     avatar: user.avatar,
                 };
 
