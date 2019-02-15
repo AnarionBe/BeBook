@@ -18,6 +18,7 @@ export default function Login() {
         );
     };
 
+    console.log("caca");
     if (window.state !== "/login") {
         window.history.pushState(null, "", "/login");
     }
