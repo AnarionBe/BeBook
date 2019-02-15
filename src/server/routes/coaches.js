@@ -6,6 +6,8 @@ import Borrowing from "../models/Borrowing";
 import User from "../models/User";
 import Review from "../models/Review";
 
+import isbnCover from "node-isbn";
+
 const router = new express.Router();
 
 // -------------------------------------------------------------------------- //
@@ -115,17 +117,28 @@ router.get("/books/:tag", (req, res) => {
 
 // Create a Book resource.
 router.post("/books", (req, res) => {
-    new Book({
-        title: req.body.title,
-        author: req.body.author,
-        language: req.body.language,
-        isbnNumber: req.body.isbnNumber,
-        formats: req.body.formats.split(","),
-        tags: req.body.tags.split(","),
-    })
-        .save()
-        .then(book => res.status(201).json(book))
-        .catch(err => res.status(500).json(err));
+    const isbn = parseInt(req.body.isbnNumber.replace("-", ""));
+
+    // Get book cover from ISBN number and then save the Book resource.
+    isbnCover
+        .resolve(isbn)
+        .then(item => {
+            new Book({
+                title: req.body.title,
+                author: req.body.author,
+                language: req.body.language,
+                isbnNumber: isbn,
+                cover: item.imageLinks.smallThumbnail,
+                formats: req.body.formats.split(","),
+                tags: req.body.tags.split(","),
+            })
+                .save()
+                .then(book => res.status(201).json(book))
+                .catch(err => res.status(500).json(err));
+        })
+        .catch(err => {
+            console.log("Book not found", err);
+        });
 });
 
 // Retrieve a Book resource.

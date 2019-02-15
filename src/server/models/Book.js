@@ -15,7 +15,7 @@ const schema = new mongoose.Schema(
             required: true,
         },
         isbnNumber: {
-            type: String,
+            type: Number,
             required: true,
         },
         cover: {
