@@ -1,17 +1,15 @@
 import * as React from "react";
 import Header from "../../Header/Header";
 import CoachContainer from "./CoachContainer";
-import LateralMenu from "../../LateralMenu/LateralMenu";
+import JuniorsTable from "./JuniorsTable";
+import BooksTable from "./BooksTable";
+import {Router, Route} from "react-router-dom";
 
-export default props => {
+export default function CoachPage() {
     return (
         <div>
-            <Header
-                isCoach={props.isCoach}
-                switchLateralMenu={props.switchLateralMenu}
-            />
-            <CoachContainer />
-            <LateralMenu slide={props.slide} />
+            <Header />
+            <JuniorsTable />
         </div>
     );
 };

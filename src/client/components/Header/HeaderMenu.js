@@ -1,6 +1,9 @@
 import * as React from "react";
+import {Link} from "react-router-dom";
 
 export default function HeaderMenu(props) {
+    const isCoach = true;
+
     const tags = [
         "Python",
         "Programming",
@@ -10,7 +13,7 @@ export default function HeaderMenu(props) {
         "Design",
     ];
 
-    return !props.isCoach ? (
+    return !isCoach ? (
         <ul className="headerMenu">
             <li className="submenu">
                 {"TAGS"} <p className="fa fa-angle-right" />
@@ -29,8 +32,12 @@ export default function HeaderMenu(props) {
         </ul>
     ) : (
         <ul className="headerMenu">
-            <li className="submenu">{"STUDENTS"}</li>
-            <li>{"BOOKS"}</li>
+            <li>
+                <Link to="/coachpage">{"JUNIORS"}</Link>
+            </li>
+            <li>
+                <Link to="/coachpage/books">{"BOOKS"}</Link>
+            </li>
             <li>{"BORROWINGS"}</li>
             <li>{"HISTORY"}</li>
         </ul>
