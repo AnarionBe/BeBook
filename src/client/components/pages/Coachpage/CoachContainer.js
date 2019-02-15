@@ -2,7 +2,7 @@ import * as React from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 
-import JuniorRow from "./JuniorRow";
+// import JuniorRow from "./JuniorRow";
 
 export default function CoachContainer() {
     const data = [

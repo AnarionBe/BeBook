@@ -16,13 +16,13 @@ const isTokenValid = token => {
     return false;
 };
 
-const setHeaders = () => {
-    return {
-        headers: {
-            autorization: getToken(),
-        },
-    };
-};
+// const setHeaders = () => {
+//     return {
+//         headers: {
+//             autorization: getToken(),
+//         },
+//     };
+// };
 
 export const login = (data, callback) => {
     axios.post("http://localhost/api/login", data).then(response => {
