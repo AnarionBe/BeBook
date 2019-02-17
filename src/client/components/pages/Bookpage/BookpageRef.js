@@ -3,15 +3,16 @@ import BorrowButton from "./BorrowButton";
 import ReserveButton from "./ReserveButton";
 import ExtendButton from "./ExtendButton";
 
-export default class BookpageRef extends React.Component {
+export default function BookpageRef (props) {
 
-    render() {
+  const item = props.books[1];
+
 
       let button;
 
-        if (this.props.isAvailable == true) {
+        if (item.state == "available") {
          button = <BorrowButton/>;
-       } else if (this.props.isAvailable == false && this.props.isBorrowedByMe == true){
+       } else if (item.state == "unavailable" /*&& this.props.isBorrowedByMe == true*/){
          button = <ExtendButton />;
        } else {
          button = <ReserveButton/>;
@@ -20,12 +21,12 @@ export default class BookpageRef extends React.Component {
         return (
             <div className="bookpageRef">
                 <h2>{"Author :"}</h2>
-                <p>{"Gérad Swinnen"}</p>
-                <p>{"ISBN: 9652 - 51412 - 215"}</p>
-                <p className="availableTag">{" Available "}</p>
+                <p>{item.author}</p>
+                <p>{"ISBN : " + item.isbnNumber}</p>
+                <p className={item.state +"Tag"}>{item.state}</p>
                 {button}
 
             </div>
         );
-    }
+
 }
