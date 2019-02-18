@@ -93,36 +93,48 @@ router.post("/borrowings/:bookId", (req, res) => {
 
 // -------------------------------------------------------------------------- //
 
-// Send a new review about a book.
-router.post("/reviews", (req, res) => {
-    Review.findOne({author: req.user.id, book: req.body.bookId}).then(data => {
-        if (data) {
-            return res.status(400).json({message: "Review already exist!"});
+// Retrieve the collection of Review resources by Book.
+router.get("/books/:bookId/reviews", (req, res) => {
+    Review.find({book: req.params.bookId}, (err, reviews) => {
+        if (err) {
+            return res.status(500).send(err);
         }
-
-        // Create a new Review resource.
-        new Review({
-            author: req.user.id,
-            book: req.body.bookId,
-            comment: req.body.comment,
-            rating: req.body.rating,
-        })
-            .save()
-            .then(review => {
-                res.status(200).json(review);
-            })
-            // And finally, recompute the average rating of the Book resource.
-            .then(() => {
-                Review.find({}).then(reviews => {
-                    Book.findByIdAndUpdate(req.body.bookId, {
-                        averageRating:
-                            reviews.reduce((a, b) => a + b.rating, 0) /
-                            reviews.length,
-                    }).exec();
-                });
-            })
-            .catch(err => res.status(500).json(err));
+        return res.status(200).json(reviews);
     });
+});
+
+// Send a new review about a book.
+router.post("/reviews/:bookId", (req, res) => {
+    Review.findOne({author: req.user.id, book: req.params.bookId}).then(
+        data => {
+            if (data) {
+                return res.status(400).json({message: "Review already exist!"});
+            }
+
+            // Create a new Review resource.
+            new Review({
+                author: req.user.id,
+                book: req.params.bookId,
+                comment: req.body.comment,
+                rating: req.body.rating,
+            })
+                .save()
+                .then(review => {
+                    res.status(200).json(review);
+                })
+                // And finally, recompute the average rating of the Book resource.
+                .then(() => {
+                    Review.find({}).then(reviews => {
+                        Book.findByIdAndUpdate(req.body.bookId, {
+                            averageRating:
+                                reviews.reduce((a, b) => a + b.rating, 0) /
+                                reviews.length,
+                        }).exec();
+                    });
+                })
+                .catch(err => res.status(500).json(err));
+        },
+    );
 });
 
 // Delete a specified review.
