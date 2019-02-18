@@ -14,7 +14,6 @@
     "hotreload": "npx webpack-dev-server --env=dev --hot --progress",
     "build": "npm run build:server && npm run build:client",
     "start": "node bin/server/index.js",
-    "client-install": "npm install --prefix client",
 
     "server": "nodemon server.js",
 
