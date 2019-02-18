@@ -2,6 +2,7 @@
     background-color: $bg-lateral-menu;
     box-shadow: -4px 0 4px rgba(0, 0, 0, 0.25);
     z-index: 1;
+    color: $text-lateral-menu;
     position: absolute;
     padding: 3rem .5rem;
     top: 4.05rem;
@@ -39,8 +40,9 @@
 }
 a .my-profile {
     color: $primary;
+    text-decoration: underline;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     &:hover {
         color: $text-lateral-menu;
     }
@@ -61,5 +63,16 @@ a .my-profile {
     padding: 1rem;
     .status {
         margin-bottom: 0;
+    }
+}
+.logout {
+    text-decoration: underline;
+    font-size: 1rem;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    &:hover {
+        color: $primary;
     }
 }
