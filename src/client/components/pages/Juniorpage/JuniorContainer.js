@@ -1,5 +1,7 @@
 import * as React from "react";
 import Bookpane from "./Bookpane";
+import {Link, Switch, BrowserRouter, Route} from "react-router-dom";
+
 import img1 from "../../../assets/img/images.jpg";
 import img2 from "../../../assets/img/41PZk3+t3GL.jpg";
 import img3 from "../../../assets/img/51aIySRlwFL._SX402_BO1,204,203,200_.jpg";
@@ -11,6 +13,7 @@ import img7 from "../../../assets/img/418+D1M5XTL._SX411_BO1,204,203,200_.jpg";
 export default function JuniorContainer() {
     return (
         <div className="container">
+        <Link to="/bookpage">
             <Bookpane
                 title={
                     "Design Patterns - Apprendre la conception de logiciels en réalisant un jeu vidéo (avec exercices et corrigés)"
@@ -18,7 +21,7 @@ export default function JuniorContainer() {
                 className="bookpane"
                 isAvailable={true}
                 img={img1}
-            />
+            /></Link>
             <Bookpane
                 title={"Apprendre à programmer avec Python 3"}
                 className="bookpane"
