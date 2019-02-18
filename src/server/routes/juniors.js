@@ -151,7 +151,7 @@ router.delete("/reviews", (req, res) => {
 });
 
 // Update a specified review.
-router.patch("/reviews", (req, res) => {
+router.put("/reviews", (req, res) => {
     Review.findOne({_id: req.body.reviewId}, (err, data) => {
         if (err) {
             return res.status(500).send(err);
@@ -160,7 +160,7 @@ router.patch("/reviews", (req, res) => {
         if (data.author.toString() !== req.body.userId) {
             return res
                 .status(400)
-                .json({Error: "You can update your reviews only!"});
+                .json({error: "You can update your reviews only!"});
         }
 
         data.comment = req.body.newContent;
