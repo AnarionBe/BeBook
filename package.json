@@ -4,7 +4,7 @@
   "description": "A simple bookshelf/library manager, for our internal usage<Paste>",
   "author": "leny <leny@becode.org>",
   "license": "MIT",
-  "private": true,
+  "private": false,
   "scripts": {
     "lint": "npx eslint --fix --cache --ignore-pattern 'docs/*' src",
     "build:server": "npx babel src/server -s --out-dir bin/server",
@@ -12,7 +12,8 @@
     "build:client": "npx webpack --progress --profile --colors",
     "work:client": "npx webpack --env=dev --progress",
     "hotreload": "npx webpack-dev-server --env=dev --hot --progress",
-    "build": "npm run build:server && npm run build:client"
+    "build": "npm run build:server && npm run build:client",
+    "start": "node /bin/server/index.js"
   },
   "lint-staged": {
     "*.js": [
