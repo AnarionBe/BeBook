@@ -6,16 +6,26 @@ import JuniorPage from "./pages/Juniorpage/JuniorPage";
 import "@fortawesome/fontawesome-free";
 import JuniorsTable from "./pages/Coachpage/JuniorsTable";
 import BooksTable from "./pages/Coachpage/BooksTable";
+import NotFound from "./NotFound";
+import {access} from "./auth";
 
 export default function Routes() {
     return (
         <div>
             <Switch>
-                <Route path="/coachpage" component={JuniorsTable} />
-                <Route path="/coachpage/books" component={BooksTable} />
-                <Route path="/bookpage" component={Bookpage} />
-                <Route path="/juniorpage" component={JuniorPage} />
-                <Route path="/profile" component={JuniorDashboard} />
+                <Route
+                    exact
+                    path="/"
+                    component={
+                        access() === "junior" ? JuniorPage : JuniorsTable
+                    }
+                />
+                <Route exact path="/coachpage" component={JuniorsTable} />
+                <Route exact path="/books" component={BooksTable} />
+                <Route exact path="/bookpage" component={Bookpage} />
+                <Route exact path="/juniorpage" component={JuniorPage} />
+                <Route exact path="/profile" component={JuniorDashboard} />
+                <Route component={NotFound} /> {/* Always last */}
             </Switch>
         </div>
     );
