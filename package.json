@@ -14,7 +14,7 @@
     "hotreload": "npx webpack-dev-server --env=dev --hot --progress",
     "build": "npm run build:server && npm run build:client",
     "start": "node bin/server/index.js",
-    "heroku-postbuid" : "cross-env NODE_ENV=production WEBPACK_CONFIG=browser_prod,server_prod webpack --colors"
+    "heroku-postbuid": "cross-env NODE_ENV=production WEBPACK_CONFIG=browser_prod,server_prod webpack --colors"
   },
   "lint-staged": {
     "*.js": [
@@ -58,6 +58,7 @@
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "express": "^4.16.4",
     "gravatar": "^1.8.0",
     "hamoni-sync": "^1.1.1",

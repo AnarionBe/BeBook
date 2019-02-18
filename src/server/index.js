@@ -7,6 +7,7 @@ import publicRoutes from "./routes/public";
 import coachesRoutes from "./routes/coaches";
 import juniorsRoutes from "./routes/juniors";
 import jwtStrategy from "./configs/strategies";
+import cors from "cors";
 // import env from "./configs/env";
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 app.use(passport.initialize());
+app.use(cors());
 jwtStrategy();
 
 // Public API routes.

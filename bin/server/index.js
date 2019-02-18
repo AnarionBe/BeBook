@@ -18,6 +18,8 @@ var _juniors = _interopRequireDefault(require("./routes/juniors"));
 
 var _strategies = _interopRequireDefault(require("./configs/strategies"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express.default)();
@@ -30,6 +32,7 @@ app.use(_bodyParser.default.urlencoded({
 app.use(_bodyParser.default.json());
 app.use(_express.default.static(_path.default.resolve(__dirname, "../../bin/client")));
 app.use(_passport.default.initialize());
+app.use((0, _cors.default)());
 (0, _strategies.default)();
 app.use("/api", _public.default);
 app.use("/api/juniors", _passport.default.authenticate("jwt", {
