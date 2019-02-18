@@ -3,7 +3,7 @@ import bookcover from "../../../assets/img/images.jpg";
 
 export default function BookpageInfo(props) {
 
-  const item = props.books[0];
+  const item = props.item;
 
         return (
             <div className="bookpage-info">
