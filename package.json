@@ -13,11 +13,8 @@
     "work:client": "npx webpack --env=dev --progress",
     "hotreload": "npx webpack-dev-server --env=dev --hot --progress",
     "build": "npm run build:server && npm run build:client",
-    "start": "node bin/server/index.js",
-
-    "server": "nodemon server.js",
-
-    "client": "npm start --prefix client"
+    "start": "node /bin/server/index.js",
+    "heroku-postbuid" : "cross-env NODE_ENV=production WEBPACK_CONFIG=browser_prod,server_prod webpack --colors"
   },
   "lint-staged": {
     "*.js": [
