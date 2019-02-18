@@ -1,0 +1,26 @@
+@import 'variables';
+@import 'header';
+@import 'bookpanes';
+@import 'lateralmenu';
+@import 'bookpage';
+@import 'JuniorDashboard';
+@import 'loginPage';
+@import 'table';
+
+* {
+    padding:0;
+    margin:0;
+}
+body, html {
+    background-color: $backgroundColor;
+    font-family: Impact, 'Arial Narrow Bold', sans-serif;
+}
+a {
+    text-decoration: none;
+}
+.container {
+    margin: 3rem 0 0 5rem;;
+    display: flex;
+    flex-wrap: wrap;
+
+}

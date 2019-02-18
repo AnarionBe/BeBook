@@ -1,0 +1,61 @@
+.loginPage {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assets/img/background.png");
+  background-size: cover;
+  border: 1px solid rgba(255,255,255,0);
+}
+
+.login {
+  width: 376px;
+  height: 265px;
+  margin: 180px auto;
+  background-color: rgba(36, 38, 38, 0.95);
+  border-radius: 29px;
+  font-family: "Puritan", serif;
+  color: #61C2D0;
+  border: 1px solid rgba(36, 38, 38, 0.95);
+  form {
+    width: 240px;
+    margin: auto;
+    font-size: 18px;
+  }
+  h2 {
+    font-weight: 400;
+    font-size: 36px;
+    margin: 17px 15px;
+  }
+  h3 {
+    font-weight: 400;
+    margin: 5px 0;
+    font-size: 24px;
+  }
+}
+
+.input input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  border: none;
+  height: 25px;
+  color: white;
+}
+
+.submit {
+  float: right;
+  font-variant: small-caps;
+  font-weight: bold;
+  color: $backgroundColor;
+  background-color: $primary;
+  border: 1px solid $primary;
+  width: 125px;
+  height: 30px;
+  text-align: center;
+  border-radius: 9px;
+  font-size: 20px;
+  margin-top: 25px;
+  transition: all .3s ease-in-out;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}

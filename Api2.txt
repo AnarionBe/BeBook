@@ -1,0 +1,9 @@
+✔️ GET     /users/{id}                             => get informations about specific user (coach)
+✔️ GET     /users                                  => get the list of users (coach)
+ GET     /users/{id}/reviews                     => get personnal reviews
+GET     /users/{id}/books                       => get borrowed books by connected user
+POST    /users/books                            => current user borrow the specified book
+DELETE  /users/books                            => current user send back the specified book
+UPDATE  /users/books                            => current user add 1 week delay to the specified borrowed book
+️️✔️ DELETE  /users                                  => delete specified user (coach)
+✔️ POST    /users                                  => add a new user (coach)

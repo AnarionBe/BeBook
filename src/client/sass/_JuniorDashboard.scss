@@ -1,0 +1,61 @@
+.JuniorDashboard-container {
+  width: 40rem;
+  background-color: #C4C4C4;
+  border-radius: 30px;
+  margin: 2rem auto;
+  padding: 2rem;
+  font-family: "Roboto", serif;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profilePic {
+  width : 20rem;
+  height: 20rem;
+  border-radius: 10%;
+}
+
+.profileInfo {
+  width: 16rem;
+  font-size: 20px;
+  p {
+    margin: 5px auto;
+  }
+}
+
+.modifyProfile{
+display: none;
+ }
+
+.modifyInput input {
+     background-color: rgba(0, 0,0, 0.1);
+     border-radius: 7px;
+     border: none;
+     height: 25px;
+     padding: 5px;
+     color: black;
+     margin: 5px auto;
+     font-size: 17px;
+ }
+
+ .modifyButton, .profileToggleBack, .submitProfile {
+   transition: all 0.2s ease-in-out;
+   margin-top : 10px;
+   border-radius: 9px;
+   border: 1px solid $backgroundColor;
+   background-color: $backgroundColor;
+   color: white;
+   width: 150px;
+   height: 35px;
+   font-size: 16px;
+   font-variant: small-caps;
+   font-style: "Roboto",serif;
+  &:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+  }
+}
+
+ .profileToggleBack {
+   display: none;
+ }
