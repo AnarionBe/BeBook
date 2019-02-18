@@ -118,7 +118,9 @@ router.post("/reviews/:bookId", (req, res) => {
     Review.findOne({author: req.user.id, book: req.params.bookId}).then(
         data => {
             if (data) {
-                return res.status(400).json({message: "Review already exist!"});
+                return res
+                    .status(400)
+                    .json({message: "Review already exists!"});
             }
 
             // Create a new Review resource.
@@ -149,45 +151,37 @@ router.post("/reviews/:bookId", (req, res) => {
 
 // Delete a specified review.
 router.delete("/reviews/:id", (req, res) => {
-    Review.findOne({_id: req.params.id}, (err, data) => {
+    Review.findByIdAndDelete(req.params.id, (err, review) => {
         if (err) {
             return res.status(500).send(err);
         }
 
-        if (data.author.toString() !== req.user.id) {
+        if (review.author.toString() !== req.user.id) {
             return res
                 .status(400)
                 .json({error: "You can delete your reviews only!"});
         }
 
-        Review.deleteOne(data, error => {
-            if (error) {
-                return res.status(500).send(error);
-            }
-
-            return res.json({
-                message: "The review has been successfully deleted!",
-            });
-        });
+        return res
+            .status(200)
+            .send("The review has been successfully deleted!");
     });
 });
 
 // Update a specified review.
 router.put("/reviews/:id", (req, res) => {
-    Review.findOne({_id: req.params.id}, (err, data) => {
+    Review.findByIdAndUpdate(req.params.id, req.body, (err, review) => {
         if (err) {
             return res.status(500).send(err);
         }
 
-        if (data.author.toString() !== req.user.id) {
+        if (review.author.toString() !== req.user.id) {
             return res
                 .status(400)
                 .json({error: "You can update your reviews only!"});
         }
 
-        data.comment = req.body.comment;
-        data.save();
-        return res.json(data);
+        return res.status(200).json(review);
     });
 });
 
