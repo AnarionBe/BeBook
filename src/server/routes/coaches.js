@@ -189,9 +189,19 @@ router.get("/borrowings", (_req, res) => {
 
 // -------------------------------------------------------------------------- //
 
+// Retrieve the collection of Review resources by Book.
+router.get("/books/:bookId/reviews", (req, res) => {
+    Review.find({book: req.params.bookId}, (err, reviews) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(reviews);
+    });
+});
+
 // Send a new review about a book.
-router.post("/reviews", (req, res) => {
-    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
+router.post("/reviews/:bookId", (req, res) => {
+    Review.findOne({author: req.body.userId, book: req.params.bookId}).then(
         data => {
             if (data) {
                 return res.status(400).json({error: "Review already exist!"});
@@ -199,7 +209,7 @@ router.post("/reviews", (req, res) => {
 
             new Review({
                 author: req.body.userId,
-                book: req.body.bookId,
+                book: req.params.bookId,
                 comment: req.body.comment,
                 rating: req.body.rating,
             }).save();
@@ -221,9 +231,9 @@ router.delete("/reviews/:id", (req, res) => {
 });
 
 // Update a specified review.
-router.put("/reviews", (req, res) => {
-    Review.findOne({_id: req.body.reviewId}).then(data => {
-        data.comment = req.body.newContent;
+router.put("/reviews/:id", (req, res) => {
+    Review.findOne({_id: req.params.id}).then(data => {
+        data.comment = req.body.comment;
         data.save();
         return res.json(data);
     });
