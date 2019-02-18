@@ -138,13 +138,13 @@ router.post("/reviews/:bookId", (req, res) => {
 });
 
 // Delete a specified review.
-router.delete("/reviews", (req, res) => {
-    Review.findOne({_id: req.body.reviewId}, (err, data) => {
+router.delete("/reviews/:id", (req, res) => {
+    Review.findOne({_id: req.params.id}, (err, data) => {
         if (err) {
             return res.status(500).send(err);
         }
 
-        if (data.author.toString() !== req.body.userId) {
+        if (data.author.toString() !== req.user.id) {
             return res
                 .status(400)
                 .json({error: "You can delete your reviews only!"});
@@ -163,19 +163,19 @@ router.delete("/reviews", (req, res) => {
 });
 
 // Update a specified review.
-router.put("/reviews", (req, res) => {
-    Review.findOne({_id: req.body.reviewId}, (err, data) => {
+router.put("/reviews/:id", (req, res) => {
+    Review.findOne({_id: req.params.id}, (err, data) => {
         if (err) {
             return res.status(500).send(err);
         }
 
-        if (data.author.toString() !== req.body.userId) {
+        if (data.author.toString() !== req.user.id) {
             return res
                 .status(400)
                 .json({error: "You can update your reviews only!"});
         }
 
-        data.comment = req.body.newContent;
+        data.comment = req.body.comment;
         data.save();
         return res.json(data);
     });

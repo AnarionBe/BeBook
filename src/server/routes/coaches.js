@@ -201,14 +201,14 @@ router.get("/books/:bookId/reviews", (req, res) => {
 
 // Send a new review about a book.
 router.post("/reviews/:bookId", (req, res) => {
-    Review.findOne({author: req.body.userId, book: req.params.bookId}).then(
+    Review.findOne({author: req.user.id, book: req.params.bookId}).then(
         data => {
             if (data) {
                 return res.status(400).json({error: "Review already exist!"});
             }
 
             new Review({
-                author: req.body.userId,
+                author: req.user.id,
                 book: req.params.bookId,
                 comment: req.body.comment,
                 rating: req.body.rating,
