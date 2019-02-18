@@ -1,16 +1,18 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {getToken} from "../auth";
+import {access, getToken} from "../auth";
 
 export default function profileButton(props) {
     const [profile, setProfile] = useState({profile: null});
 
     useEffect(() => {
-        // axios
-        //     .get("/api/coaches/profile", headers)
-        //     .then(result => setProfile(result.data));
+        const url =
+            access() === "coach"
+                ? "/api/coaches/profile"
+                : "/api/juniors/profile";
+
         axios
-            .get("/api/juniors/profile", {
+            .get(url, {
                 headers: {
                     authorization: getToken(),
                 },

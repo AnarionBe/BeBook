@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {getToken} from "../../auth";
+import {access, getToken} from "../../auth";
 
 export default function JuniorDashboard() {
     const modifyProfile = () => {
@@ -26,8 +26,13 @@ export default function JuniorDashboard() {
     const [profile, setProfile] = useState({profile: null});
 
     useEffect(() => {
+        const url =
+            access() === "coach"
+                ? "/api/coaches/profile"
+                : "/api/juniors/profile";
+
         axios
-            .get("/api/juniors/profile", {
+            .get(url, {
                 headers: {
                     authorization: getToken(),
                 },

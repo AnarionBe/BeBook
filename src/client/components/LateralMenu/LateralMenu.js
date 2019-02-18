@@ -2,15 +2,20 @@ import * as React from "react";
 import LateralBookpane from "./LateralBookpane";
 import axios from "axios";
 import {Link, Redirect} from "react-router-dom";
-import {logout, getToken} from "../auth";
+import {access, logout, getToken} from "../auth";
 
 export default function LateralMenu(props) {
     const [books, setBooks] = React.useState(undefined);
     const [redirect, SetRedirect] = React.useState(false);
 
     if (books === undefined) {
+        const url =
+            access() === "coach"
+                ? "/api/coaches/borrowings"
+                : "/api/juniors/borrowings";
+
         axios
-            .get("/api/coaches/borrowings", {
+            .get(url, {
                 headers: {
                     authorization: getToken(),
                 },
