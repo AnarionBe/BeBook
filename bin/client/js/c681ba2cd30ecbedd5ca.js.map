@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:////home/marco/Documents/BeCode/BeBook/node_modules/axios/index.js"],"names":["module","exports","__webpack_require__"],"mappings":"6EAAAA,EAAAC,QAAiBC,EAAQ","file":"js/c681ba2cd30ecbedd5ca.js","sourcesContent":["module.exports = require('./lib/axios');"],"sourceRoot":""}
