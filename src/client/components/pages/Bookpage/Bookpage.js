@@ -5,7 +5,7 @@ import BookpageReviews from "./BookpageReviews";
 import AddReview from "./AddReview";
 import ReviewForm from "./ReviewForm";
 
-export default function Bookpage(props) {
+export default function Bookpage() {
     const reviewModaleOn = () => {
         document.getElementsByClassName("reviewModale")[0].style.display =
             "block";

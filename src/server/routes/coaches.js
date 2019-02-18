@@ -104,8 +104,18 @@ router.get("/books", (_req, res) => {
     });
 });
 
+// Retrieve the collection of Book resources by title.
+router.get("/books/search/:terms", (req, res) => {
+    Book.find({title: {$regex: `.*${req.params.terms}.*`}}, (err, book) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(book);
+    });
+});
+
 // Retrieve the collection of Book resources by a single tag.
-router.get("/books/:tag", (req, res) => {
+router.get("/books/tags/:tag", (req, res) => {
     Book.find({tags: req.params.tag}, (err, book) => {
         if (err) {
             return res.status(500).send(err);
@@ -189,43 +199,57 @@ router.get("/borrowings", (_req, res) => {
 
 // -------------------------------------------------------------------------- //
 
+// Retrieve the collection of Review resources by Book.
+router.get("/books/:bookId/reviews", (req, res) => {
+    Review.find({book: req.params.bookId}, (err, reviews) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(reviews);
+    });
+});
+
 // Send a new review about a book.
-router.post("/reviews", (req, res) => {
-    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
-        data => {
-            if (data) {
-                return res.status(400).json({error: "Review already exist!"});
+router.post("/reviews/:bookId", (req, res) => {
+    Review.findOne({author: req.user.id, book: req.params.bookId}).then(
+        review => {
+            if (review) {
+                return res.status(400).json({error: "Review already exists!"});
             }
 
             new Review({
-                author: req.body.userId,
-                book: req.body.bookId,
+                author: req.user.id,
+                book: req.params.bookId,
                 comment: req.body.comment,
                 rating: req.body.rating,
             }).save();
 
-            return res.json({message: "ok"});
+            return res.status(200).json(review);
         },
     );
 });
 
 // Delete a specified review.
 router.delete("/reviews/:id", (req, res) => {
-    Review.deleteOne({_id: req.params.id}, err => {
+    Review.findByIdAndDelete(req.params.id, err => {
         if (err) {
             return res.status(500).send(err);
         }
 
-        return res.json({message: "The review has been successfully deleted!"});
+        return res
+            .status(200)
+            .send("The review has been successfully deleted!");
     });
 });
 
 // Update a specified review.
-router.put("/reviews", (req, res) => {
-    Review.findOne({_id: req.body.reviewId}).then(data => {
-        data.comment = req.body.newContent;
-        data.save();
-        return res.json(data);
+router.put("/reviews/:id", (req, res) => {
+    Review.findByIdAndUpdate(req.params.id, req.body, (err, review) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+
+        return res.status(200).json(review);
     });
 });
 
