@@ -7,27 +7,31 @@ import Header from "../../Header/Header";
 import ReviewForm from "./ReviewForm";
 import axios from "axios";
 import {useState, useEffect} from "react";
-
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 
 export default function Bookpage(props) {
 
-  let item = props.item;
-//   const [books, setBooks] = useState(undefined);
-//
-//   if (books === undefined) {
-//       axios
-//           .get(`/api/juniors/books`, {
-//               headers: {
-//                   authorization:
-//                       "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjNkNGRiNmFkMjI4MDA0YTYwMzAwNCIsImVtYWlsIjoianVuaW9yLmJhcnRAZ21haWwuY29tIiwiYXZhdGFyIjoiLy93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9lYjY2N2E2ODRlYzBlZGFjZWE4Y2U1Y2RlNzgwOWI0Mz9zPTIwMCZyPXBnJmQ9bW0iLCJpYXQiOjE1NTAxNDk0NTQsImV4cCI6MTU1MDc1NDI1NH0.83ovWRoydW4B6q0wFUEVmIq7FLishCXfL5Rtdnt_Chc",
-//               },
-//           })
-//           .then(res => {
-//               setBooks(res.data);
-//           });
-//
-//   }
-// console.log(books)
+  useEffect(() => {
+    const id = props.match.params.id;
+    console.log("test : " + id);
+  },[]);
+
+  const [books, setBooks] = useState(undefined);
+
+  if (books === undefined) {
+      axios
+          .get(`/api/juniors/books`, {
+              headers: {
+                  authorization:
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjNkNGRiNmFkMjI4MDA0YTYwMzAwNCIsImVtYWlsIjoianVuaW9yLmJhcnRAZ21haWwuY29tIiwiYXZhdGFyIjoiLy93d3cuZ3JhdmF0YXIuY29tL2F2YXRhci9lYjY2N2E2ODRlYzBlZGFjZWE4Y2U1Y2RlNzgwOWI0Mz9zPTIwMCZyPXBnJmQ9bW0iLCJpYXQiOjE1NTAxNDk0NTQsImV4cCI6MTU1MDc1NDI1NH0.83ovWRoydW4B6q0wFUEVmIq7FLishCXfL5Rtdnt_Chc",
+              },
+          })
+          .then(res => {
+              setBooks(res.data);
+          });
+
+  }
+console.log(books)
 
     const reviewModaleOn = () => {
         document.getElementsByClassName("reviewModale")[0].style.display =
@@ -46,15 +50,15 @@ export default function Bookpage(props) {
             <Header />
 
             <div className="bookpage-container">
-                {item && <BookpageInfo books={item} />}
+                {books && <BookpageInfo books={books} />}
 
-                {item && <BookpageRef books={item} />}
+                {books && <BookpageRef books={books} />}
 
-                {item && <BookpageReviews books={item} />}
+                {books && <BookpageReviews books={books} />}
 
-                {item && <AddReview reviewModaleOn={reviewModaleOn} item={item} />}
+                {books && <AddReview reviewModaleOn={reviewModaleOn} books={books} />}
 
-                {item && <ReviewForm reviewModaleOff={reviewModaleOff} item={item} />}
+                {books && <ReviewForm reviewModaleOff={reviewModaleOff} books={books} />}
             </div>
         </div>
     );

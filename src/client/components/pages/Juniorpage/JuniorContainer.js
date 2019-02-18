@@ -1,5 +1,6 @@
 import * as React from "react";
 import Bookpane from "./Bookpane";
+import Bookpage from "../Bookpage/Bookpage";
 import {Link, Switch, BrowserRouter, Route} from "react-router-dom";
 
 import img1 from "../../../assets/img/images.jpg";
@@ -14,7 +15,8 @@ export default function JuniorContainer(props) {
     console.log(props.books);
 
     const bookpanes = props.books.map(item => (
-       <Link to="/bookpage" item={item}> <Bookpane
+       <Link to="/bookpage" params={{id : item._id}}>
+        <Bookpane
             title={item.title}
             className="bookpane"
             isAvailable={item.state}
