@@ -22,7 +22,7 @@ const isTokenValid = token => {
 };
 
 export const login = (data, callback) => {
-    axios.post("http://localhost/api/login", data).then(response => {
+    axios.post("/api/login", data).then(response => {
         storeToken(response.data.token);
         callback();
     });
