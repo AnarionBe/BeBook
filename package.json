@@ -13,7 +13,7 @@
     "work:client": "npx webpack --env=dev --progress",
     "hotreload": "npx webpack-dev-server --env=dev --hot --progress",
     "build": "npm run build:server && npm run build:client",
-    "start": "node /bin/server/index.html"
+    "start": "node /bin/client/index.html"
   },
   "lint-staged": {
     "*.js": [
