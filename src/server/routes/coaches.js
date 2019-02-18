@@ -104,8 +104,18 @@ router.get("/books", (_req, res) => {
     });
 });
 
+// Retrieve the collection of Book resources by title.
+router.get("/books/search/:terms", (req, res) => {
+    Book.find({title: {$regex: `.*${req.params.terms}.*`}}, (err, book) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(book);
+    });
+});
+
 // Retrieve the collection of Book resources by a single tag.
-router.get("/books/:tag", (req, res) => {
+router.get("/books/tags/:tag", (req, res) => {
     Book.find({tags: req.params.tag}, (err, book) => {
         if (err) {
             return res.status(500).send(err);
