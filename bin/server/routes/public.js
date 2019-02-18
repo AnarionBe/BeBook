@@ -15,8 +15,6 @@ var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 
 var _User = _interopRequireDefault(require("../models/User"));
 
-var _env = _interopRequireDefault(require("../configs/env"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const router = new _express.default.Router();
@@ -42,7 +40,7 @@ router.post("/login", (req, res) => {
           lastName: user.lastName,
           avatar: user.avatar
         };
-        const secretKey = _env.default.JWT_SECRET;
+        const secretKey = process.env.JWT_SECRET;
 
         _jsonwebtoken.default.sign(payload, secretKey, {
           expiresIn: 7 * 24 * 60 * 60

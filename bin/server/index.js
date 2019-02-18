@@ -18,13 +18,11 @@ var _juniors = _interopRequireDefault(require("./routes/juniors"));
 
 var _strategies = _interopRequireDefault(require("./configs/strategies"));
 
-var _env = _interopRequireDefault(require("./configs/env"));
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express.default)();
 
-_mongoose.default.connect(_env.default.MONGO_URI).then(() => console.log("Connection to MongoDB has been successfully established.")).catch(err => console.log(err));
+_mongoose.default.connect(process.env.MONGO_URI).then(() => console.log("Connection to MongoDB has been successfully established.")).catch(err => console.log(err));
 
 app.use(_bodyParser.default.urlencoded({
   extended: true
@@ -59,5 +57,5 @@ app.use("/api/coaches", _passport.default.authenticate("jwt", {
 app.get("*", (_req, res) => {
   return res.sendFile(_path.default.resolve(__dirname, "..", "client", "index.html"));
 });
-app.listen(_env.default.APP_PORT, () => console.log(`Server is listening on port ${_env.default.APP_PORT}.`));
+app.listen(process.env.APP_PORT, () => console.log(`Server is listening on port ${process.env.APP_PORT}.`));
 //# sourceMappingURL=index.js.map
