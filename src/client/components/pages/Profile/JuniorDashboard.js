@@ -1,5 +1,5 @@
-import * as React from "react";
-import avatar from "../../../assets/img/avatar.jpg";
+import React, {useState, useEffect} from "react";
+import axios from "axios";
 
 export default function JuniorDashboard() {
     const modifyProfile = () => {
@@ -22,18 +22,33 @@ export default function JuniorDashboard() {
             "none";
     };
 
+    const [profile, setProfile] = useState({profile: null});
+
+    const headers = {
+        headers: {
+            authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjNkNGRiNmFkMjI4MDA0YTYwMzAwNCIsInJvbGUiOiJqdW5pb3IiLCJmaXJzdE5hbWUiOiJKdW5pb3IiLCJsYXN0TmFtZSI6IkJhcnQiLCJhdmF0YXIiOiIvL3d3dy5ncmF2YXRhci5jb20vYXZhdGFyL2ViNjY3YTY4NGVjMGVkYWNlYThjZTVjZGU3ODA5YjQzP3M9MjAwJnI9cGcmZD1tbSIsImlhdCI6MTU1MDQ5Mjc1NCwiZXhwIjoxNTUxMDk3NTU0fQ.JFnzcg6sFVlGy_hykC7uK27RK79-GNJARFaJzavOyi0",
+        },
+    };
+
+    useEffect(() => {
+        axios
+            .get("/api/juniors/profile", headers)
+            .then(result => setProfile(result.data));
+    }, []);
+
     return (
         <div className="JuniorDashboard-container">
-            <img className="profilePic" src={avatar} />
+            <img className="profilePic" src={profile.avatar} />
 
             <div className="profileInfo">
                 <p>
-                    <b>{"Last Name : "} </b> {"Hogan"}
+                    <b>{"Last Name: "} </b> {profile.lastName}
                 </p>
                 <p>
-                    <b>{"First Name : "} </b> {"Hulk"}
+                    <b>{"First Name: "} </b> {profile.firstName}
                 </p>
-                <p className="email">{"hulk.hogan@test.com"}</p>
+                <p className="email">{profile.email}</p>
                 <button className="modifyButton" onClick={modifyProfile}>
                     {"modify"}
                 </button>
