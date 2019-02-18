@@ -7,13 +7,13 @@ import publicRoutes from "./routes/public";
 import coachesRoutes from "./routes/coaches";
 import juniorsRoutes from "./routes/juniors";
 import jwtStrategy from "./configs/strategies";
-import env from "./configs/env";
+// import env from "./configs/env";
 
 const app = express();
 
 // Connect to MongoDB.
 mongoose
-    .connect(env.MONGO_URI)
+    .connect(process.env.MONGO_URI)
     // .connect("mongodb://dev:dev@mongo:27017/bebook?authSource=admin")
     .then(() =>
         console.log("Connection to MongoDB has been successfully established."),
@@ -61,6 +61,6 @@ app.get("*", (_req, res) => {
     return res.sendFile(path.resolve(__dirname, "..", "client", "index.html"));
 });
 
-app.listen(env.APP_PORT, () =>
-    console.log(`Server is listening on port ${env.APP_PORT}.`),
+app.listen(process.env.APP_PORT, () =>
+    console.log(`Server is listening on port ${process.env.APP_PORT}.`),
 );
