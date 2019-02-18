@@ -28,7 +28,7 @@ export default props => {
                     className={
                         isLate ? "status warning return" : "status okay return"
                     }>
-                    <p>{"return date : 02/21/19"}</p>
+                    <p>{"Due date : 02/21/19"}</p>
                 </div>
             ) : (
                 <p className="status">{"previously borrowed"}</p>

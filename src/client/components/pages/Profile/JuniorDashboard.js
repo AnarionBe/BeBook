@@ -1,7 +1,7 @@
 import * as React from "react";
 import avatar from "../../../assets/img/avatar.jpg";
 
-export default function JuniorDashboard(props) {
+export default function JuniorDashboard() {
     const modifyProfile = () => {
         document.getElementsByClassName("modifyProfile")[0].style.display =
             "block";
@@ -21,6 +21,7 @@ export default function JuniorDashboard(props) {
         document.getElementsByClassName("profileToggleBack")[0].style.display =
             "none";
     };
+
     return (
         <div className="JuniorDashboard-container">
             <img className="profilePic" src={avatar} />

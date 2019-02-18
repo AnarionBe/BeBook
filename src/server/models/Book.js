@@ -49,6 +49,7 @@ const schema = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             default: null,
+            autopopulate: true,
         },
         averageRating: {
             type: Number,
@@ -59,5 +60,7 @@ const schema = new mongoose.Schema(
     },
     {collection: "Book"},
 );
+
+schema.plugin(require("mongoose-autopopulate"));
 
 export default mongoose.model("Book", schema);

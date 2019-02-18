@@ -5,10 +5,12 @@ const schema = new mongoose.Schema(
         borrower: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
+            autopopulate: true,
         },
         book: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Book",
+            autopopulate: true,
         },
         borrowingDate: {
             type: Date,
@@ -21,5 +23,7 @@ const schema = new mongoose.Schema(
     },
     {collection: "Borrowing"},
 );
+
+schema.plugin(require("mongoose-autopopulate"));
 
 export default mongoose.model("Borrowing", schema);

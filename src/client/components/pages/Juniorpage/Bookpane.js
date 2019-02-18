@@ -5,7 +5,7 @@ import {faStar as faStarS} from "@fortawesome/free-solid-svg-icons";
 
 export default class Bookpane extends React.Component {
     render() {
-        let isAvailable = this.props.isAvailable === "available"  ? true : false;
+        let isAvailable = this.props.isAvailable === "available";
 
         return (
             <button className="bookpane-btn">
@@ -42,7 +42,7 @@ export default class Bookpane extends React.Component {
                         </div>
 
                         <div>
-                            <p>{this.props.tags.map(item => (item + " ")) }</p>
+                            <p>{this.props.tags.map(item => item + " ")}</p>
                         </div>
                     </div>
                 </div>

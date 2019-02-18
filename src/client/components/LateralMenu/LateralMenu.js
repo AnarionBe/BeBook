@@ -1,9 +1,5 @@
 import * as React from "react";
 import LateralBookpane from "./LateralBookpane";
-import img7 from "../../assets/img/418+D1M5XTL._SX411_BO1,204,203,200_.jpg";
-import img3 from "../../assets/img/51aIySRlwFL._SX402_BO1,204,203,200_.jpg";
-import img4 from "../../assets/img/51cTWGKKlyL._SX260_.jpg";
-import img5 from "../../assets/img/51FHuacxYjL._SX379_BO1,204,203,200_.jpg";
 import axios from "axios";
 import {Link} from "react-router-dom";
 
@@ -18,18 +14,19 @@ export default function LateralMenu(props) {
     };
 
     if (books === undefined) {
-        axios.get(`/api/coaches/books`, headers).then(res => {
+        axios.get("/api/coaches/borrowings", headers).then(res => {
             setBooks(res.data);
         });
     }
 
-    console.log(books);
-    let lateralBookpanes = undefined;
+    let lateralBookpanes;
+
     try {
         if (books) {
             lateralBookpanes = books.map(item => (
                 <LateralBookpane
-                    title={item.title}
+                    key={item.id}
+                    title={item.book.title}
                     className="lateral-bookpane"
                     img={item.cover}
                 />
@@ -42,7 +39,7 @@ export default function LateralMenu(props) {
     return (
         <div className={props.slide ? "lateral-menu" : "lateral-menu out"}>
             <Link to="/profile">
-                <p className="my-profile">{"My Profile"}</p>
+                <p className="my-profile">{"Borrowings"}</p>
             </Link>
 
             {books && lateralBookpanes}
