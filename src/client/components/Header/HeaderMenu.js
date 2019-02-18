@@ -4,7 +4,6 @@ import {access} from "../auth";
  
 
 export default function HeaderMenu(props) {
-    const isCoach = true;
 
     const tags = [
         "Python",
@@ -22,8 +21,7 @@ export default function HeaderMenu(props) {
                 <ul className="tagsMenu">
                     <div className="bloc">
                         {tags.map((item, index) => {
-                            // eslint-disable-next-line react/no-array-index-key
-                            return <li key={index}>{item}</li>;
+                            return <li id={index}>{item}</li>;
                         })}
                     </div>
                 </ul>

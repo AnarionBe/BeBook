@@ -31,15 +31,14 @@ export default function LateralMenu(props) {
                 <LateralBookpane
                     title={item.title}
                     className="lateral-bookpane"
-                    isBorrowed={item.state}
-                    img={img5}
+                    img={item.cover}
                 />
             ));
         }
     } catch (error) {
         console.log(error);
     }
-
+    
     return (
         <div className={props.slide ? "lateral-menu" : "lateral-menu out"}>
             <Link to="/profile">

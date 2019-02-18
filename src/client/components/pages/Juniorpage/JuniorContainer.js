@@ -17,6 +17,7 @@ export default function JuniorContainer(props) {
             isAvailable={item.state}
             img={img5}
             tags={item.tags}
+            rating={item.averageRating}
         />
     ));
 

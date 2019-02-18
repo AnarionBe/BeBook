@@ -61,6 +61,9 @@ export default function JuniorsTable() {
             },
         },
     ];
+
+    console.log(users);
+    
     
     return (
         <div className="table">

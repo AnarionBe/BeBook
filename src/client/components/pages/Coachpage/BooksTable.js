@@ -20,11 +20,32 @@ export default function BooksTable() {
     }
 
     const booksColumns = [
+        {
+            Header: "Cover",
+            Cell: row => {
+                return (
+                    <div>
+                        <img height={35} src={row.original.cover} />
+                    </div>
+                );
+            },
+        },
         {Header: "Title", accessor: "title"},
+        {Header: "Author", accessor: "author"},
+        {Header: "Borrowed by", accessor: "borrowedBy"},
+        {Header: "Rating", accessor: "averageRating"},
+        {Header: "Language", accessor: "language"},
         {
             Header: "Available",
             accessor: "state",
         },
+        {
+            Header: "Tags",
+            Cell: row => {
+                return <div>{row.original.tags.map(item => item + " ")}</div>;
+            },
+        },
+        {Header: "ISBN", accessor: "isbnNumber"},
     ];
 
     return (

@@ -1,8 +1,8 @@
 import * as React from "react";
 
 export default props => {
-    let isBorrowed = !!props.isBorrowed,
-        isLate = !!props.isLate;
+    let isLate = false;
+    let isBorrowed = true;
 
     return (
         <button

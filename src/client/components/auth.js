@@ -39,3 +39,4 @@ export const loggedIn = () => {
     }
     return false;
 };
+

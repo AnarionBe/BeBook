@@ -18,6 +18,8 @@ export default function JuniorPage(props) {
             });
     }
 
+        console.log(books);
+        
     return (
         <div className="main">
             {books && <JuniorContainer books={books} />}

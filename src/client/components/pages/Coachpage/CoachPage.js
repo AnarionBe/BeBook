@@ -5,7 +5,6 @@ import JuniorsTable from "./JuniorsTable";
 export default function CoachPage() {
     return (
         <div>
-            <Header />
             <JuniorsTable />
         </div>
     );
