@@ -2,21 +2,21 @@ import * as React from "react";
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import axios from "axios";
+import {getToken} from "../../auth";
 
 export default function BooksTable() {
     const [books, setBooks] = React.useState(undefined);
 
-    const headers = {
-        headers: {
-            authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjNkNDgxZTAwYjZhMDAzYzY2N2JjMSIsInJvbGUiOiJjb2FjaCIsImZpcnN0TmFtZSI6IkNvYWNoU3VwcmVtZSIsImxhc3ROYW1lIjoiSG9tZXIiLCJhdmF0YXIiOiIvL3d3dy5ncmF2YXRhci5jb20vYXZhdGFyL2Y3MGIxZDE1ZDU4NTU5NDhiZDc0ZDkzZGQ0ZDRlZGU3P3M9MjAwJnI9cGcmZD1tbSIsImlhdCI6MTU1MDIzNjgyMCwiZXhwIjoxNTUwODQxNjIwfQ.M3SA6pftnL4gIUcEckv9RSwQxOpXBRdcICHfyUO6b8c",
-        },
-    };
-
     if (books === undefined) {
-        axios.get("/api/coaches/books", headers).then(res => {
-            setBooks(res.data);
-        });
+        axios
+            .get("/api/coaches/books", {
+                headers: {
+                    authorization: getToken(),
+                },
+            })
+            .then(res => {
+                setBooks(res.data);
+            });
     }
 
     const booksColumns = [
@@ -29,7 +29,7 @@ export default function BooksTable() {
                     </div>
                 );
             },
-            width: 50
+            width: 50,
         },
         {Header: "Title", accessor: "title", width: 280},
         {Header: "Author", accessor: "author"},
@@ -40,13 +40,12 @@ export default function BooksTable() {
             Header: "Available",
             Cell: row => {
                 if (row.original.state === "available") {
-                    return "ok"
-                }
-                else {
-                    return "X"
+                    return "ok";
+                } else {
+                    return "X";
                 }
             },
-            width: 60
+            width: 60,
         },
         {
             Header: "Tags",

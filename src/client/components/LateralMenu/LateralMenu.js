@@ -2,23 +2,22 @@ import * as React from "react";
 import LateralBookpane from "./LateralBookpane";
 import axios from "axios";
 import {Link, Redirect} from "react-router-dom";
-import {logout} from "../auth";
+import {logout, getToken} from "../auth";
 
 export default function LateralMenu(props) {
     const [books, setBooks] = React.useState(undefined);
     const [redirect, SetRedirect] = React.useState(false);
 
-    const headers = {
-        headers: {
-            authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVjNjNkNDgxZTAwYjZhMDAzYzY2N2JjMSIsInJvbGUiOiJjb2FjaCIsImZpcnN0TmFtZSI6IkNvYWNoU3VwcmVtZSIsImxhc3ROYW1lIjoiSG9tZXIiLCJhdmF0YXIiOiIvL3d3dy5ncmF2YXRhci5jb20vYXZhdGFyL2Y3MGIxZDE1ZDU4NTU5NDhiZDc0ZDkzZGQ0ZDRlZGU3P3M9MjAwJnI9cGcmZD1tbSIsImlhdCI6MTU1MDIzNjgyMCwiZXhwIjoxNTUwODQxNjIwfQ.M3SA6pftnL4gIUcEckv9RSwQxOpXBRdcICHfyUO6b8c",
-        },
-    };
-
     if (books === undefined) {
-        axios.get("/api/coaches/borrowings", headers).then(res => {
-            setBooks(res.data);
-        });
+        axios
+            .get("/api/coaches/borrowings", {
+                headers: {
+                    authorization: getToken(),
+                },
+            })
+            .then(res => {
+                setBooks(res.data);
+            });
     }
 
     let lateralBookpanes;

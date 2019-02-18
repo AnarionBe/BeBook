@@ -5,7 +5,7 @@ const storeToken = token => {
     window.localStorage.setItem("userToken", token);
 };
 
-const getToken = () => {
+export const getToken = () => {
     const token = window.localStorage.getItem("userToken");
 
     return token ? token : false;
