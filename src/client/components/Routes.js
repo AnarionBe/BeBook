@@ -21,11 +21,11 @@ export default function Routes() {
                     }
                 />
                 <Route exact path="/coachpage" component={JuniorsTable} />
-                <Route exact path="/coachpage/books" component={BooksTable} />
+                <Route exact path="/books" component={BooksTable} />
                 <Route exact path="/bookpage" component={Bookpage} />
                 <Route exact path="/juniorpage" component={JuniorPage} />
                 <Route exact path="/profile" component={JuniorDashboard} />
-                <Route component={NotFound} />
+                <Route component={NotFound} /> {/* Always last */}
             </Switch>
         </div>
     );
