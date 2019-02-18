@@ -1,5 +1,7 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
+import {access} from "./auth";
+
 
 export default function HeaderMenu(props) {
     const isCoach = true;
@@ -13,7 +15,7 @@ export default function HeaderMenu(props) {
         "Design",
     ];
 
-    return !isCoach ? (
+    return access() === "junior" ? (
         <ul className="headerMenu">
             <li className="submenu">
                 {"TAGS"} <p className="fa fa-angle-right" />
