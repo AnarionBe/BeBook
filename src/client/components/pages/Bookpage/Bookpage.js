@@ -3,6 +3,7 @@ import BookpageInfo from "./BookpageInfo";
 import BookpageRef from "./BookpageRef";
 import BookpageReviews from "./BookpageReviews";
 import AddReview from "./AddReview";
+<<<<<<< HEAD
 import Header from "../../Header/Header";
 import ReviewForm from "./ReviewForm";
 import axios from "axios";
@@ -29,11 +30,17 @@ export default function Bookpage(props) {
   }
 console.log(books)
 
+=======
+import ReviewForm from "./ReviewForm";
+
+export default function Bookpage(props) {
+>>>>>>> master
     const reviewModaleOn = () => {
         document.getElementsByClassName("reviewModale")[0].style.display =
             "block";
         document.getElementsByTagName("body")[0].style.overflow = "hidden";
     };
+<<<<<<< HEAD
 
     const reviewModaleOff = () => {
         document.getElementsByClassName("reviewModale")[0].style.display =
@@ -56,6 +63,22 @@ console.log(books)
 
                 {books && <ReviewForm reviewModaleOff={reviewModaleOff} books={books} />}
             </div>
+=======
+
+    const reviewModaleOff = () => {
+        document.getElementsByClassName("reviewModale")[0].style.display =
+            "none";
+        document.getElementsByTagName("body")[0].style.overflow = "auto";
+    };
+
+    return (
+        <div className="bookpage-container">
+            <BookpageInfo />
+            <BookpageRef />
+            <BookpageReviews />
+            <AddReview reviewModaleOn={reviewModaleOn} />
+            <ReviewForm reviewModaleOff={reviewModaleOff} />
+>>>>>>> master
         </div>
     );
 }

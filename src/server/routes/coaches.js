@@ -1,7 +1,9 @@
 import express from "express";
 import gravatar from "gravatar";
 import bcrypt from "bcryptjs";
+import isbnCover from "node-isbn";
 import Book from "../models/Book";
+import Borrowing from "../models/Borrowing";
 import User from "../models/User";
 import Review from "../models/Review";
 
@@ -114,18 +116,28 @@ router.get("/books/:tag", (req, res) => {
 
 // Create a Book resource.
 router.post("/books", (req, res) => {
-    // TODO: Manage ISBN with "-" separator.
-    new Book({
-        title: req.body.title,
-        author: req.body.author,
-        language: req.body.language,
-        isbnNumber: req.body.isbnNumber,
-        formats: req.body.formats.split(","),
-        tags: req.body.tags.split(","),
-    })
-        .save()
-        .then(book => res.status(201).json(book))
-        .catch(err => res.status(500).json(err));
+    const isbn = parseInt(req.body.isbnNumber.replace("-", ""));
+
+    // Get book cover from ISBN number and then save the Book resource.
+    isbnCover
+        .resolve(isbn)
+        .then(item => {
+            new Book({
+                title: req.body.title,
+                author: req.body.author,
+                language: req.body.language,
+                isbnNumber: isbn,
+                cover: item.imageLinks.smallThumbnail,
+                formats: req.body.formats.split(","),
+                tags: req.body.tags.split(","),
+            })
+                .save()
+                .then(book => res.status(201).json(book))
+                .catch(err => res.status(500).json(err));
+        })
+        .catch(err => {
+            console.log("Book not found", err);
+        });
 });
 
 // Retrieve a Book resource.
@@ -140,7 +152,7 @@ router.get("/books/:id", (req, res) => {
 
 // Replace the Book resource.
 router.put("/books/:id", (req, res) => {
-    Books.findByIdAndUpdate(
+    Book.findByIdAndUpdate(
         req.params.id,
         req.body,
         {new: true},
@@ -165,43 +177,63 @@ router.delete("/books/:id", (req, res) => {
 
 // -------------------------------------------------------------------------- //
 
-// User send a new review about a book
-router.post("/reviews", (req, res) => {
-    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
+// Retrieve the collection of Borrowing resources.
+router.get("/borrowings", (_req, res) => {
+    Borrowing.find({}, (err, borrowings) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(borrowings);
+    });
+});
+
+// -------------------------------------------------------------------------- //
+
+// Retrieve the collection of Review resources by Book.
+router.get("/books/:bookId/reviews", (req, res) => {
+    Review.find({book: req.params.bookId}, (err, reviews) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(reviews);
+    });
+});
+
+// Send a new review about a book.
+router.post("/reviews/:bookId", (req, res) => {
+    Review.findOne({author: req.body.userId, book: req.params.bookId}).then(
         data => {
             if (data) {
-                return res.status(400).json({Error: "Review already exist"});
+                return res.status(400).json({error: "Review already exist!"});
             }
 
             new Review({
                 author: req.body.userId,
-                book: req.body.bookId,
+                book: req.params.bookId,
                 comment: req.body.comment,
                 rating: req.body.rating,
             }).save();
 
-            return res.json({Message: "ok"});
+            return res.json({message: "ok"});
         },
     );
 });
-// ----------------------------------------------------------------------------
 
-// User delete a specified review
+// Delete a specified review.
 router.delete("/reviews/:id", (req, res) => {
     Review.deleteOne({_id: req.params.id}, err => {
         if (err) {
             return res.status(500).send(err);
         }
 
-        return res.json({Message: "The review has been successfully deleted!"});
+        return res.json({message: "The review has been successfully deleted!"});
     });
 });
-// ----------------------------------------------------------------------------
 
-// User update a specified review
-router.patch("/reviews", (req, res) => {
-    Review.findOne({_id: req.body.reviewId}).then(data => {
-        data.comment = req.body.newContent;
+// Update a specified review.
+router.put("/reviews/:id", (req, res) => {
+    Review.findOne({_id: req.params.id}).then(data => {
+        data.comment = req.body.comment;
         data.save();
         return res.json(data);
     });

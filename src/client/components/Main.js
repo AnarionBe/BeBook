@@ -1,15 +1,14 @@
 import * as React from "react";
-import Bookpage from "./pages/Bookpage/Bookpage";
-import ReviewForm from "./pages/Bookpage/ReviewForm";
-import JuniorDashboard from "./pages/Profile/JuniorDashboard";
-import JuniorPage from "./pages/Juniorpage/JuniorPage";
 import Login from "./pages/Login/Login";
-import CoachPage from "./pages/Coachpage/CoachPage";
+import {loggedIn} from "./auth";
 
 import "@fortawesome/fontawesome-free";
-import {Switch, BrowserRouter, Route} from "react-router-dom";
+import {BrowserRouter} from "react-router-dom";
+import Routes from "./Routes";
+import Header from "./Header/Header";
 
 export default function Main() {
+<<<<<<< HEAD
 
     const isAvailable = true;
     const isBorrowedByMe = false;
@@ -136,5 +135,21 @@ export default function Main() {
                 />
             </Switch>
         </BrowserRouter>
+=======
+    if (!loggedIn()) {
+        return (
+            <div>
+                <Login />
+            </div>
+        );
+    }
+    return (
+        <div>
+            <Header />
+            <BrowserRouter>
+                <Routes />
+            </BrowserRouter>
+        </div>
+>>>>>>> master
     );
 }

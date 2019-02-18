@@ -6,7 +6,12 @@ const storeToken = token => {
 };
 
 const getToken = () => {
-    return window.localStorage.getItem("userToken");
+    const token = window.localStorage.getItem("userToken");
+
+    if (token) {
+        return token;
+    }
+    return false;
 };
 
 const isTokenValid = token => {
@@ -19,7 +24,7 @@ const isTokenValid = token => {
 export const login = (data, callback) => {
     axios.post("http://localhost/api/login", data).then(response => {
         storeToken(response.data.token);
-        return callback();
+        callback();
     });
 };
 
@@ -27,6 +32,7 @@ export const access = () => {
     return decode(getToken()).role;
 };
 
+// TODO: create button to trigger
 export const logout = () => {
     window.localStorage.removeItem("userToken");
 };
@@ -34,5 +40,8 @@ export const logout = () => {
 export const loggedIn = () => {
     const token = getToken();
 
-    return !!token && !isTokenValid(token);
+    if (token) {
+        return !!token && !isTokenValid(token);
+    }
+    return false;
 };

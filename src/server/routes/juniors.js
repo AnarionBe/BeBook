@@ -78,6 +78,7 @@ router.post("/borrowings/:bookId", (req, res) => {
     Book.findByIdAndUpdate(req.params.bookId, {
         state: "unavailable",
         dueDate: () => Date.now() + 7 * 24 * 60 * 60 * 1000,
+        borrowedBy: req.user.id,
     }).exec();
 
     // Finally, create the new borrowing and return it as JSON.
@@ -90,29 +91,53 @@ router.post("/borrowings/:bookId", (req, res) => {
         .catch(err => res.status(500).json(err));
 });
 
-// User send a new review about a book
-router.post("/reviews", (req, res) => {
-    Review.findOne({author: req.body.userId, book: req.body.bookId}).then(
+// -------------------------------------------------------------------------- //
+
+// Retrieve the collection of Review resources by Book.
+router.get("/books/:bookId/reviews", (req, res) => {
+    Review.find({book: req.params.bookId}, (err, reviews) => {
+        if (err) {
+            return res.status(500).send(err);
+        }
+        return res.status(200).json(reviews);
+    });
+});
+
+// Send a new review about a book.
+router.post("/reviews/:bookId", (req, res) => {
+    Review.findOne({author: req.user.id, book: req.params.bookId}).then(
         data => {
             if (data) {
-                return res.status(400).json({message: "Review already exist"});
+                return res.status(400).json({message: "Review already exist!"});
             }
 
+            // Create a new Review resource.
             new Review({
-                author: req.body.userId,
-                book: req.body.bookId,
+                author: req.user.id,
+                book: req.params.bookId,
                 comment: req.body.comment,
                 rating: req.body.rating,
             })
                 .save()
-                .then(review => res.status(200).json(review))
+                .then(review => {
+                    res.status(200).json(review);
+                })
+                // And finally, recompute the average rating of the Book resource.
+                .then(() => {
+                    Review.find({}).then(reviews => {
+                        Book.findByIdAndUpdate(req.body.bookId, {
+                            averageRating:
+                                reviews.reduce((a, b) => a + b.rating, 0) /
+                                reviews.length,
+                        }).exec();
+                    });
+                })
                 .catch(err => res.status(500).json(err));
         },
     );
 });
-// -------------------------------------------
 
-// User delete a specified review
+// Delete a specified review.
 router.delete("/reviews", (req, res) => {
     Review.findOne({_id: req.body.reviewId}, (err, data) => {
         if (err) {
@@ -122,7 +147,7 @@ router.delete("/reviews", (req, res) => {
         if (data.author.toString() !== req.body.userId) {
             return res
                 .status(400)
-                .json({Error: "You can delete your reviews only!"});
+                .json({error: "You can delete your reviews only!"});
         }
 
         Review.deleteOne(data, error => {
@@ -131,15 +156,14 @@ router.delete("/reviews", (req, res) => {
             }
 
             return res.json({
-                Message: "The review has been successfully deleted!",
+                message: "The review has been successfully deleted!",
             });
         });
     });
 });
-// ------------------------------------
 
-// User update a specified review
-router.patch("/reviews", (req, res) => {
+// Update a specified review.
+router.put("/reviews", (req, res) => {
     Review.findOne({_id: req.body.reviewId}, (err, data) => {
         if (err) {
             return res.status(500).send(err);
@@ -148,7 +172,7 @@ router.patch("/reviews", (req, res) => {
         if (data.author.toString() !== req.body.userId) {
             return res
                 .status(400)
-                .json({Error: "You can update your reviews only!"});
+                .json({error: "You can update your reviews only!"});
         }
 
         data.comment = req.body.newContent;
@@ -156,4 +180,5 @@ router.patch("/reviews", (req, res) => {
         return res.json(data);
     });
 });
+
 export default router;

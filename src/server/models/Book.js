@@ -18,6 +18,9 @@ const schema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        cover: {
+            type: String,
+        },
         formats: [
             {
                 type: String,
@@ -41,6 +44,17 @@ const schema = new mongoose.Schema(
         dueDate: {
             type: Date,
             default: null,
+        },
+        borrowedBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            default: null,
+        },
+        averageRating: {
+            type: Number,
+            default: 0,
+            min: 0,
+            max: 5,
         },
     },
     {collection: "Book"},

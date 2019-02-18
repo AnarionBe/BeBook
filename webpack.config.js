@@ -125,8 +125,6 @@ module.exports = env => {
             filename: env === "dev" ? "js/bundle.js" : "js/[chunkhash].js",
         },
 
-        devServer: {
-            historyApiFallback: true,
-        },
+        watch: env === "dev",
     };
 };

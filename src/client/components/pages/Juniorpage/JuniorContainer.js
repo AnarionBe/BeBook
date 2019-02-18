@@ -10,6 +10,7 @@ import img5 from "../../../assets/img/51FHuacxYjL._SX379_BO1,204,203,200_.jpg";
 import img6 from "../../../assets/img/51YHItqxXYL._SX413_BO1,204,203,200_.jpg";
 import img7 from "../../../assets/img/418+D1M5XTL._SX411_BO1,204,203,200_.jpg";
 
+<<<<<<< HEAD
 export default function JuniorContainer() {
     return (
         <div className="container">
@@ -72,4 +73,19 @@ export default function JuniorContainer() {
             />
         </div>
     );
+=======
+export default function JuniorContainer(props) {
+
+    const bookpanes = props.books.map(item => (
+        <Bookpane
+            title={item.title}
+            className="bookpane"
+            isAvailable={item.state}
+            img={img5}
+            tags={item.tags}
+        />
+    ));
+
+    return <div className="container">{bookpanes}</div>;
+>>>>>>> master
 }
