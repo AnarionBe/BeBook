@@ -14,7 +14,7 @@ export default function BooksTable() {
     };
 
     if (books === undefined) {
-        axios.get(`/api/coaches/books`, headers).then(res => {
+        axios.get("/api/coaches/books", headers).then(res => {
             setBooks(res.data);
         });
     }

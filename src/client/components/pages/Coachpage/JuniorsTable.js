@@ -6,7 +6,6 @@ import "react-table/react-table.css";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUserEdit, faTrash} from "@fortawesome/free-solid-svg-icons";
 
-
 export default function JuniorsTable() {
     const [users, setUsers] = useState(undefined);
 
@@ -17,7 +16,6 @@ export default function JuniorsTable() {
         },
     };
 
-
     if (users === undefined) {
         axios.get(`/api/coaches/users`, headers).then(res => {
             setUsers(res.data);
@@ -27,13 +25,11 @@ export default function JuniorsTable() {
     const usersColumns = [
         {
             Header: "Avatar",
-            Cell: row => {
-                return (
-                    <div>
-                        <img height={35} src={row.original.avatar} />
-                    </div>
-                );
-            },
+            Cell: row => (
+                <div>
+                    <img height={35} src={row.original.avatar} />
+                </div>
+            ),
             accessor: "avatar",
         },
         {
@@ -50,18 +46,14 @@ export default function JuniorsTable() {
         },
         {
             Header: "Edit",
-            Cell: () => {
-                return <FontAwesomeIcon icon={faUserEdit} />;
-            },
+            Cell: () => <FontAwesomeIcon icon={faUserEdit} />,
         },
         {
             Header: "Delete",
-            Cell: () => {
-                return <FontAwesomeIcon icon={faTrash} />;
-            },
+            Cell: () => <FontAwesomeIcon icon={faTrash} />,
         },
     ];
-    
+
     return (
         <div className="table">
             {users && (
