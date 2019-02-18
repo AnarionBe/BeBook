@@ -8,17 +8,11 @@ const storeToken = token => {
 const getToken = () => {
     const token = window.localStorage.getItem("userToken");
 
-    if (token) {
-        return token;
-    }
-    return false;
+    return token ? token : false;
 };
 
 const isTokenValid = token => {
-    if (token < Date.now() / 1000) {
-        return true;
-    }
-    return false;
+    return token < Date.now() / 1000;
 };
 
 export const login = (data, callback) => {

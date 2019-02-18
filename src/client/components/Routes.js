@@ -25,7 +25,7 @@ export default function Routes() {
                 <Route exact path="/bookpage" component={Bookpage} />
                 <Route exact path="/juniorpage" component={JuniorPage} />
                 <Route exact path="/profile" component={JuniorDashboard} />
-                <Route component={NotFound} /> {/* Always last */}
+                <Route component={NotFound} />
             </Switch>
         </div>
     );
