@@ -26,10 +26,10 @@ export default function LateralMenu(props) {
             lateralBookpanes = books.map(item => (
                 <LateralBookpane
                     key={item.id}
-                    title={item.title}
+                    title={item.book.title}
                     className="lateral-bookpane"
-                    isBorrowed={item.state}
-                    img={item.img}
+                    isBorrowed={item.book.state}
+                    img={item.book.img}
                 />
             ));
         }
@@ -40,7 +40,7 @@ export default function LateralMenu(props) {
     return (
         <div className={props.slide ? "lateral-menu" : "lateral-menu out"}>
             <Link to="/profile">
-                <p className="my-profile">{"My Profile"}</p>
+                <p className="my-profile">{"Borrowings"}</p>
             </Link>
 
             {books && lateralBookpanes}
