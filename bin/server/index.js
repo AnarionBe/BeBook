@@ -57,5 +57,5 @@ app.use("/api/coaches", _passport.default.authenticate("jwt", {
 app.get("*", (_req, res) => {
   return res.sendFile(_path.default.resolve(__dirname, "..", "client", "index.html"));
 });
-app.listen(process.env.APP_PORT, () => console.log(`Server is listening on port ${process.env.APP_PORT}.`));
+app.listen(process.env.PORT, () => console.log(`Server is listening on port ${process.env.PORT}.`));
 //# sourceMappingURL=index.js.map
