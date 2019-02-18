@@ -5,10 +5,12 @@ const schema = new mongoose.Schema(
         author: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
+            autopopulate: true,
         },
         book: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Book",
+            autopopulate: true,
         },
         comment: {
             type: String,
@@ -27,5 +29,7 @@ const schema = new mongoose.Schema(
     },
     {collection: "Review"},
 );
+
+schema.plugin(require("mongoose-autopopulate"));
 
 export default mongoose.model("Review", schema);
