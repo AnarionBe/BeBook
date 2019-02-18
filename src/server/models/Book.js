@@ -43,12 +43,10 @@ const schema = new mongoose.Schema(
         },
         dueDate: {
             type: Date,
-            default: null,
         },
         borrowedBy: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-            default: null,
             autopopulate: true,
         },
         averageRating: {

@@ -28,7 +28,8 @@ export default function LateralMenu(props) {
                     key={item.id}
                     title={item.book.title}
                     className="lateral-bookpane"
-                    img={item.cover}
+                    isBorrowed={item.book.state}
+                    img={item.book.cover}
                 />
             ));
         }
