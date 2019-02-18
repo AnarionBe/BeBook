@@ -4,7 +4,6 @@ import "react-table/react-table.css";
 import axios from "axios";
 
 export default function BooksTable() {
-    console.log("prout");
     const [books, setBooks] = React.useState(undefined);
 
     const headers = {

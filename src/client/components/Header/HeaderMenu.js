@@ -1,7 +1,7 @@
 import * as React from "react";
 import {Link} from "react-router-dom";
-import {access} from "./auth";
-
+import {access} from "../auth";
+ 
 
 export default function HeaderMenu(props) {
     const isCoach = true;
