@@ -29,15 +29,24 @@ export default function BooksTable() {
                     </div>
                 );
             },
+            width: 50
         },
-        {Header: "Title", accessor: "title"},
+        {Header: "Title", accessor: "title", width: 280},
         {Header: "Author", accessor: "author"},
         {Header: "Borrowed by", accessor: "borrowedBy"},
-        {Header: "Rating", accessor: "averageRating"},
-        {Header: "Language", accessor: "language"},
+        {Header: "Rating", accessor: "averageRating", width: 50},
+        {Header: "Language", accessor: "language", width: 50},
         {
             Header: "Available",
-            accessor: "state",
+            Cell: row => {
+                if (row.original.state === "available") {
+                    return "ok"
+                }
+                else {
+                    return "X"
+                }
+            },
+            width: 60
         },
         {
             Header: "Tags",
@@ -45,8 +54,10 @@ export default function BooksTable() {
                 return <div>{row.original.tags.map(item => item + " ")}</div>;
             },
         },
-        {Header: "ISBN", accessor: "isbnNumber"},
+        {Header: "ISBN", accessor: "isbnNumber", width: 130},
     ];
+
+    console.log(books);
 
     return (
         <div className="table">

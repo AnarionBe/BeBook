@@ -31,6 +31,7 @@ export default function JuniorsTable() {
                 </div>
             ),
             accessor: "avatar",
+            width: 50,
         },
         {
             Header: "Firstname",
@@ -41,22 +42,32 @@ export default function JuniorsTable() {
             accessor: "lastName",
         },
         {
+            Header: "Email",
+            accessor: "email",
+        },
+        {
+            Header: "Created at",
+            Cell: row => {
+                return row.original.date;
+            },
+        },
+        {
             Header: "Role",
             accessor: "role",
+            width: 70,
         },
         {
             Header: "Edit",
             Cell: () => <FontAwesomeIcon icon={faUserEdit} />,
+            width: 30,
         },
         {
             Header: "Delete",
             Cell: () => <FontAwesomeIcon icon={faTrash} />,
+            width: 30,
         },
     ];
 
-    console.log(users);
-    
-    
     return (
         <div className="table">
             {users && (
