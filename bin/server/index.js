@@ -26,13 +26,13 @@ const app = (0, _express.default)();
 
 _mongoose.default.connect(process.env.MONGO_URI).then(() => console.log("Connection to MongoDB has been successfully established.")).catch(err => console.log(err));
 
+app.use((0, _cors.default)());
 app.use(_bodyParser.default.urlencoded({
   extended: true
 }));
 app.use(_bodyParser.default.json());
 app.use(_express.default.static(_path.default.resolve(__dirname, "../../bin/client")));
 app.use(_passport.default.initialize());
-app.use((0, _cors.default)());
 (0, _strategies.default)();
 app.use("/api", _public.default);
 app.use("/api/juniors", _passport.default.authenticate("jwt", {

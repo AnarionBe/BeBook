@@ -22,11 +22,12 @@ mongoose
     .catch(err => console.log(err));
 
 // Middleware.
+app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, "../../bin/client")));
 app.use(passport.initialize());
-app.use(cors());
+
 jwtStrategy();
 
 // Public API routes.
